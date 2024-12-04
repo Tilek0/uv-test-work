@@ -1,0 +1,124 @@
+<div
+  class="loader-container"
+  [ngClass]="{ 'with-close-nuv-bar': isCollapsed }"
+  *ngIf="isLoader">
+  <div class="loader"></div>
+</div>
+<mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+  <!-- Leaf node -->
+  <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+    <li>
+      <div
+        class="new-line"
+        *ngFor="let level of node.levelArray"
+        [style.left]="40 * (level + 1) + 'px'"></div>
+      <div [class]="'example-tree-container-' + node.item.index"></div>
+      <div class="mat-tree-node-class">
+        <div class="row container-row margin-bottom-16">
+          <img
+            class="avatar"
+            [src]="
+              node.item.avatar ? node.item.avatar : 'assets/images/User.png'
+            " />
+          <div class="col">
+            <div class="row">
+              <div class="col-12 p-0 header">
+                {{ 'TREE.FORCE_ID' | translate }} {{ node.item.ForceID }}
+              </div>
+              <div
+                *ngIf="node.item.userInfo !== undefind"
+                class="col-12 p-0 description">
+                <div>
+                  {{ 'TREE.WALLET' | translate }}
+                  {{ node.item.userInfo.walletAddress }}
+                </div>
+                <div>
+                  {{ 'TREE.UV_TIER' | translate }} {{ node.item.userInfo.tier }}
+                </div>
+                <div>
+                  {{ 'TREE.PROFIT' | translate }}
+                  {{ node.item.userInfo.profitDAI + ' DAI' }} /
+                  {{ node.item.userInfo.profitMFS + ' HC' }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+  </mat-tree-node>
+
+  <!-- expandable node -->
+  <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
+    <li>
+      <div
+        class="new-line"
+        *ngFor="let level of node.levelArray"
+        [style.left]="40 * (level + 1) + 'px'"></div>
+      <div
+        [class]="'example-tree-container-with-button-' + node.item.index"></div>
+      <div class="mat-tree-node-class">
+        <div class="row container-row margin-bottom-16">
+          <img
+            class="avatar"
+            [src]="
+              node.item.avatar ? node.item.avatar : 'assets/images/User.png'
+            " />
+          <div class="col">
+            <div class="row">
+              <div class="col-12 p-0 header">
+                {{ 'TREE.FORCE_ID' | translate }} {{ node.item.ForceID }}
+              </div>
+              <div
+                *ngIf="node.item.userInfo !== undefind"
+                class="col-12 p-0 description">
+                <div>
+                  {{ 'TREE.WALLET' | translate }}
+                  {{ node.item.userInfo.walletAddress }}
+                </div>
+                <div>
+                  {{ 'TREE.UV_TIER' | translate }} {{ node.item.userInfo.tier }}
+                </div>
+                <div>
+                  {{ 'TREE.PROFIT' | translate }}
+                  {{ node.item.userInfo.profitDAI + ' DAI' }} /
+                  {{ node.item.userInfo.profitMFS + ' HC' }}
+                </div>
+              </div>
+              <div class="col-12 p-0">
+                <div
+                  class="custom-button"
+                  mat-icon-button
+                  [attr.aria-label]="'Toggle ' + node.item.userId"
+                  (click)="loadChildren(node)"
+                  matTreeNodeToggle>
+                  <div class="row">
+                    <mat-icon class="icon-button">
+                      {{ treeControl.isExpanded(node) ? 'remove' : 'add' }}
+                    </mat-icon>
+
+                    {{
+                      treeControl.isExpanded(node)
+                        ? ('TREE.HIDE' | translate)
+                        : ('TREE.SHOW_REFERRALS' | translate)
+                    }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+  </mat-tree-node>
+
+  <mat-tree-node *matTreeNodeDef="let node; when: isLoadMore">
+    <div
+      class="custom-button load-more"
+      *ngIf="!treeControl.isExpanded(node)"
+      [style.left]="50 * (node.level - 1) + 'px'"
+      (click)="loadMore(node.loadMoreParentItem)">
+      {{ 'TREE.UPLOAD' | translate }}
+    </div>
+  </mat-tree-node>
+</mat-tree>

@@ -1,0 +1,148 @@
+<section class="example-container" tabindex="0">
+  <table mat-table [dataSource]="data">
+    <ng-container
+      [matColumnDef]="column"
+      *ngFor="let column of displayedColumns">
+      <th mat-header-cell *matHeaderCellDef class="header">
+        {{ 'TABLE.' + column | translate }}
+      </th>
+      <td
+        mat-cell
+        *matCellDef="let element"
+        style="display: table-cell; margin-right: 5px">
+        <div class="text" [ngSwitch]="column.toLowerCase()">
+          <ng-template ngSwitchCase="type">
+            <div class="row m-0 align-items-center">
+              <div class="d-flex align-items-center">
+                <img
+                  class="img-force-id"
+                  src="{{ element[column.toLowerCase()].url }}"
+                  alt="" />
+              </div>
+              <div class="col-12 force-id p-0">
+                <div class="row m-0">
+                  <div class="col-12 text-white-custome p-0">
+                    {{ element[column.toLowerCase()].textPath1 | translate }}
+                    <span *ngIf="element[column.toLowerCase()].level">
+                      {{ element[column.toLowerCase()].level }}
+                      {{ element[column.toLowerCase()].textPath2 | translate }}
+                    </span>
+                  </div>
+                  <div
+                    *ngIf="element[column.toLowerCase()].description"
+                    class="col-12 text-grey-custome p-0">
+                    {{ element[column.toLowerCase()].description | translate }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+          <ng-template ngSwitchCase="force_id">
+            <div
+              class="row m-0"
+              *ngIf="!element[column.toLowerCase()].isMy; else myEvent">
+              <div class="d-flex align-items-center">
+                <img
+                  class="img-force-id"
+                  src="{{ element[column.toLowerCase()].avatar }}"
+                  alt="" />
+              </div>
+              <div class="col-12 force-id p-0">
+                <div class="row m-0">
+                  <div
+                    class="col-12 text-white-custome p-0 d-flex align-items-center">
+                    <div>
+                      {{ element[column.toLowerCase()].id }}
+                    </div>
+
+                    <span
+                      class="text-white text-copied mr-1 badge badge-secondary text-white-custome text"
+                      *ngIf="element['isCopyId']"
+                      >copied !</span
+                    >
+                    <img
+                      class="cursor-pointer copy-img"
+                      (click)="
+                        copy(
+                          element[column.toLowerCase()].id,
+                          element,
+                          'isCopyId'
+                        )
+                      "
+                      src="assets/icon/copy.png" />
+                  </div>
+                  <div class="col-12 text-grey-custome p-0">
+                    {{ element[column.toLowerCase()].nickName }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <ng-template #myEvent>
+              <span class="text-white-custome">{{
+                'TABLE.YOU' | translate
+              }}</span>
+            </ng-template>
+          </ng-template>
+          <ng-template ngSwitchCase="wallet">
+            <div
+              class="text-grey-custome position-relative"
+              *ngIf="element[column.toLowerCase()].length > 0">
+              {{
+                element[column.toLowerCase()].slice(0, 7) +
+                  '...' +
+                  element[column.toLowerCase()].slice(
+                    element[column.toLowerCase()].length - 9
+                  )
+              }}
+              <span
+                class="text-white text-copied mr-1 badge badge-secondary text-white-custome text"
+                *ngIf="element['isCopyWallet']"
+                >copied !</span
+              >
+              <img
+                class="cursor-pointer copy-img"
+                (click)="
+                  copy(element[column.toLowerCase()], element, 'isCopyWallet')
+                "
+                src="assets/icon/copy.png" />
+            </div>
+          </ng-template>
+          <ng-template ngSwitchCase="program">
+            <span class="program-value">
+              {{ element[column.toLowerCase()] }}
+            </span>
+          </ng-template>
+          <ng-template ngSwitchCase="date">
+            <div class="row m-0 text-grey-custome">
+              <div class="col-12">
+                {{ element[column.toLowerCase()].date }}
+              </div>
+              <div class="col-12">
+                {{ element[column.toLowerCase()].time }}
+              </div>
+            </div>
+          </ng-template>
+          <ng-template ngSwitchCase="amount">
+            <div class="w-100 text-end">
+              <span
+                [ngClass]="
+                  element['type'].name.toLowerCase().includes('lostmoney') ||
+                  element['type'].name.toLowerCase() === 'tieractivated' ||
+                  element['type'].name.toLowerCase() === 'tierextended'
+                    ? 'text-orandge-custome'
+                    : 'text-white-custome'
+                ">
+                {{ element[column.toLowerCase()] }}
+              </span>
+            </div>
+          </ng-template>
+
+          <ng-template ngSwitchDefault> {{ element[column] }} </ng-template>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+  </table>
+</section>

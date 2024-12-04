@@ -1,0 +1,176 @@
+<ng-template #upgradeChip let-modal>
+  <div class="modal-header">
+    <div class="close-wrapper"><fa-icon (click)="closeModal()" [icon]="faCircleXmark"></fa-icon></div>
+
+    <div *ngIf="!upgradeType" class="video-wrapper">
+      <video id="selector-start" class="video-bg"
+        muted autoplay
+        oncanplay="this.play()"
+        (ended)="playLoop('selector')"
+        onloadedmetadata="this.muted = true">
+          <source src="./assets/video/selector-start.mp4" type="video/mp4">
+      </video>
+      <video id="selector-loop" class="video-bg -hidden"
+        muted loop preload="true"
+        onloadedmetadata="this.muted = true">
+          <source src="./assets/video/selector-loop.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <div *ngIf="upgradeType === 'expand'" class="video-wrapper -small">
+      <video id="expand-start" class="video-bg"
+             muted autoplay
+             (ended)="playLoop('expand')"
+             onloadedmetadata="this.muted = true">
+        <source src="./assets/video/expand-start.mp4" type="video/mp4">
+      </video>
+      <video id="expand-loop" class="video-bg -hidden"
+             muted loop preload="true"
+             onloadedmetadata="this.muted = true">
+        <source src="./assets/video/expand-loop.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <div *ngIf="upgradeType === 'fill'" class="video-wrapper -small">
+      <video id="fill-start" class="video-bg"
+             muted
+             (ended)="playLoop('fill')"
+             onloadedmetadata="this.muted = true">
+        <source src="./assets/video/fill-start.mp4" type="video/mp4">
+      </video>
+      <video id="fill-loop" class="video-bg -hidden"
+             muted loop preload="true"
+             onloadedmetadata="this.muted = true">
+        <source src="./assets/video/fill-loop.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <div *ngIf="!upgradeType" class="modal-title">
+      {{ 'UPGRADE_CHIP_MODAL.TITLE' | translate }}
+    </div>
+    <div *ngIf="upgradeType === 'expand'" class="modal-title">
+      {{ 'UPGRADE_CHIP_MODAL.EXPAND_TITLE' | translate }}
+    </div>
+    <div *ngIf="upgradeType === 'fill'" class="modal-title">
+      {{ 'UPGRADE_CHIP_MODAL.FILL_TITLE' | translate }}
+    </div>
+  </div>
+
+  <div *ngIf="!upgradeType" class="modal-body" tabindex="0" ngbAutofocus>
+    <div class="bottom">
+      <button type="button" class="btn-orange" (click)="onChoose('expand')">
+        {{ 'UPGRADE_CHIP_MODAL.EXPAND_CHIP' | translate }}
+      </button>
+      <button type="button" class="btn-orange" (click)="onChoose('fill')">
+        {{ 'UPGRADE_CHIP_MODAL.FILL_CHIP' | translate }}
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="upgradeType === 'expand'" class="modal-body -small" tabindex="0" ngbAutofocus>
+    <div class="body-wrapper">
+      <div class="info">{{ 'UPGRADE_CHIP_MODAL.EXPAND_INFO' | translate }}</div>
+
+      <div class="box-row -separated">
+        <span class="name">{{ 'UPGRADE_CHIP_MODAL.YOU_HAVE' | translate }} EQN</span>
+        <span class="separator"></span>
+        <span class="number">{{ balances.eqnBalance }}</span>
+      </div>
+
+      <div *ngIf="activityFactor.eqnAmountToExtendOneShare * bundleSize > balances.eqnBalance" class="error">
+        {{ 'UPGRADE_CHIP_MODAL.YOU_DONT_HAVE' | translate }} EQN
+      </div>
+
+      <app-count-controller
+          [bundleSize]="bundleSize"
+          [max]="wave.extendCapacityMax"
+          (changeBundle)="onChangebundleSize($event)"
+      ></app-count-controller>
+
+      <div class="progress-wrappepr">
+        <div class="subtitle">{{ 'UPGRADE_CHIP_MODAL.CHIP_EXPANDED' | translate }}</div>
+        <app-double-progress
+          [ready]="wave.filledCapacityMax"
+          [total]="wave.extendCapacityMax"
+          [type]="upgradeType"
+        ></app-double-progress>
+      </div>
+    </div>
+
+    <div class="bottom">
+      <div class="box-row -separated">
+        <span class="name">{{ 'UPGRADE_CHIP_MODAL.TOTAL' | translate }}</span>
+        <span class="separator"></span>
+        <span class="number">{{ bundleSize * activityFactor.eqnAmountToExtendOneShare }} EQN</span>
+      </div>
+      <button
+        type="button"
+        class="btn-orange"
+        (click)="confirm()"
+        [disabled]="activityFactor.eqnAmountToExtendOneShare * bundleSize > balances.eqnBalance || isProcessing"
+      >
+        <span
+          *ngIf="isProcessing"
+          class="spinner-border spinner-border-sm"
+          role="status"
+          aria-hidden="true"></span>
+        <span *ngIf="!isProcessing">
+          {{ 'UPGRADE_CHIP_MODAL.EXPAND' | translate }}
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="upgradeType === 'fill'" class="modal-body -small" tabindex="0" ngbAutofocus>
+    <div class="body-wrapper">
+      <div class="info">{{ 'UPGRADE_CHIP_MODAL.FILL_INFO' | translate }}</div>
+
+      <div class="box-row -separated">
+        <span class="name">{{ 'UPGRADE_CHIP_MODAL.YOU_HAVE' | translate }} NTC</span>
+        <span class="separator"></span>
+        <span class="number">{{ balances.qenBalance }}</span>
+      </div>
+
+      <div *ngIf="activityFactor.qenAmountToFillOneShare * bundleSize > balances.qenBalance" class="error">
+        {{ 'UPGRADE_CHIP_MODAL.YOU_DONT_HAVE' | translate }} NTC
+      </div>
+
+      <app-count-controller
+          [bundleSize]="bundleSize"
+          [max]="wave.filledCapacityMax"
+          (changeBundle)="onChangebundleSize($event)"
+      ></app-count-controller>
+
+      <div *ngIf="bundleSize >= wave.filledCapacityMax" class="info-max">{{ 'UPGRADE_CHIP_MODAL.INFO_QEN' | translate }}</div>
+      <app-double-progress
+        [ready]="wave.filledCapacity"
+        [readyMax]="wave.filledCapacityMax"
+        [total]="wave.extendCapacityMax"
+        [type]="upgradeType"
+      ></app-double-progress>
+    </div>
+
+    <div class="bottom">
+      <div class="box-row -separated">
+        <span class="name">{{ 'UPGRADE_CHIP_MODAL.TOTAL' | translate }}</span>
+        <span class="separator"></span>
+        <span class="number">{{ bundleSize * activityFactor.qenAmountToFillOneShare }}  NTC</span>
+      </div>
+      <button
+        type="button"
+        class="btn-orange"
+        (click)="confirm()"
+        [disabled]="activityFactor.qenAmountToFillOneShare * bundleSize > balances.qenBalance || isProcessing"
+      >
+        <span
+          *ngIf="isProcessing"
+          class="spinner-border spinner-border-sm"
+          role="status"
+          aria-hidden="true"></span>
+        <span *ngIf="!isProcessing">
+          {{ 'UPGRADE_CHIP_MODAL.FILL' | translate }}
+        </span>
+      </button>
+    </div>
+  </div>
+</ng-template>

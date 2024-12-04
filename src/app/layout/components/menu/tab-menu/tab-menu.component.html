@@ -1,0 +1,19 @@
+<div class="TabMenu">
+  <div class="tabs">
+    <div
+        *ngFor="let item of items; let i = index"
+        class="tab"
+        [ngClass]="{
+            '-isActive': currentTab === item.value,
+            '-first': i === 0 || (items[i - 1] && items[i - 1].value === currentTab),
+            '-last': i === items.length - 1 || (items[i + 1] && items[i + 1].value === currentTab),
+            'disabled': item.disabled
+        }"
+        [routerLink]="['/pages/' + item.value]"
+    >
+        <div class="text">
+          {{ 'TAB_MENU.' + item.title.toUpperCase() | translate }}
+        </div>
+    </div>
+  </div>
+</div>

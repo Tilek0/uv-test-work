@@ -1,0 +1,392 @@
+@import '../../../../../@core/scss/base/bootstrap-extended/include';
+.header-menu {
+  padding: 16px 24px;
+  background: #111111;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: -0.004em;
+  text-align: center;
+
+  .back-arrow-wallet {
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  .icon {
+    margin-right: 8px;
+    background-image: url(str-replace(
+      str-replace($chevron-left, 'currentColor', $body-color),
+      '#',
+      '%23'
+    ));
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 2rem;
+    height: 2.5rem;
+    width: 1.5rem;
+  }
+
+  .header-title {
+    color: rgba(255, 255, 255, 1);
+  }
+}
+
+.sell-body {
+  width: 100%;
+  height: calc(100vh - 72px);
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 16px;
+
+  h1 {
+    padding: 0 16px;
+    color: hsl(0, 0%, 100%);
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 40px;
+    margin: 0;
+  }
+
+  .ImportantlyPanel {
+    width: 100%;
+    background: hsla(151, 100%, 12%);
+    color: hsl(151, 100%, 32%);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16px;
+    .header {
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      cursor: pointer;
+      .arrow {
+        height: 16px;
+        width: 16px;
+        min-width: 16px;
+        min-height: 16px;
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        &.-up {
+          background-image: url('/assets/icon/up-green.svg');
+        }
+        &.-down {
+          background-image: url('/assets/icon/down-green.svg');
+        }
+      }
+    }
+    .body {
+      padding: 12px 16px;
+    }
+  }
+
+  .more-info {
+    color: hsla(0, 0%, 100%, .8);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16px;
+    padding: 0 16px;
+
+    &.center {
+      text-align: center;
+    }
+
+    .link {
+      color: hsl(35, 100%, 46%) !important;
+      cursor: pointer;
+    }
+  }
+
+  .line {
+    width: 100%;
+    height: 0;
+    border-bottom: 1px solid hsl(0, 0%, 20%);
+  }
+  .dai-available {
+    text-align: center;
+    color: hsl(151, 100%, 32%);
+    font-size: 16px;
+    text-transform: uppercase;
+  }
+
+  .RatePanel {
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    gap: 16px;
+    .currency-value {
+      white-space: nowrap;
+      color: hsla(0, 0%, 100%, .5);
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 16px;
+    }
+  }
+
+  .OpenedOrder {
+    padding: 0 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    h1 {
+      padding: 0;
+    }
+
+    .order-card {
+      width: 100%;
+      display: flex;
+      flex-flow: column;
+
+      .card-top {
+        padding: 8px 16px;
+        background: hsl(210, 100%, 52%);
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        color: hsl(0, 0%, 100%);
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 16px;
+      }
+
+      .card-body {
+        padding: 16px 16px;
+        background: hsl(0, 0%, 10%);
+        display: flex;
+        flex-flow: column nowrap;
+        gap: 16px;
+        .info {
+          display: flex;
+          flex-flow: row nowrap;
+          align-items: flex-start;
+          justify-content: space-between;
+        }
+        .current-amount, .total-amount {
+          display: flex;
+          flex-flow: column nowrap;
+          gap: 8px;
+        }
+        .current-amount {
+          align-items: flex-start;
+        }
+        .total-amount {
+          align-items: flex-end;
+        }
+        h1 {
+          font-size: 20px;
+          font-weight: 600;
+          line-height: 24px;
+        }
+        .cur {
+          font-size: 14px;
+          font-weight: 500;
+          line-height: 16px;
+        }
+      }
+
+      .card-bottom {
+        padding: 16px 16px;
+        background: hsl(0, 0%, 10%);
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+        border-top: 1px solid hsl(0, 0%, 20%);
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .title {
+        color: hsla(0, 0%, 100%, .5);
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 16px;
+        text-transform: uppercase;
+
+        .-white {
+          color: hsl(0, 0%, 100%);
+        }
+      }
+
+      .line {
+        width: 100%;
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .progress-wrapper {
+        width: 100%;
+        height: 8px;
+        border-radius: 23px;
+        border: 1px solid hsl(210, 100%, 52%);
+        background: repeating-linear-gradient(
+          -45deg,
+          hsla(210, 100%, 52%, .4) 4px 3px,
+          hsla(210, 100%, 52%, .2) 10px 20px
+        );
+        overflow: hidden;
+
+        .progress {
+          background: hsl(210, 100%, 52%);
+          border-bottom-left-radius: 7px;
+          border-top-left-radius: 7px;
+          border-bottom-right-radius: 0;
+          border-top-right-radius: 0;
+          height: 8px;
+          &.-full {
+            border-bottom-right-radius: 7px;
+            border-top-right-radius: 7px;
+          }
+        }
+      }
+    }
+    .btn-orange.-red {
+      background: hsl(4, 82%, 48%);
+    }
+  }
+
+  .SellForm {
+    padding: 0 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    .sell-form {
+      display: flex;
+      flex-direction: column;
+      padding: 16px;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+      align-self: stretch;
+      border-radius: 8px;
+      background: hsl(0, 0%, 10%);
+      &.disabled {
+        opacity: .5;
+        pointer-events: none;
+      }
+      .title {
+        color: hsla(0, 0%, 100%, .5);
+        font-size: 12px;
+        font-weight: 400;
+        text-transform: uppercase;
+        line-height: 16px;
+      }
+      .name {
+        color: hsl(0, 0%, 100%);
+        font-size: 14px;
+        font-weight: 500;
+        margin-top: 2px;
+        line-height: 16px;
+      }
+      .info-wrapper {
+        width: 100%;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        align-items: center;
+        .token-name {
+          display: flex;
+          flex-flow: row nowrap;
+          align-items: center;
+          gap: 12px;
+          .token-logo {
+            height: 32px;
+            width: 32px;
+            min-width: 32px;
+            min-height: 32px;
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            &.-fc {
+              background-image: url('/assets/coinIcon/H.svg');
+            }
+            &.-dai {
+              background-image: url('/assets/coinIcon/dai.png');
+            }
+          }
+        }
+        .available {
+          display: flex;
+          flex-flow: row nowrap;
+          align-items: center;
+          gap: 12px;
+          .value {
+            text-align: right;
+          }
+          .set-max {
+            color: hsl(0, 0%, 100%);
+            text-align: center;
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 16px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: 1px solid hsla(0, 0%, 100%, .2);
+            cursor: pointer;
+            &.disabled {
+              color: hsla(0, 0%, 100%, .3);
+              cursor: default;
+              pointer-events: none;
+            }
+          }
+        }
+      }
+      input.set-sell {
+        width: 100%;
+        background-color: transparent;
+        border-radius: 8px;
+        border: 1px solid hsl(0, 0%, 20%);
+        padding: 12px;
+        color: hsl(0, 0%, 100%);
+        font-size: 20px;
+        font-weight: 500;
+        line-height: 24px;
+        text-align: center;
+        &:focus-visible {
+          outline: none;
+        }
+        &:disabled {
+          color: hsla(0, 0%, 100%, .3);
+          cursor: default;
+          pointer-events: none;
+        }
+      }
+      .fix-prices {
+        width: 100%;
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 6px;
+        .button-grey {
+          padding: 8px 16px;
+          border-radius: 8px;
+          gap: 8px;
+          border: 0;
+          font-size: 15px;
+          font-weight: 500;
+          line-height: 24px;
+          letter-spacing: -0.004em;
+          text-align: center;
+          color: hsl(0, 0%, 100%);
+        }
+        button {
+          width: 100%;
+        }
+      }
+    }
+  }
+  .-no-available {
+    color: hsl(4, 82%, 48%) !important;
+  }
+
+  .buttom-info {
+    text-transform: uppercase;
+    text-align: center;
+  }
+}

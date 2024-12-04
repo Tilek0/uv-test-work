@@ -1,0 +1,222 @@
+.containet-item {
+  height: 136px;
+}
+
+.containet-list {
+  margin-bottom: 84px;
+}
+
+.info {
+  position: fixed;
+  width: calc(100% - 309px);
+  left: 292px;
+  bottom: 20px;
+  font-size: 14px;
+  line-height: 20px;
+  display: flex;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.1);
+
+  padding: 12px 24px;
+  backdrop-filter: blur(20px);
+  z-index: 10;
+
+  border-radius: 8px;
+
+  .select-text {
+    color: #ffffff !important;
+  }
+
+  .container-right {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+  }
+
+  .margin-right-32 {
+    margin-right: 32px;
+  }
+
+  .close {
+    color: rgba(255, 255, 255, 0.5) !important;
+    cursor: pointer;
+    font-size: 22px !important;
+    padding: 0 !important;
+  }
+}
+
+.info-collapsed {
+  left: 112px;
+  width: calc(100% - 149px) !important;
+}
+
+.size-button {
+  max-width: 160px;
+  width: 160px;
+  height: 48px;
+}
+
+.container-card {
+  padding: 0;
+  padding-right: 8px;
+  .card-height {
+    height: calc(100% - 8px);
+  }
+}
+
+.card {
+  padding: 0;
+
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  margin-bottom: 8px;
+
+  .card-body {
+    justify-content: center;
+    align-items: center;
+    background: #1a1a1a;
+    border-radius: 8px;
+    margin: 0;
+  }
+}
+
+.members-card {
+  padding: 29px 25px;
+  .peoples-img {
+    width: 56px;
+    height: 56px;
+    margin-bottom: 8px;
+  }
+  .dollar-img {
+    margin-top: 16px;
+    width: 56px;
+    height: 56px;
+    margin-bottom: 8px;
+  }
+  .text-member-info {
+    margin-bottom: 8px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    color: rgba(255, 255, 255, 0.8);
+  }
+  .members-value {
+    font-weight: 600;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+
+    color: #ffffff;
+  }
+  .members-income-value-mfs {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #ff9501;
+    margin-bottom: 2px;
+  }
+  .members-income-value-dai {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    color: rgba(255, 255, 255, 0.4);
+  }
+}
+
+.force-coin {
+  padding: 40px 24px;
+
+  img {
+    width: 68px;
+    height: 68px;
+    margin-bottom: 24px;
+  }
+
+  .title {
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 40px;
+
+    color: #ffffff;
+  }
+
+  .description {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 24px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 24px;
+  }
+}
+
+.choose-profit {
+  width: 100%;
+  padding: 32px 24px;
+
+  .title {
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 32px;
+    /* or 145% */
+
+    text-align: center;
+    letter-spacing: -0.01em;
+
+    /* White/White 60 */
+
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 32px;
+  }
+}
+.with-close-nuv-bar {
+  width: 100% !important;
+}
+.loader-container {
+  height: calc(100% - 60px);
+  width: 100%;
+  margin: -16px 0 0 -16px;
+}
+@media (min-width: 1300px) {
+  .loader-container {
+    width: calc(100% - 280px);
+  }
+}
+
+@media (max-width: 1200px) {
+  .info {
+    left: 32px;
+    width: calc(100% - 69px) !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .info {
+    left: 10px;
+    width: calc(100% - 25px) !important;
+  }
+
+  .button-apply-profit {
+    margin-top: 32px;
+    width: 100%;
+    max-width: none;
+  }
+
+  .containet-item {
+    border-radius: 8px !important;
+    height: max-content;
+    margin-bottom: 8px !important;
+    border-bottom: 0px;
+    // padding: 24px 16px;
+  }
+
+  .container-card {
+    padding: 0 !important;
+  }
+
+  .card {
+    margin-bottom: 16px;
+  }
+}

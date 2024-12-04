@@ -1,0 +1,69 @@
+<ng-template #gameHelp let-modal>
+  <div class="modal-header">
+    <div class="header-wrapper">
+      <fa-icon (click)="closeModal()" [icon]="faCircleXmark"></fa-icon>
+      <div class="modal-title">
+        {{ 'GAME_HELP.TITLE' | translate }}
+      </div>
+    </div>
+
+    <div *ngIf="currentStep == 0" class="body-wrapper">
+      <div class="help-title">
+        {{ 'GAME_HELP.STEP_0_TILE' | translate }}
+      </div>
+      <div class="help-subtitle">
+        {{ 'GAME_HELP.STEP_0_TEXT' | translate }}
+      </div>
+      <button *ngIf="isDesktop" class="btn-orange" (click)="goToNexStep()">
+        {{ 'GAME_HELP.STEP_0_BUTTON' | translate }}
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="isDesktop && currentStep != 0" class="modal-body" tabindex="0" ngbAutofocus>
+    <div class="video-guide" [ngStyle]="{backgroundImage: 'url(\'/assets/images/game/overview/help/desktop/step-' + currentStep + '.png\')'}"></div>
+    <div class="info">
+      <div class="title">
+        {{ 'GAME_HELP.STEP_' + currentStep + '_TITLE' | translate }}
+      </div>
+      <div class="description">
+        {{ 'GAME_HELP.STEP_' + currentStep + '_TEXT' | translate }}
+      </div>
+    </div>
+    <div class="pagination">
+      <div class="prev" [ngClass]="{'-disabled': currentStep == 1}" (click)="goToPrevStep()">
+        <span class="arrow"></span>
+      </div>
+      <div class="current">
+        {{ currentStep }} / {{ steps }}
+      </div>
+      <div class="next" [ngClass]="{'-disabled': currentStep == steps}" (click)="goToNexStep()">
+        <span class="arrow"></span>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!isDesktop" class="modal-body -mobile" tabindex="0" ngbAutofocus>
+    <div class="sticky-close">
+      <div class="sticky-inner-wrapper">
+        <fa-icon (click)="closeModal()" [icon]="faCircleXmark"></fa-icon>
+      </div>
+    </div>
+    <div *ngFor="let step of getStepsArr(); let currentMobileStep = index" class="step-wrapper">
+      <div class="img-guide" [ngStyle]="{backgroundImage: 'url(\'/assets/images/game/overview/help/mobile-wide/step-' + (currentMobileStep + 1) + '.png\')'}"></div>
+      <div class="info">
+        <div class="pagination">
+          <div class="current">
+            {{ currentMobileStep + 1 }} / {{ steps }}
+          </div>
+        </div>
+        <div class="title">
+          {{ 'GAME_HELP.STEP_' + (currentMobileStep + 1) + '_TITLE' | translate }}
+        </div>
+        <div class="description">
+          {{ 'GAME_HELP.STEP_' + (currentMobileStep + 1) + '_TEXT' | translate }}
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

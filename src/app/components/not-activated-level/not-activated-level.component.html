@@ -1,0 +1,28 @@
+<div class="h-100 d-flex align-items-center">
+  <div class="row w-100 m-0">
+    <div class="col-12 header d-flex justify-content-center">
+      {{ 'NOT_ACTIVATED.HEADER' | translate }}
+    </div>
+    <div class="col-12 description d-flex justify-content-center">
+      {{ 'NOT_ACTIVATED.DESCRIPTION' | translate }}
+    </div>
+    <div class="col-12 value d-flex justify-content-center">
+      {{ +(+level.costInDAI).toFixed(1) }} DAI | {{ +(+level.costInMFS).toFixed(1) }} HC
+    </div>
+    <div class="col-12 d-flex justify-content-center">
+      <button
+        type="button"
+        class="btn btn-warning size-button"
+        rippleEffect
+        (click)="activate()"
+        [disabled]="isLoading">
+        <span
+          *ngIf="isLoading"
+          class="spinner-border spinner-border-sm"
+          role="status"
+          aria-hidden="true"></span>
+        {{ 'NOT_ACTIVATED.ACTIVATE' | translate }}
+      </button>
+    </div>
+  </div>
+</div>

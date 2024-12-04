@@ -1,0 +1,29 @@
+<div class="CountController">
+    <div class="info">
+        <div class="title">
+            {{ 'COUNT_CONTROLLER.SELECT' | translate }} {{ name }}
+        </div>
+        <div class="set-max" (click)="setMax()">
+            {{ 'COUNT_CONTROLLER.MAX' | translate }}
+        </div>
+    </div>
+    <div class="controller">
+        <div class="minus" (click)="changeBundleSize('minus')">
+            <fa-icon [icon]="faMinus"></fa-icon>
+        </div>
+        <div class="count">
+            <input
+                class="set-bundle"
+                type="text"
+                inputmode="numeric"
+                (keydown)="keyPressInput($event)"
+                (keyup)="keyUpInput($event)"
+                [(ngModel)]="bundleSize"
+                (ngModelChange)="onBundleValueChange($event)"
+                (paste)="onPaste($event)"/>
+        </div>
+        <div class="plus" (click)="changeBundleSize('plus')">
+            <fa-icon [icon]="faPlus"></fa-icon>
+        </div>
+    </div>
+</div>

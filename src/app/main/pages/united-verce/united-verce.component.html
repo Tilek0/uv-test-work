@@ -1,0 +1,204 @@
+<div class="row m-0 position-relative">
+  <div class="row w-100 info m-0" *ngIf="false && isInfo">
+    <div class="col-8 col-sm-9 p-0">
+      {{ 'UNITED_VERSE.YOU' | translate }}
+      <span class="select-text"
+        >{{ 'UNITED_VERSE.LOST' | translate }} {{ lostValue }} DAI</span
+      >
+      {{ 'UNITED_VERSE.TOTAL' | translate }}
+    </div>
+    <div class="col-4 col-sm-3 container-right p-0">
+      <a
+        target="_blank"
+        href="/pages/recent-activity-details"
+        class="select-text margin-right-32">
+        {{ 'UNITED_VERSE.LEARN_MORE' | translate }}
+      </a>
+      <span class="material-icons close" (click)="closeInfo()"> close </span>
+    </div>
+  </div>
+  <div class="col-md-12 col-lg-8 p-0 contaner-marketing">
+    <div
+      class="loader-container"
+      [ngClass]="{ 'with-close-nuv-bar': isCollapsed }"
+      *ngIf="isLoader">
+      <div class="loader"></div>
+    </div>
+
+    <h4 class="card-title d-flex justify-content-between header-tubs">
+      <ul ngbNav #nav="ngbNav" class="nav-tabs">
+        <li ngbNavItem>
+          <a ngbNavLink (click)="setTabs(0)">{{
+            'UNITED_VERSE.MARKETING' | translate
+          }}</a>
+          <ng-template ngbNavContent>
+            <div class="h-100">
+              <app-marketing
+                [getUserUnfo]="getUserDetailInfo"
+                [currentLevel]="radioModel"
+                [changeMarketing]="changeMarketing"
+                [changeZoom]="zoom"
+                (changeMarketingEvent)="changeMarketing = $event"
+                [data]="marketingArray"
+                *ngIf="isVisibleMarketing()"></app-marketing>
+              <!-- <app-time-over-level *ngIf="radioModel === 1"></app-time-over-level> -->
+              <app-not-activated-level
+                [isLoading]="isActivated"
+                [level]="levelLists[radioModel - 1]"
+                (activePage)="openModal($event)"
+                *ngIf="isVisibleNotActivatedLevel()"></app-not-activated-level>
+              <app-purchase-level
+                [currentLevel]="radioModel"
+                [buyLevel]="buyLevel"
+                *ngIf="isVisiblePurchaseLevel()">
+              </app-purchase-level>
+
+              <app-filter-orbit
+                [radioModel]="radioModel"
+                (setLevelEvent)="setLevel($event)">
+              </app-filter-orbit>
+            </div>
+          </ng-template>
+        </li>
+        <li ngbNavItem class="mar-left-16">
+          <a ngbNavLink (click)="setTabs(1)">{{
+            'UNITED_VERSE.MARKETING_TABLE' | translate
+          }}</a>
+          <ng-template ngbNavContent>
+            <div class="h-100">
+              <div class="container-tree">
+                <app-marketing-tabel
+                  [getUserUnfo]="getUserDetailInfo"
+                  [currentLevel]="radioModelForTabel">
+                </app-marketing-tabel>
+              </div>
+              <app-filter-orbit
+                [radioModel]="radioModelForTabel"
+                (setLevelEvent)="setLevel($event)">
+              </app-filter-orbit>
+            </div>
+          </ng-template>
+        </li>
+        <li ngbNavItem class="mar-left-16">
+          <a ngbNavLink (click)="setTabs(2)">{{
+            'UNITED_VERSE.REFERAL' | translate
+          }}</a>
+          <ng-template ngbNavContent>
+            <div class="container-tree">
+              <app-tree-vertical
+                [getMoreDate]="getChildren.bind(this)"
+                [isLoader]="isTreeLoader"></app-tree-vertical>
+            </div>
+          </ng-template>
+        </li>
+      </ul>
+      <div *ngIf="typeTabs === 0" class="d-flex zoom-container">
+        <span (click)="plusZoom()"> + </span>
+        <span class="margin-top--3" (click)="minusZoom()"> - </span>
+      </div>
+    </h4>
+    <div class="card-body">
+      <div [ngbNavOutlet]="nav" class="h-100 united"></div>
+    </div>
+  </div>
+  <div class="col-md-12 col-lg-4 p-0 pad-left-8">
+    <div class="row m-0">
+      <div
+        class="col-12 contaner-total-revenue"
+        [ngClass]="!isHiddenChart && 'hidden-contaner-total-revenue'">
+        <h4 class="card-title">
+          <div class="row m-0" (click)="hiddenBody()">
+            <div class="col-9 d-flex p-0">
+              {{ 'UNITED_VERSE.TOTAL_REVENUE' | translate }}
+            </div>
+            <div class="col-3 d-flex p-0 justify-content-end">
+              <span class="material-icons" *ngIf="!isHiddenChart">
+                expand_more
+              </span>
+              <span class="material-icons" *ngIf="isHiddenChart">
+                expand_less
+              </span>
+            </div>
+          </div>
+        </h4>
+        <div class="card-body" *ngIf="isHiddenChart">
+          <app-total-chart
+            [balancesOnPayment]="balancesOnPayment"
+            [daiArray]="daiArray"
+            [mfsArray]="mfsArray"
+            [changeChart]="changeChart"
+            (changeChartEvent)="changeChart = $event">
+          </app-total-chart>
+          <div
+            class="btn-group btn-group-toggle chart-container-btn"
+            ngbRadioGroup
+            name="radioBasic"
+            [(ngModel)]="chartModel"
+            (ngModelChange)="setFilterData($event)">
+            <label ngbButtonLabel class="btn-chart"
+              ><input ngbButton type="radio" [value]="'d'" />1d
+            </label>
+            <label ngbButtonLabel class="btn-chart"
+              ><input ngbButton type="radio" [value]="'w'" />
+              1w
+            </label>
+            <label ngbButtonLabel class="btn-chart"
+              ><input ngbButton type="radio" [value]="'m'" />1m
+            </label>
+            <label ngbButtonLabel class="btn-chart"
+              ><input ngbButton type="radio" [value]="'3m'" />3m
+            </label>
+            <label ngbButtonLabel class="btn-chart"
+              ><input ngbButton type="radio" [value]="'6m'" />6m
+            </label>
+            <label ngbButtonLabel class="btn-chart"
+              ><input ngbButton type="radio" [value]="'y'" />1y
+            </label>
+          </div>
+        </div>
+      </div>
+      <div
+        class="col-12 contaner-recent-activity"
+        [ngClass]="!isHiddenChart && 'new-contaner-recent-activity'">
+        <h4
+          class="card-title recent-activity"
+          routerLink="/pages/recent-activity-details">
+          {{ 'UNITED_VERSE.RECENT_TRANSACTIONS' | translate }}
+        </h4>
+        <div class="card-body">
+          <div
+            class="infinite-scroll-config"
+            infinite-scroll
+            [infiniteScrollDistance]="2"
+            [fromRoot]="true"
+            [infiniteScrollThrottle]="50"
+            (scrolled)="onScrollDown()"
+            [scrollWindow]="false">
+            <app-resent-activity-item
+              [item]="item"
+              [isChange]="isChangeResentActivity"
+              *ngFor="let item of resents">
+            </app-resent-activity-item>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-extend-choose-type-modal-new
+  [isOpen]="isOpen"
+  [item]="currenItem"
+  [lastActiveLevelNumber]="lastActiveLevelNumber"
+  [operationType]="'activate'"
+  (openEvent)="isOpen = $event"
+  (onSucceedEvent)="onSucceed($event)"
+  >
+</app-extend-choose-type-modal-new>
+<!-- <app-pack-modal
+  [isLoadingModal]="isActivated"
+  [isActivated]="true"
+  [isOpen]="isOpen"
+  [item]="currenItem"
+  (openEvent)="isOpen = $event"
+  (applyEvent)="activate($event)">
+</app-pack-modal> -->

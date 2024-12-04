@@ -1,0 +1,86 @@
+.download-container {
+  width: 100%;
+  min-width: 290px;
+  border-radius: 8px;
+  background: linear-gradient(90deg, hsla(151, 100%, 32%, .5) 0%, hsla(0, 0%, 10%, 0) 100%), hsl(0, 0%, 10%);
+  padding: 16px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  @media (max-width: 576px) {
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+  }
+  .info {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 16px;
+    align-items: center;
+    @media (max-width: 576px) {
+      flex-flow: column nowrap;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+    }
+    .icon {
+      height: 32px;
+      width: 32px;
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-image: url('/assets/icon/sun.svg');
+    }
+    .text {
+      color: hsl(0, 0%, 100%);
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 20px;
+    }
+  }
+  .buttons {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    gap: 16px;
+    @media (max-width: 576px) {
+      flex-flow: column nowrap;
+      width: 100%;
+    }
+
+    .download-button {
+      display: flex;
+      flex-flow: row nowrap;
+      gap: 16px;
+      align-items: center;
+      border-radius: 8px;
+      color: hsl(0, 0%, 100%);
+      background: hsl(35, 100%, 46%);
+      cursor: pointer;
+      padding: 8px 16px;
+      @media (max-width: 576px) {
+        width: 100%;
+        justify-content: center;
+      }
+      .icon {
+        height: 16px;
+        width: 16px;
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-image: url('/assets/icon/info-grey.svg');
+        color: hsl(0, 0%, 100%);
+      }
+      .text {
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 16px;
+      }
+      &:hover {
+        background: hsl(29, 100%, 42%);
+      }
+    }
+  }
+}

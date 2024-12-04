@@ -1,0 +1,34 @@
+﻿
+<div class="map__circles" id="marketing">
+	<canvas id="canvas"></canvas>
+</div>
+
+<div id="tooltip" class="inner-text-item btn d-flex flex-column mb-3" style="position:absolute; pointer-events:none; top:0px;left:0px;visibility:hidden">
+	<div class="triangle-inner-text"></div>
+	<div id="tooltipTitle" class="d-flex flex-row justify-content-start tooltip-description">
+		<div class="d-flex col-8 p-0">
+
+			<div id="tooltipLabel" class="tooltip-label d-flex flex-row ">
+				id: 11 @userMain
+			</div>
+			<div id="tooltipNew" class="tooltip-new">
+				{{ 'MARKETING.NEW' | translate }}
+			</div>
+
+
+		</div>
+
+		<div id="tooltipDate" class="tooltip-data d-flex col-4 p-0 ">
+			04.20.2023
+		</div>
+	</div>
+	<div id="tooltipOvertaking" class="tooltip-overtaking tooltip-description flex-row">
+		{{ 'MARKETING.OVERTAKING' | translate }}
+	</div>
+	<div id="tooltipDescription" class="tooltip-sub tooltip-description flex-row">
+		{{ 'MARKETING.DESCRIPTION' | translate }}
+	</div>
+	<div id="tooltipLoader" class="loader-container">
+		<div class="loader"></div>
+	</div>
+</div>

@@ -1,0 +1,37 @@
+<div class="container-full">
+  <div class="row header">
+    <a
+      class="button-close"
+      href="https://holiverse.ai/academy"
+      aria-label="Close">
+      <!-- <span aria-hidden="true">&larr;</span> -->
+      <img src="assets/icon/arrowLeft.png" alt="" />
+      {{ 'CONNECT_WALLET.BUTTON_BACK' | translate }}
+    </a>
+    <div class="title col">{{ 'CONNECT_WALLET.HEADER_TITLE' | translate }}</div>
+  </div>
+  <div class="row body">
+    <div class="col d-flex justify-content-center align-items-center">
+      <div class="row">
+        <div class="col-12 d-flex justify-content-center">
+          <img class="coin" src="assets/gif/coin.gif" />
+        </div>
+        <div class="col-12 d-flex justify-content-center title">
+          {{ 'CONNECT_WALLET.BODY_TITLE' | translate }}
+        </div>
+        <div
+          class="col-12 d-flex justify-content-center text-center discription"
+          innerHTML="{{ 'CONNECT_WALLET.BODY_DISCRIPTION' | translate }}"></div>
+        <div class="col-12 d-flex justify-content-center">
+          <button
+            type="button"
+            class="btn btn-warning w-100 re-button"
+            (click)="reConnect()"
+            rippleEffect>
+            {{ 'CONNECT_WALLET.BODY_BUTTON_RECONECT' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

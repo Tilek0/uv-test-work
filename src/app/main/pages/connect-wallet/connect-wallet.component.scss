@@ -1,0 +1,66 @@
+.header {
+  height: 72px;
+  background: rgba(255, 255, 255, 0.03);
+  align-items: center;
+
+  .title {
+    margin-left: -80px;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    color: #ffffff;
+  }
+}
+.coin {
+  width: 94px;
+  height: 94px;
+}
+.body {
+  height: calc(100vh - 76px);
+
+  .title {
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 40px;
+    color: #e6e6e6;
+  }
+  .discription {
+    margin-top: 8px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+
+    color: rgba(255, 255, 255, 0.6);
+  }
+  .re-button {
+    margin-top: 24px !important;
+    width: 200px !important;
+  }
+}
+a:active,
+a:hover,
+a {
+  color: rgba(255, 255, 255, 0.3) !important;
+}
+.button-close {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  margin-left: 24px;
+  font-size: 14px;
+  line-height: 20px;
+  height: 32px;
+  z-index: 3;
+  /* identical to box height, or 143% */
+  background: none;
+  text-align: right;
+  border: none;
+  /* White/White 30 */
+
+  color: rgba(255, 255, 255, 0.3);
+
+  img {
+    width: 20px;
+    height: 20px;
+  }
+}

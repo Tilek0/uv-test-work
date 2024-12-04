@@ -1,0 +1,45 @@
+<div class="row conteiner-item">
+  <div class="col-8 col-xxl-8 d-flex p-0">
+    <div class="container-avatar">
+      <img class="avatar" [src]="item.force_id.avatar" alt="" />
+      <div class="arrow-container">
+        <img [src]="item.type.url" alt="" />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 naming">
+        <span *ngIf="!item.force_id.isMy; else myEvent">
+          {{ 'ACTIVITY.ID' | translate }} {{ item.force_id.id }}
+        </span>
+        <ng-template #myEvent>
+          <span>{{ 'ACTIVITY.YOU' | translate }}</span>
+        </ng-template>
+      </div>
+
+      <div class="col-12 data">
+        {{ item.type.textPath1 | translate }}
+        <span *ngIf="item.type.level">
+          {{ item.type.level }} {{ item.type.textPath2 | translate }}
+        </span>
+      </div>
+
+      <div class="col-12 data d-flex align-items-center">
+        {{ item.date }}
+      </div>
+    </div>
+  </div>
+  <div
+    class="col-4 col-xxl-4 p-0 value"
+    [ngClass]="
+      item.type.name.toLowerCase().includes('lostmoney') ||
+      item.type.name.toLowerCase() === 'tieractivated' ||
+      item.type.name.toLowerCase() === 'tierextended'
+        ? 'text-orandge'
+        : 'text-white'
+    ">
+    <div>
+      {{ item.amount }}
+    </div>
+  </div>
+</div>

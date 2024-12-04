@@ -1,0 +1,29 @@
+<!-- Error page-->
+<div class="misc-wrapper">
+  <a class="brand-logo" href="javascript:void(0);">
+    <img src="{{ coreConfig.app.appLogoImage }}" alt="brand-logo" height="28" />
+    <h2 class="brand-text text-primary ml-1">
+      {{ 'ERROR.TITLE' | translate }}
+    </h2></a
+  >
+  <div class="misc-inner p-2 p-sm-3">
+    <div class="w-100 text-center">
+      <h2 class="mb-1">{{ 'ERROR.NOT_FOUND' | translate }} 🕵🏻‍♀️</h2>
+      <p class="mb-2">{{ 'ERROR.NOT_FOUND_SUBTITLE' | translate }}</p>
+      <a
+        class="btn btn-primary mb-2 btn-sm-block"
+        routerLink="/"
+        rippleEffect
+        >{{ 'ERROR.HOME' | translate }}</a
+      ><img
+        class="img-fluid"
+        [src]="
+          coreConfig.layout.skin === 'dark'
+            ? 'assets/images/pages/error-dark.svg'
+            : 'assets/images/pages/error.svg'
+        "
+        alt="{{ 'ERROR.ALT' | translate }}" />
+    </div>
+  </div>
+</div>
+<!-- / Error page-->

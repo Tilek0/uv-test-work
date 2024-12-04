@@ -1,0 +1,30 @@
+.conteiner-notification {
+  width: 60px !important;
+  height: 32px !important;
+
+  /* White/White 10 */
+
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-radius: 8px !important;
+
+  img {
+    width: 24px;
+    height: 24px;
+    margin: 4px 0 4px 4px;
+  }
+
+  span {
+    width: 20px;
+    height: 20px;
+
+    /* Purple */
+    margin: 6px 3px 6px 6px;
+    background: #860eff;
+  }
+}
+.dropdown-toggle::after {
+  overflow: hidden !important;
+  background: none;
+  width: 0px;
+  height: 0px;
+}

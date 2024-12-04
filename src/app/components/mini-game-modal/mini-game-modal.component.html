@@ -1,0 +1,95 @@
+<ng-template #miniGame let-modal>
+  <div class="modal-header">
+    <div class="header-wrapper">
+      <div class="info-icon"
+           [matTooltip]="translateService.instant('MINI_GAME_MODAL.TOOLTIP')"
+           matTooltipPosition="below"></div>
+      <div class="modal-title">
+        {{ 'MINI_GAME_MODAL.TITLE' | translate }}
+      </div>
+      <fa-icon (click)="closeModal()" [icon]="faCircleXmark"></fa-icon>
+    </div>
+
+    <div class="body-wrapper">
+      <div class="decorated-row">
+        <div class="mini-circle"></div>
+        <div class="balance-block">
+          <div class="modal-subtitle">
+            {{ 'MINI_GAME_MODAL.BALANCE' | translate }}
+          </div>
+          <div class="balance">{{ balance }} NTC</div>
+        </div>
+        <div class="mini-circle"></div>
+      </div>
+
+      <div class="profits-block">
+        <app-liquid-progress [progress]="progress"></app-liquid-progress>
+
+        <div class="profit-wrapper">
+          <div *ngIf="!isLoadingGameInfo" class="profit">{{ currentProfit }} NTC</div>
+          <div *ngIf="!isLoadingGameInfo" class="modal-subtitle">
+            {{ 'MINI_GAME_MODAL.PROFIT' | translate }}
+          </div>
+          <span
+            *ngIf="isLoadingGameInfo"
+            class="spinner-border spinner-border-sm"
+            role="status"
+            aria-hidden="true">
+          </span>
+        </div>
+      </div>
+
+      <div class="decorated-row">
+        <div class="mini-circle"></div>
+        <div class="timer-block">
+          <div class="modal-subtitle">
+            {{ 'MINI_GAME_MODAL.TIME_LEFT' | translate }}
+          </div>
+          <div class="timer">
+            <div class="number">{{ timer.hours[0] }}</div>
+            <div class="number">{{ timer.hours[1] }}</div>
+            <div class="separator">:</div>
+            <div class="number">{{ timer.minutes[0] }}</div>
+            <div class="number">{{ timer.minutes[1] }}</div>
+            <div class="separator">:</div>
+            <div class="number">{{ timer.seconds[0] }}</div>
+            <div class="number">{{ timer.seconds[1] }}</div>
+          </div>
+        </div>
+        <div class="mini-circle"></div>
+      </div>
+    </div>
+
+    <div class="bottom" ngbAutofocus>
+      <div *ngIf="gameInfoIsLoaded && gameStatus == 'wait'" class="wait-info">
+        {{ 'MINI_GAME_MODAL.WAIT' | translate }}
+      </div>
+
+      <div *ngIf="gameInfoIsLoaded && lastTxStatus && gameStatus == 'can-claim'" class="wait-info">
+        <div *ngIf="lastTxStatus != 'PENDING' && lastTxStatus != 'SUCCESS'">{{ 'MINI_GAME_MODAL.ERROR_TX' | translate }}</div>
+        <div *ngIf="lastTxStatus == 'PENDING' || lastTxStatus == 'SUCCESS'">{{ 'MINI_GAME_MODAL.WAIT_TX' | translate }}</div>
+        <a [href]="blockExplorerUrl + '/tx/' + lastTx" target="_blank">{{ 'MINI_GAME_MODAL.TX_LINK' | translate }}</a>
+      </div>
+
+      <div *ngIf="errorMsg" class="err-msg">
+        {{ errorMsg }}
+      </div>
+      <button
+        type="button"
+        class="btn-orange"
+        (click)="gameStatus == 'can-start' ? start() : claim()"
+        [disabled]="isProcessing || isLoadingGameInfo || !buttonIsActive">
+        <span
+          *ngIf="isProcessing || isLoadingGameInfo"
+          class="spinner-border spinner-border-sm"
+          role="status"
+          aria-hidden="true">
+        </span>
+        <span *ngIf="!isProcessing && !isLoadingGameInfo">
+          <span *ngIf="gameStatus == 'can-start'">{{ 'MINI_GAME_MODAL.START' | translate }}</span>
+          <span *ngIf="gameStatus != 'can-start'">{{ 'MINI_GAME_MODAL.CLAIM' | translate }}</span>
+        </span>
+      </button>
+    </div>
+  </div>
+</ng-template>

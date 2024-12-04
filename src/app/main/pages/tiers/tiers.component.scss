@@ -1,0 +1,1139 @@
+.Tiers {
+  width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: stretch;
+  gap: 16px;
+  color: hsla(0, 0%, 100%, .75);
+  margin-bottom: 70px;
+  @media (max-width: 760px) {
+
+  }
+
+  .twin {
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: stretch;
+    justify-content: stretch;
+    gap: 8px;
+    &.-switch {
+      @media (max-width: 760px) {
+        flex-flow: column nowrap;
+      }
+    }
+    &.-g16 {
+      gap: 16px;
+      margin-top: 16px;
+    }
+  }
+  .title {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    gap: 12px;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    margin-top: 2px;
+    .info-icon {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-color: transparent;
+      background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTggMTUuMDM3MUM3LjA0NzUzIDE1LjAzNzEgNi4xNDk3NCAxNC44NTQ4IDUuMzA2NjQgMTQuNDkwMkM0LjQ2ODEgMTQuMTI1NyAzLjcyNzU0IDEzLjYyMjEgMy4wODQ5NiAxMi45Nzk1QzIuNDQyMzggMTIuMzM2OSAxLjkzODggMTEuNTk2NCAxLjU3NDIyIDEwLjc1NzhDMS4yMDk2NCA5LjkxNDcxIDEuMDI3MzQgOS4wMTY5MyAxLjAyNzM0IDguMDY0NDVDMS4wMjczNCA3LjExMTk4IDEuMjA5NjQgNi4yMTY0NyAxLjU3NDIyIDUuMzc3OTNDMS45Mzg4IDQuNTM0ODMgMi40NDAxIDMuNzkxOTkgMy4wNzgxMiAzLjE0OTQxQzMuNzIwNyAyLjUwNjg0IDQuNDYxMjYgMi4wMDMyNiA1LjI5OTggMS42Mzg2N0M2LjE0MjkgMS4yNzQwOSA3LjA0MDY5IDEuMDkxOCA3Ljk5MzE2IDEuMDkxOEM4Ljk0NTY0IDEuMDkxOCA5Ljg0MzQyIDEuMjc0MDkgMTAuNjg2NSAxLjYzODY3QzExLjUyOTYgMi4wMDMyNiAxMi4yNzI1IDIuNTA2ODQgMTIuOTE1IDMuMTQ5NDFDMTMuNTU3NiAzLjc5MTk5IDE0LjA2MTIgNC41MzQ4MyAxNC40MjU4IDUuMzc3OTNDMTQuNzkwNCA2LjIxNjQ3IDE0Ljk3MjcgNy4xMTE5OCAxNC45NzI3IDguMDY0NDVDMTQuOTcyNyA5LjAxNjkzIDE0Ljc5MDQgOS45MTQ3MSAxNC40MjU4IDEwLjc1NzhDMTQuMDYxMiAxMS41OTY0IDEzLjU1NzYgMTIuMzM2OSAxMi45MTUgMTIuOTc5NUMxMi4yNzI1IDEzLjYyMjEgMTEuNTI5NiAxNC4xMjU3IDEwLjY4NjUgMTQuNDkwMkM5Ljg0Nzk4IDE0Ljg1NDggOC45NTI0NyAxNS4wMzcxIDggMTUuMDM3MVpNNi43Njk1MyAxMi4wMTU2SDkuNjMzNzlDOS43Nzk2MiAxMi4wMTU2IDkuOTAyNjcgMTEuOTcwMSAxMC4wMDI5IDExLjg3ODlDMTAuMTAzMiAxMS43ODMyIDEwLjE1MzMgMTEuNjYyNCAxMC4xNTMzIDExLjUxNjZDMTAuMTUzMyAxMS4zNzk5IDEwLjEwMzIgMTEuMjYzNyAxMC4wMDI5IDExLjE2OEM5LjkwMjY3IDExLjA2NzcgOS43Nzk2MiAxMS4wMTc2IDkuNjMzNzkgMTEuMDE3Nkg4Ljc2NTYyVjcuNDQyMzhDOC43NjU2MiA3LjI1MDk4IDguNzE3NzcgNy4wOTYwMyA4LjYyMjA3IDYuOTc3NTRDOC41MzA5MiA2Ljg1OTA1IDguMzk0MjEgNi43OTk4IDguMjExOTEgNi43OTk4SDYuODg1NzRDNi43NDQ0NyA2Ljc5OTggNi42MjM3IDYuODQ5OTMgNi41MjM0NCA2Ljk1MDJDNi40MjMxOCA3LjA0NTkgNi4zNzMwNSA3LjE2MjExIDYuMzczMDUgNy4yOTg4M0M2LjM3MzA1IDcuNDQ0NjYgNi40MjMxOCA3LjU2NTQzIDYuNTIzNDQgNy42NjExM0M2LjYyMzcgNy43NTIyOCA2Ljc0NDQ3IDcuNzk3ODUgNi44ODU3NCA3Ljc5Nzg1SDcuNjM3N1YxMS4wMTc2SDYuNzY5NTNDNi42MjM3IDExLjAxNzYgNi41MDA2NSAxMS4wNjc3IDYuNDAwMzkgMTEuMTY4QzYuMzAwMTMgMTEuMjYzNyA2LjI1IDExLjM3OTkgNi4yNSAxMS41MTY2QzYuMjUgMTEuNjYyNCA2LjMwMDEzIDExLjc4MzIgNi40MDAzOSAxMS44Nzg5QzYuNTAwNjUgMTEuOTcwMSA2LjYyMzcgMTIuMDE1NiA2Ljc2OTUzIDEyLjAxNTZaTTcuOTM4NDggNS42MzA4NkM4LjE5ODI0IDUuNjMwODYgOC40MTQ3MSA1LjU0MTk5IDguNTg3ODkgNS4zNjQyNkM4Ljc2NTYyIDUuMTgxOTcgOC44NTQ0OSA0Ljk2MzIyIDguODU0NDkgNC43MDgwMUM4Ljg1NDQ5IDQuNDQ4MjQgOC43NjU2MiA0LjIyOTQ5IDguNTg3ODkgNC4wNTE3NkM4LjQxNDcxIDMuODY5NDcgOC4xOTgyNCAzLjc3ODMyIDcuOTM4NDggMy43NzgzMkM3LjY4MzI3IDMuNzc4MzIgNy40NjQ1MiAzLjg2OTQ3IDcuMjgyMjMgNC4wNTE3NkM3LjEwNDQ5IDQuMjI5NDkgNy4wMTU2MiA0LjQ0ODI0IDcuMDE1NjIgNC43MDgwMUM3LjAxNTYyIDQuOTYzMjIgNy4xMDQ0OSA1LjE4MTk3IDcuMjgyMjMgNS4zNjQyNkM3LjQ2NDUyIDUuNTQxOTkgNy42ODMyNyA1LjYzMDg2IDcuOTM4NDggNS42MzA4NloiIGZpbGw9IndoaXRlIiBmaWxsLW9wYWNpdHk9IjAuNzUiLz4KPC9zdmc+Cg==");
+    }
+  }
+  .grey-box {
+    width: 100%;
+    padding: 16px;
+    border-radius: 8px;
+    //background: hsl(0, 0%, 10%);
+    background: hsl(0, 0%, 100%, .05);
+  }
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 32px;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    color: hsl(0, 0%, 100%);
+    white-space: nowrap;
+    &:disabled {
+      background: hsla(0, 0%, 100%, .05) !important;
+      border: none;
+      color: hsla(0, 0%, 100%, .2);
+      cursor: unset;
+      pointer-events: none;
+    }
+    &.-outline {
+      border: 1px solid hsl(28, 97%, 47%) !important;
+      color: hsl(28, 97%, 47%) !important;
+      background: transparent !important;
+    }
+  }
+  .go-to-link {
+    width: 100%;
+    height: 32px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: 1px solid hsl(28, 97%, 47%);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    text-align: center;
+    color: hsl(28, 97%, 47%);
+    cursor: pointer;
+    white-space: nowrap;
+    &.-disabled {
+      background: hsla(0, 0%, 100%, .05);
+      border: none;
+      color: hsla(0, 0%, 100%, .2);
+      cursor: unset;
+      pointer-events: none;
+    }
+  }
+  .hide-desktop {
+    display: none !important;
+    @media (max-width: 760px) {
+      display: inline-block;
+    }
+  }
+  .hide-mobile {
+    display: inline-block;
+    @media (max-width: 760px) {
+      display: none !important;
+    }
+  }
+  .access-key-pic {
+    width: 100%;
+    height: 100%;
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+    &.-level-1 {
+      background-image: url('/assets/images/key_access/key_access-1.png');
+      &.-inactive {
+        background-image: url('/assets/images/key_access/key_access-1-inactive.png');
+      }
+    }
+    &.-level-2 {
+      background-image: url('/assets/images/key_access/key_access-2.png');
+      &.-inactive {
+        background-image: url('/assets/images/key_access/key_access-2-inactive.png');
+      }
+    }
+    &.-level-3 {
+      background-image: url('/assets/images/key_access/key_access-3.png');
+      &.-inactive {
+        background-image: url('/assets/images/key_access/key_access-3-inactive.png');
+      }
+    }
+    &.-level-4 {
+      background-image: url('/assets/images/key_access/key_access-4.png');
+      &.-inactive {
+        background-image: url('/assets/images/key_access/key_access-4-inactive.png');
+      }
+    }
+    &.-level-5 {
+      background-image: url('/assets/images/key_access/key_access-5.png');
+      &.-inactive {
+        background-image: url('/assets/images/key_access/key_access-5-inactive.png');
+      }
+    }
+    &.-level-6 {
+      background-image: url('/assets/images/key_access/key_access-6.png');
+      &.-inactive {
+        background-image: url('/assets/images/key_access/key_access-6-inactive.png');
+      }
+    }
+    &.-level-7 {
+      background-image: url('/assets/images/key_access/key_access-7.png');
+      &.-inactive {
+        background-image: url('/assets/images/key_access/key_access-7-inactive.png');
+      }
+    }
+    &.-level-8 {
+      background-image: url('/assets/images/key_access/key_access-8.png');
+      &.-inactive {
+        background-image: url('/assets/images/key_access/key_access-8-inactive.png');
+      }
+    }
+    &.-level-9 {
+      background-image: url('/assets/images/key_access/key_access-9.png');
+      &.-inactive {
+        background-image: url('/assets/images/key_access//key_access-9-inactive.png');
+      }
+    }
+    &.-level-0 {
+      background-image: url('/assets/images/key_access/key_access-inactive.png');
+    }
+  }
+  .access-key {
+    width: 180px;
+    height: 136px;
+    @media (max-width: 760px) {
+      width: 100%;
+      height: 116px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+  .vertical-divider {
+    height: 100%;
+    width: 1px;
+    background-color: hsl(0, 0%, 20%);
+    &.-flipper {
+      @media (max-width: 760px) {
+        width: 100%;
+        height: 1px;
+      }
+    }
+  }
+
+  .tiers-info {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: stretch;
+    gap: 10px;
+    @media (max-width: 760px) {
+      flex-flow: column nowrap;
+    }
+
+    .machines-info {
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: flex-start;
+      gap: 16px;
+      width: 100%;
+      padding: 16px;
+      border-radius: 8px;
+      background: hsl(0, 0%, 10%);
+      @media (max-width: 760px) {
+        flex-flow: column nowrap;
+      }
+    }
+
+    .launch {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: flex-start;
+      justify-content: space-between;
+      @media (max-width: 760px) {
+        gap: 24px;
+      }
+      .background-layer {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-image: url('/assets/images/game/overview/wave.png');
+        z-index: 0;
+      }
+      .gradient-layer {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background:
+          linear-gradient(90deg, hsl(0, 0%, 10%) 0%, transparent 50%, hsl(0, 0%, 10%) 100%),
+          linear-gradient(180deg, hsl(0, 0%, 10%) 0%, transparent 50%, hsl(0, 0%, 10%) 100%);
+        z-index: 1;
+      }
+      .content-box {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: flex-start;
+        justify-content: space-between;
+        z-index: 2;
+      }
+      .machines {
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 20px;
+        color: hsl(0, 0%, 100%);
+        .ready {
+          font-size: 32px;
+          font-weight: 600;
+          line-height: 40px;
+          color: hsla(28, 97%, 47%, 1);
+        }
+      }
+      .wave-progress {
+        width: 100%;
+        height: 4px;
+        border-radius: 4px;
+        background-color: hsl(0, 0%, 100%, .1);
+        .current-progress {
+          width: 50%;
+          height: 4px;
+          background-color: hsla(28, 97%, 47%, 1);
+          border-radius: 4px;
+        }
+      }
+    }
+
+    .set-chips {
+      width: 100%;
+      height: 100%;
+      .chips-list {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 8px;
+        margin-top: 12px;
+        @media (max-width: 760px) {
+          display: flex;
+          flex-flow: column nowrap;
+          align-items: flex-start;
+          gap: 12px;
+        }
+        &.-empty-list {
+          width: 100%;
+          height: calc(100% - 32px);
+          display: block;
+          .empty-state {
+            width: 100%;
+            height: 100%;
+            padding: 16px;
+            background: hsla(0, 0%, 100%, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 16px;
+          }
+        }
+        .level {
+          display: flex;
+          flex-flow: column nowrap;
+          align-items: center;
+          justify-content: center;
+          gap: 4px;
+          padding: 4px;
+          border-radius: 8px;
+          background: hsla(0, 0%, 100%, .05);
+          white-space: nowrap;
+          @media (max-width: 760px) {
+            flex-flow: row nowrap;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 8px;
+            padding: 0;
+            border-radius: unset;
+            background: unset;
+          }
+          .name {
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 16px;
+            color: hsla(0, 0%, 100%, .75);
+            @media (max-width: 760px) {
+              text-transform: uppercase;
+            }
+          }
+          .amount {
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 16px;
+            color: hsl(0, 0%, 100%);
+          }
+        }
+      }
+    }
+
+    .access-info {
+      .tunnels-info {
+        width: 100%;
+        margin-top: 16px;
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: stretch;
+        gap: 8px;
+        @media (max-width: 760px) {
+          flex-flow: column nowrap;
+        }
+        .tunnels-list {
+          width: 100%;
+          display: grid;
+          grid-template-columns: 1fr 1fr 1fr;
+          grid-template-rows: 1fr 1fr 1fr;
+          gap: 8px;
+          .tunnel {
+            background: hsla(0, 0%, 100%, .05);
+            padding: 12px;
+            border-radius: 8px;
+            display: flex;
+            flex-flow: row nowrap;
+            align-items: center;
+            gap: 12px;
+            .level {
+              position: relative;
+              width: 100%;
+              font-size: 14px;
+              font-weight: 500;
+              line-height: 16px;
+              color: hsla(0, 0%, 100%, .75);
+              text-align: right;
+              &:before {
+                position: absolute;
+                content: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTQiIHZpZXdCb3g9IjAgMCAxMCAxNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEuODY5MTQgMTMuNTkyOEMxLjM2Nzg0IDEzLjU5MjggMC45ODUwMjYgMTMuNDU2MSAwLjcyMDcwMyAxMy4xODI2QzAuNDYwOTM4IDEyLjkwOTIgMC4zMzEwNTUgMTIuNTAzNiAwLjMzMTA1NSAxMS45NjU4VjcuMjU1ODZDMC4zMzEwNTUgNi43MTgxIDAuNDYwOTM4IDYuMzE0NzggMC43MjA3MDMgNi4wNDU5QzAuOTg1MDI2IDUuNzcyNDYgMS4zNjc4NCA1LjYzNTc0IDEuODY5MTQgNS42MzU3NEg4LjEyNDAyQzguNjI1MzMgNS42MzU3NCA5LjAwNTg2IDUuNzcyNDYgOS4yNjU2MiA2LjA0NTlDOS41Mjk5NSA2LjMxNDc4IDkuNjYyMTEgNi43MTgxIDkuNjYyMTEgNy4yNTU4NlYxMS45NjU4QzkuNjYyMTEgMTIuNTAzNiA5LjUyOTk1IDEyLjkwOTIgOS4yNjU2MiAxMy4xODI2QzkuMDA1ODYgMTMuNDU2MSA4LjYyNTMzIDEzLjU5MjggOC4xMjQwMiAxMy41OTI4SDEuODY5MTRaTTEuNTI3MzQgNi4xNjIxMVY0LjAwMTk1QzEuNTI3MzQgMy4xNDUxOCAxLjY5MTQxIDIuNDM0MjQgMi4wMTk1MyAxLjg2OTE0QzIuMzUyMjEgMS4zMDQwNCAyLjc4Mjg4IDAuODgyNDg3IDMuMzExNTIgMC42MDQ0OTJDMy44NDAxNyAwLjMyMTk0IDQuNDAwNzIgMC4xODA2NjQgNC45OTMxNiAwLjE4MDY2NEM1LjU5MDE3IDAuMTgwNjY0IDYuMTUyOTkgMC4zMjE5NCA2LjY4MTY0IDAuNjA0NDkyQzcuMjEwMjkgMC44ODI0ODcgNy42Mzg2NyAxLjMwNDA0IDcuOTY2OCAxLjg2OTE0QzguMjk5NDggMi40MzQyNCA4LjQ2NTgyIDMuMTQ1MTggOC40NjU4MiA0LjAwMTk1VjYuMTYyMTFINy4zODU3NFYzLjg1MTU2QzcuMzg1NzQgMy4yNzczNCA3LjI3NDA5IDIuNzk0MjcgNy4wNTA3OCAyLjQwMjM0QzYuODMyMDMgMi4wMTA0MiA2LjU0MDM2IDEuNzE0MTkgNi4xNzU3OCAxLjUxMzY3QzUuODE1NzYgMS4zMTMxNSA1LjQyMTU1IDEuMjEyODkgNC45OTMxNiAxLjIxMjg5QzQuNTY5MzQgMS4yMTI4OSA0LjE3NTEzIDEuMzEzMTUgMy44MTA1NSAxLjUxMzY3QzMuNDUwNTIgMS43MTQxOSAzLjE2MTEzIDIuMDEwNDIgMi45NDIzOCAyLjQwMjM0QzIuNzIzNjMgMi43OTQyNyAyLjYxNDI2IDMuMjc3MzQgMi42MTQyNiAzLjg1MTU2VjYuMTYyMTFIMS41MjczNFoiIGZpbGw9IndoaXRlIiBmaWxsLW9wYWNpdHk9IjAuNSIvPgo8L3N2Zz4K');
+                width: 16px;
+                height: 16px;
+                left: 0;
+              }
+            }
+            &.-active {
+              background: hsla(28, 97%, 47%, .2);
+              .level {
+                color: hsl(28, 97%, 47%);
+                &:before {
+                  content: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTQiIHZpZXdCb3g9IjAgMCAxNiAxNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTIuNTAzOTEgMTMuNTkyOEMyLjAwMjYgMTMuNTkyOCAxLjYxOTc5IDEzLjQ1NjEgMS4zNTU0NyAxMy4xODI2QzEuMDk1NyAxMi45MTM3IDAuOTY1ODIgMTIuNTA4MSAwLjk2NTgyIDExLjk2NThWNy4yNTU4NkMwLjk2NTgyIDYuNzE4MSAxLjA5NTcgNi4zMTQ3OCAxLjM1NTQ3IDYuMDQ1OUMxLjYxOTc5IDUuNzcyNDYgMi4wMDI2IDUuNjM1NzQgMi41MDM5MSA1LjYzNTc0SDguNzU4NzlDOS4yNjAwOSA1LjYzNTc0IDkuNjQwNjIgNS43NzI0NiA5LjkwMDM5IDYuMDQ1OUMxMC4xNjQ3IDYuMzE0NzggMTAuMjk2OSA2LjcxODEgMTAuMjk2OSA3LjI1NTg2VjExLjk2NThDMTAuMjk2OSAxMi41MDgxIDEwLjE2NDcgMTIuOTEzNyA5LjkwMDM5IDEzLjE4MjZDOS42NDA2MiAxMy40NTYxIDkuMjYwMDkgMTMuNTkyOCA4Ljc1ODc5IDEzLjU5MjhIMi41MDM5MVpNOC4wOTU3IDYuMTY4OTVWNC4wMDg3OUM4LjA5NTcgMy4xNTIwMiA4LjI1OTc3IDIuNDQxMDggOC41ODc4OSAxLjg3NTk4QzguOTE2MDIgMS4zMTA4NyA5LjM0NDQgMC44ODkzMjMgOS44NzMwNSAwLjYxMTMyOEMxMC40MDE3IDAuMzMzMzMzIDEwLjk2NDUgMC4xOTQzMzYgMTEuNTYxNSAwLjE5NDMzNkMxMi4xNTg1IDAuMTk0MzM2IDEyLjcyMTQgMC4zMzMzMzMgMTMuMjUgMC42MTEzMjhDMTMuNzc4NiAwLjg4OTMyMyAxNC4yMDcgMS4zMTA4NyAxNC41MzUyIDEuODc1OThDMTQuODY3OCAyLjQ0MTA4IDE1LjAzNDIgMy4xNTIwMiAxNS4wMzQyIDQuMDA4NzlWNS4zODI4MUMxNS4wMzQyIDUuNTk3MDEgMTQuOTc5NSA1Ljc1MTk1IDE0Ljg3MDEgNS44NDc2NkMxNC43NjUzIDUuOTQzMzYgMTQuNjQgNS45OTEyMSAxNC40OTQxIDUuOTkxMjFDMTQuMzM5MiA1Ljk5MTIxIDE0LjIwOTMgNS45NDEwOCAxNC4xMDQ1IDUuODQwODJDMTMuOTk5NyA1Ljc0MDU2IDEzLjk0NzMgNS41ODc4OSAxMy45NDczIDUuMzgyODFWMy44NjUyM0MxMy45NDczIDMuMjkxMDIgMTMuODM1NiAyLjgwNzk0IDEzLjYxMjMgMi40MTYwMkMxMy4zOTM2IDIuMDI0MDkgMTMuMTAxOSAxLjcyNzg2IDEyLjczNzMgMS41MjczNEMxMi4zNzczIDEuMzI2ODIgMTEuOTg1NCAxLjIyNjU2IDExLjU2MTUgMS4yMjY1NkMxMS4xMzMxIDEuMjI2NTYgMTAuNzM4OSAxLjMyNjgyIDEwLjM3ODkgMS41MjczNEMxMC4wMTg5IDEuNzI3ODYgOS43MjcyMSAyLjAyNDA5IDkuNTAzOTEgMi40MTYwMkM5LjI4NTE2IDIuODA3OTQgOS4xNzU3OCAzLjI5MTAyIDkuMTc1NzggMy44NjUyM1Y2LjE2ODk1SDguMDk1N1oiIGZpbGw9IiNFQjcxMDQiLz4KPC9zdmc+Cg==');
+                }
+              }
+            }
+            &.-ready {
+              background: transparent;
+              border: 1px solid hsla(28, 97%, 47%, .2);
+              .level {
+                color: hsla(0, 0%, 100%);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .tiers-list {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: stretch;
+    margin-top: 64px;
+    gap: 80px;
+  }
+
+  .bordered-box {
+    width: 100%;
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid hsl(0, 0%, 20%);
+    background-color: transparent;
+    .name-wrapper {
+      width: 150px;
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+      gap: 8px;
+      .level {
+        width: 24px;
+        height: 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 4px;
+      }
+      .name {
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 16px;
+        text-transform: uppercase;
+      }
+    }
+    .link-pic-wrapper {
+      min-width: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .link-pic {
+        min-width: 24px;
+        min-height: 32px;
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        @media (max-width: 1100px) {
+          transform: rotate(90deg);
+        }
+      }
+    }
+
+    .space-info {
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+      margin-top: 16px;
+      @media (max-width: 1100px) {
+        flex-flow: column nowrap;
+      }
+      .twin {
+        margin-top: 16px;
+      }
+      .ore-machine {
+        min-width: 180px;
+        min-height: 208px;
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-image: url('/assets/images/game/tiers/machine-ore.png');
+        @media (max-width: 760px) {
+          background-size: contain;
+          min-height: 140px;
+          max-height: 140px;
+        }
+      }
+      .bfc-machine {
+        min-width: 180px;
+        min-height: 208px;
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-image: url('/assets/images/game/tiers/machine-bfc.png');
+        @media (max-width: 760px) {
+          background-size: contain;
+          min-height: 140px;
+          max-height: 140px;
+        }
+      }
+      .box-content {
+        width: 100%;
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: flex-start;
+        gap: 16px;
+        &.-empty-state {
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          font-size: 12px;
+          font-weight: 400;
+          line-height: 16px;
+        }
+      }
+      .header {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 12px;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 16px;
+        color: hsla(0, 0%, 100%, .75);
+        .icon {
+          min-width: 16px;
+          min-height: 16px;
+          background-size: cover;
+          background-position: center center;
+          background-repeat: no-repeat;
+          &.-ore {
+            background-image: url('/assets/images/game/tiers/ore-processing.png');
+          }
+          &.-bfc {
+            background-image: url('/assets/images/game/tiers/bfc-processing.png');
+          }
+          &.-gaf {
+            background-image: url('/assets/images/game/tiers/game-af.png');
+          }
+        }
+      }
+      .content-divider {
+        width: 100%;
+        height: 1px;
+        background-color: hsl(0, 0%, 20%);
+      }
+      .content-row {
+        width: 100%;
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        .key {
+          font-size: 12px;
+          font-weight: 400;
+          line-height: 16px;
+          text-transform: uppercase;
+          color: hsla(0, 0%, 100%, .75);
+        }
+        .value {
+          font-size: 14px;
+          font-weight: 500;
+          line-height: 16px;
+          color: hsl(0, 0%, 100%);
+        }
+      }
+    }
+
+    .tier-info {
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: stretch;
+      margin-top: 16px;
+      @media (max-width: 1100px) {
+        flex-flow: column nowrap;
+      }
+      .access-wrapper {
+        display: flex;
+        flex-flow: row nowrap;
+        min-width: calc(50% - 12px);
+        @media (max-width: 1100px) {
+          flex-flow: column nowrap;
+        }
+      }
+      .chips-left {
+        display: flex;
+        flex-flow: column nowrap;
+        gap: 16px;
+        width: 100%;
+        overflow: hidden;
+        .chips-queue-wrapper {
+          height: 100%;
+          width: 100%;
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          position: relative;
+          &.-single {
+            justify-content: center;
+          }
+          .fadeout {
+            position: absolute;
+            height: 100%;
+            top: 0;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            &.-next {
+              right: -16px;
+              background: linear-gradient(270deg, #1A1A1A 0%, rgba(26, 26, 26, 0) 100%);
+            }
+            &.-prev {
+              left: -16px;
+              background: linear-gradient(90deg, #1A1A1A 0%, rgba(26, 26, 26, 0) 100%);
+            }
+            @media (max-width: 760px) {
+              width: 16px;
+            }
+            .arrow {
+              width: 32px;
+              height: 32px;
+              cursor: pointer;
+              background-size: contain;
+              background-position: center center;
+              background-repeat: no-repeat;
+              background-color: transparent;
+              background-image: url('/assets/images/game/tiers/arrow.png');
+            }
+            &.-next .arrow {
+              margin-right: 16px;
+            }
+            &.-prev .arrow {
+              margin-left: 16px;
+              transform: rotateY(180deg);
+            }
+          }
+        }
+        .chips-queue {
+          display: flex;
+          flex-flow: row nowrap;
+          justify-content: flex-start;
+          gap: 8px;
+          .chip {
+            min-width: 140px;
+            height: 100%;
+            padding: 12px;
+            display: flex;
+            flex-flow: column nowrap;
+            align-items: center;
+            gap: 8px;
+            border-radius: 8px;
+            background: hsla(0, 0%, 100%, .05);
+            &.-single {
+              width: 100%;
+            }
+            .chip-pic {
+              width: 96px;
+              height: 144px;
+              background-size: cover;
+              background-position: center center;
+              background-repeat: no-repeat;
+              background-color: transparent;
+              background-image: url('/assets/images/game/tiers/chip.png');
+            }
+            .title {
+              font-size: 12px;
+              font-weight: 400;
+              line-height: 16px;
+              text-transform: uppercase;
+              color: hsla(0, 0%, 100%, .7);
+              display: inline-block;
+            }
+            .status {
+              font-size: 12px;
+              font-weight: 500;
+              line-height: 16px;
+              color: hsl(28, 97%, 47%);
+            }
+            .timer {
+              font-size: 12px;
+              font-weight: 500;
+              line-height: 16px;
+              color: hsl(0, 0%, 100%);
+            }
+          }
+        }
+        .chips-queue-wrapper.-single .chips-queue {
+          width: 100%;
+        }
+        .empty-chips-queue {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          flex-flow: column nowrap;
+          align-items: center;
+          justify-content: center;
+          gap: 16px;
+          .chip-pic {
+            width: 100%;
+            height: 164px;
+            cursor: pointer;
+            background-size: contain;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-color: transparent;
+            background-image: url('/assets/images/game/tiers/empty-chip.png');
+          }
+          .title {
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 16px;
+            white-space: nowrap;
+            text-transform: none;
+            padding: 16px 0;
+            color: hsla(0, 0%, 100%, .7);
+          }
+        }
+      }
+      .access-time {
+        display: flex;
+        flex-flow: column nowrap;
+        gap: 16px;
+        width: 100%;
+        @media (max-width: 1100px) {
+          width: 100%;
+        }
+        .title {
+          display: flex;
+          flex-flow: row nowrap;
+          align-items: center;
+          justify-content: space-between;
+          gap: 8px;
+          .status {
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 16px;
+            text-transform: none;
+            display: flex;
+            flex-flow: row nowrap;
+            align-items: center;
+            gap: 8px;
+            .info-icon {
+              width: 24px;
+              height: 24px;
+              cursor: pointer;
+              background-size: cover;
+              background-position: center center;
+              background-repeat: no-repeat;
+              background-color: transparent;
+            }
+          }
+        }
+
+        .timer-wrapper {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          flex-flow: column nowrap;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          white-space: nowrap;
+          @media (max-width: 760px) {
+            height: 144px;
+          }
+          .timer {
+            font-size: 32px;
+            font-weight: 600;
+            line-height: 40px;
+            color: hsla(0, 0%, 100%, .75);
+          }
+        }
+        .access-key-pic-wrapper {
+          width: 100%;
+          height: 140px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+      .price-wrapper {
+        width: 100%;
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        .price {
+          font-size: 14px;
+          font-weight: 500;
+          line-height: 16px;
+          color: hsl(0, 0%, 100%);
+          .small {
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 16px;
+            color: hsla(0, 0%, 100%, .75);
+          }
+        }
+      }
+
+      .chips-queue {
+        //width: 100%;
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        justify-content: space-between;
+        @media (min-width: 760px) {
+          transition: all .3s ease-out;
+        }
+        .number {
+          color: hsl(28, 97%, 47%);
+        }
+      }
+      .machine {
+        min-width: 216px;
+        min-height: 246px;
+        background-size: contain;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-image: url('/assets/images/game/tiers/machine.png');
+        @media (max-width: 760px) {
+          min-height: 140px;
+          max-height: 140px;
+        }
+      }
+      .box-content-wrapper {
+        @media (max-width: 1660px) {
+          flex-flow: column nowrap;
+        }
+        @media (max-width: 1100px) {
+          flex-flow: row nowrap;
+        }
+        @media (max-width: 760px) {
+          flex-flow: column nowrap;
+        }
+      }
+
+      .box-content.-chips {
+        width: 100%;
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: stretch;
+        gap: 16px;
+        .header-machines {
+          width: 100%;
+          display: flex;
+          flex-flow: row nowrap;
+          justify-content: space-between;
+          align-items: center;
+          gap: 8px;
+          .value {
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 16px;
+            color: hsl(28, 97%, 47%);
+          }
+        }
+        .progress-chips-wrapper {
+          width: 100%;
+          height: 100%;
+        }
+      }
+
+      .box-content.-network {
+        width: 200px;
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: stretch;
+        gap: 16px;
+        @media (max-width: 1660px) {
+          width: 100%;
+        }
+        @media (max-width: 760px) {
+          width: 100%;
+        }
+      }
+      .header {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 12px;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 16px;
+        color: hsla(0, 0%, 100%, .75);
+        white-space: nowrap;
+        .icon {
+          min-width: 16px;
+          min-height: 16px;
+          background-size: cover;
+          background-position: center center;
+          background-repeat: no-repeat;
+          &.-ore {
+            background-image: url('/assets/images/game/tiers/ore-processing.png');
+          }
+          &.-bfc {
+            background-image: url('/assets/images/game/tiers/bfc-processing.png');
+          }
+          &.-gaf {
+            background-image: url('/assets/images/game/tiers/game-af.png');
+          }
+        }
+      }
+      .content-divider {
+        width: 100%;
+        height: 1px;
+        background-color: hsl(0, 0%, 20%);
+      }
+    }
+
+    .unavailable {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      .machine-unavailable {
+        min-width: 116px;
+        min-height: 164px;
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-image: url('/assets/images/game/tiers/machine-bw.png');
+      }
+      .unavailable-info {
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 16px;
+        padding: 16px 0;
+        color: hsla(0, 0%, 100%, .75);
+      }
+    }
+
+    .network-wrapper {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: stretch;
+      gap: 16px;
+      .leftside {
+        display: flex;
+        flex-flow: column nowrap;
+        height: 100%;
+        justify-content: center;
+        gap: 8px;
+        .network-value {
+          font-size: 40px;
+          font-weight: 600;
+          line-height: 48px;
+        }
+      }
+      .rightside {
+        display: flex;
+        flex-flow: column nowrap;
+        height: 100%;
+        justify-content: center;
+        gap: 8px;
+        .rewards-value {
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 20px;
+          .small {
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 16px;
+          }
+        }
+      }
+    }
+
+
+
+
+    &.-space {
+      .level {
+        background: hsla(28, 97%, 47%, .2);
+        color: hsl(28, 97%, 47%);
+      }
+      .name {
+        color: hsl(28, 97%, 47%);
+      }
+      .link-pic {
+        background-image: url('/assets/images/game/tiers/link-inactive.svg');
+      }
+      .gas-pic {
+        width: 16px;
+        height: 16px;
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-image: url('/assets/images/game/overview/gas.svg');
+        cursor: pointer;
+      }
+    }
+    &.-active {
+      .level {
+        background: hsla(28, 97%, 47%, .2);
+        color: hsl(28, 97%, 47%);
+      }
+      .name {
+        color: hsl(28, 97%, 47%);
+      }
+      .link-pic {
+        background-image: url('/assets/images/game/tiers/link-active.svg');
+      }
+      .status {
+        color: hsl(151, 100%, 32%);
+        .info-icon {
+          background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTggMTUuMDM3MUM3LjA0NzUzIDE1LjAzNzEgNi4xNDk3NCAxNC44NTQ4IDUuMzA2NjQgMTQuNDkwMkM0LjQ2ODEgMTQuMTI1NyAzLjcyNzU0IDEzLjYyMjEgMy4wODQ5NiAxMi45Nzk1QzIuNDQyMzggMTIuMzM2OSAxLjkzODggMTEuNTk2NCAxLjU3NDIyIDEwLjc1NzhDMS4yMDk2NCA5LjkxNDcxIDEuMDI3MzQgOS4wMTY5MyAxLjAyNzM0IDguMDY0NDVDMS4wMjczNCA3LjExMTk4IDEuMjA5NjQgNi4yMTY0NyAxLjU3NDIyIDUuMzc3OTNDMS45Mzg4IDQuNTM0ODMgMi40NDAxIDMuNzkxOTkgMy4wNzgxMiAzLjE0OTQxQzMuNzIwNyAyLjUwNjg0IDQuNDYxMjYgMi4wMDMyNiA1LjI5OTggMS42Mzg2N0M2LjE0MjkgMS4yNzQwOSA3LjA0MDY5IDEuMDkxOCA3Ljk5MzE2IDEuMDkxOEM4Ljk0NTY0IDEuMDkxOCA5Ljg0MzQyIDEuMjc0MDkgMTAuNjg2NSAxLjYzODY3QzExLjUyOTYgMi4wMDMyNiAxMi4yNzI1IDIuNTA2ODQgMTIuOTE1IDMuMTQ5NDFDMTMuNTU3NiAzLjc5MTk5IDE0LjA2MTIgNC41MzQ4MyAxNC40MjU4IDUuMzc3OTNDMTQuNzkwNCA2LjIxNjQ3IDE0Ljk3MjcgNy4xMTE5OCAxNC45NzI3IDguMDY0NDVDMTQuOTcyNyA5LjAxNjkzIDE0Ljc5MDQgOS45MTQ3MSAxNC40MjU4IDEwLjc1NzhDMTQuMDYxMiAxMS41OTY0IDEzLjU1NzYgMTIuMzM2OSAxMi45MTUgMTIuOTc5NUMxMi4yNzI1IDEzLjYyMjEgMTEuNTI5NiAxNC4xMjU3IDEwLjY4NjUgMTQuNDkwMkM5Ljg0Nzk4IDE0Ljg1NDggOC45NTI0NyAxNS4wMzcxIDggMTUuMDM3MVpNNi43Njk1MyAxMi4wMTU2SDkuNjMzNzlDOS43Nzk2MiAxMi4wMTU2IDkuOTAyNjcgMTEuOTcwMSAxMC4wMDI5IDExLjg3ODlDMTAuMTAzMiAxMS43ODMyIDEwLjE1MzMgMTEuNjYyNCAxMC4xNTMzIDExLjUxNjZDMTAuMTUzMyAxMS4zNzk5IDEwLjEwMzIgMTEuMjYzNyAxMC4wMDI5IDExLjE2OEM5LjkwMjY3IDExLjA2NzcgOS43Nzk2MiAxMS4wMTc2IDkuNjMzNzkgMTEuMDE3Nkg4Ljc2NTYyVjcuNDQyMzhDOC43NjU2MiA3LjI1MDk4IDguNzE3NzcgNy4wOTYwMyA4LjYyMjA3IDYuOTc3NTRDOC41MzA5MiA2Ljg1OTA1IDguMzk0MjEgNi43OTk4IDguMjExOTEgNi43OTk4SDYuODg1NzRDNi43NDQ0NyA2Ljc5OTggNi42MjM3IDYuODQ5OTMgNi41MjM0NCA2Ljk1MDJDNi40MjMxOCA3LjA0NTkgNi4zNzMwNSA3LjE2MjExIDYuMzczMDUgNy4yOTg4M0M2LjM3MzA1IDcuNDQ0NjYgNi40MjMxOCA3LjU2NTQzIDYuNTIzNDQgNy42NjExM0M2LjYyMzcgNy43NTIyOCA2Ljc0NDQ3IDcuNzk3ODUgNi44ODU3NCA3Ljc5Nzg1SDcuNjM3N1YxMS4wMTc2SDYuNzY5NTNDNi42MjM3IDExLjAxNzYgNi41MDA2NSAxMS4wNjc3IDYuNDAwMzkgMTEuMTY4QzYuMzAwMTMgMTEuMjYzNyA2LjI1IDExLjM3OTkgNi4yNSAxMS41MTY2QzYuMjUgMTEuNjYyNCA2LjMwMDEzIDExLjc4MzIgNi40MDAzOSAxMS44Nzg5QzYuNTAwNjUgMTEuOTcwMSA2LjYyMzcgMTIuMDE1NiA2Ljc2OTUzIDEyLjAxNTZaTTcuOTM4NDggNS42MzA4NkM4LjE5ODI0IDUuNjMwODYgOC40MTQ3MSA1LjU0MTk5IDguNTg3ODkgNS4zNjQyNkM4Ljc2NTYyIDUuMTgxOTcgOC44NTQ0OSA0Ljk2MzIyIDguODU0NDkgNC43MDgwMUM4Ljg1NDQ5IDQuNDQ4MjQgOC43NjU2MiA0LjIyOTQ5IDguNTg3ODkgNC4wNTE3NkM4LjQxNDcxIDMuODY5NDcgOC4xOTgyNCAzLjc3ODMyIDcuOTM4NDggMy43NzgzMkM3LjY4MzI3IDMuNzc4MzIgNy40NjQ1MiAzLjg2OTQ3IDcuMjgyMjMgNC4wNTE3NkM3LjEwNDQ5IDQuMjI5NDkgNy4wMTU2MiA0LjQ0ODI0IDcuMDE1NjIgNC43MDgwMUM3LjAxNTYyIDQuOTYzMjIgNy4xMDQ0OSA1LjE4MTk3IDcuMjgyMjMgNS4zNjQyNkM3LjQ2NDUyIDUuNTQxOTkgNy42ODMyNyA1LjYzMDg2IDcuOTM4NDggNS42MzA4NloiIGZpbGw9IiMwMEE0NTUiLz4KPC9zdmc+Cg==");
+        }
+      }
+    }
+    &.-ready {
+      .level {
+        background: hsla(28, 97%, 47%, .2);
+        color: hsl(28, 97%, 47%);
+      }
+      .name {
+        color: hsl(28, 97%, 47%);
+      }
+      .link-pic {
+        background-image: url('/assets/images/game/tiers/link-inactive.svg');
+      }
+      .ready {
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 16px;
+        text-transform: uppercase;
+        color: hsl(210, 100%, 52%);
+      }
+      .status {
+        color: hsla(210, 100%, 52%);
+        .info-icon {
+          background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTggMTUuMDM3MUM3LjA0NzUzIDE1LjAzNzEgNi4xNDk3NCAxNC44NTQ4IDUuMzA2NjQgMTQuNDkwMkM0LjQ2ODEgMTQuMTI1NyAzLjcyNzU0IDEzLjYyMjEgMy4wODQ5NiAxMi45Nzk1QzIuNDQyMzggMTIuMzM2OSAxLjkzODggMTEuNTk2NCAxLjU3NDIyIDEwLjc1NzhDMS4yMDk2NCA5LjkxNDcxIDEuMDI3MzQgOS4wMTY5MyAxLjAyNzM0IDguMDY0NDVDMS4wMjczNCA3LjExMTk4IDEuMjA5NjQgNi4yMTY0NyAxLjU3NDIyIDUuMzc3OTNDMS45Mzg4IDQuNTM0ODMgMi40NDAxIDMuNzkxOTkgMy4wNzgxMiAzLjE0OTQxQzMuNzIwNyAyLjUwNjg0IDQuNDYxMjYgMi4wMDMyNiA1LjI5OTggMS42Mzg2N0M2LjE0MjkgMS4yNzQwOSA3LjA0MDY5IDEuMDkxOCA3Ljk5MzE2IDEuMDkxOEM4Ljk0NTY0IDEuMDkxOCA5Ljg0MzQyIDEuMjc0MDkgMTAuNjg2NSAxLjYzODY3QzExLjUyOTYgMi4wMDMyNiAxMi4yNzI1IDIuNTA2ODQgMTIuOTE1IDMuMTQ5NDFDMTMuNTU3NiAzLjc5MTk5IDE0LjA2MTIgNC41MzQ4MyAxNC40MjU4IDUuMzc3OTNDMTQuNzkwNCA2LjIxNjQ3IDE0Ljk3MjcgNy4xMTE5OCAxNC45NzI3IDguMDY0NDVDMTQuOTcyNyA5LjAxNjkzIDE0Ljc5MDQgOS45MTQ3MSAxNC40MjU4IDEwLjc1NzhDMTQuMDYxMiAxMS41OTY0IDEzLjU1NzYgMTIuMzM2OSAxMi45MTUgMTIuOTc5NUMxMi4yNzI1IDEzLjYyMjEgMTEuNTI5NiAxNC4xMjU3IDEwLjY4NjUgMTQuNDkwMkM5Ljg0Nzk4IDE0Ljg1NDggOC45NTI0NyAxNS4wMzcxIDggMTUuMDM3MVpNNi43Njk1MyAxMi4wMTU2SDkuNjMzNzlDOS43Nzk2MiAxMi4wMTU2IDkuOTAyNjcgMTEuOTcwMSAxMC4wMDI5IDExLjg3ODlDMTAuMTAzMiAxMS43ODMyIDEwLjE1MzMgMTEuNjYyNCAxMC4xNTMzIDExLjUxNjZDMTAuMTUzMyAxMS4zNzk5IDEwLjEwMzIgMTEuMjYzNyAxMC4wMDI5IDExLjE2OEM5LjkwMjY3IDExLjA2NzcgOS43Nzk2MiAxMS4wMTc2IDkuNjMzNzkgMTEuMDE3Nkg4Ljc2NTYyVjcuNDQyMzhDOC43NjU2MiA3LjI1MDk4IDguNzE3NzcgNy4wOTYwMyA4LjYyMjA3IDYuOTc3NTRDOC41MzA5MiA2Ljg1OTA1IDguMzk0MjEgNi43OTk4IDguMjExOTEgNi43OTk4SDYuODg1NzRDNi43NDQ0NyA2Ljc5OTggNi42MjM3IDYuODQ5OTMgNi41MjM0NCA2Ljk1MDJDNi40MjMxOCA3LjA0NTkgNi4zNzMwNSA3LjE2MjExIDYuMzczMDUgNy4yOTg4M0M2LjM3MzA1IDcuNDQ0NjYgNi40MjMxOCA3LjU2NTQzIDYuNTIzNDQgNy42NjExM0M2LjYyMzcgNy43NTIyOCA2Ljc0NDQ3IDcuNzk3ODUgNi44ODU3NCA3Ljc5Nzg1SDcuNjM3N1YxMS4wMTc2SDYuNzY5NTNDNi42MjM3IDExLjAxNzYgNi41MDA2NSAxMS4wNjc3IDYuNDAwMzkgMTEuMTY4QzYuMzAwMTMgMTEuMjYzNyA2LjI1IDExLjM3OTkgNi4yNSAxMS41MTY2QzYuMjUgMTEuNjYyNCA2LjMwMDEzIDExLjc4MzIgNi40MDAzOSAxMS44Nzg5QzYuNTAwNjUgMTEuOTcwMSA2LjYyMzcgMTIuMDE1NiA2Ljc2OTUzIDEyLjAxNTZaTTcuOTM4NDggNS42MzA4NkM4LjE5ODI0IDUuNjMwODYgOC40MTQ3MSA1LjU0MTk5IDguNTg3ODkgNS4zNjQyNkM4Ljc2NTYyIDUuMTgxOTcgOC44NTQ0OSA0Ljk2MzIyIDguODU0NDkgNC43MDgwMUM4Ljg1NDQ5IDQuNDQ4MjQgOC43NjU2MiA0LjIyOTQ5IDguNTg3ODkgNC4wNTE3NkM4LjQxNDcxIDMuODY5NDcgOC4xOTgyNCAzLjc3ODMyIDcuOTM4NDggMy43NzgzMkM3LjY4MzI3IDMuNzc4MzIgNy40NjQ1MiAzLjg2OTQ3IDcuMjgyMjMgNC4wNTE3NkM3LjEwNDQ5IDQuMjI5NDkgNy4wMTU2MiA0LjQ0ODI0IDcuMDE1NjIgNC43MDgwMUM3LjAxNTYyIDQuOTYzMjIgNy4xMDQ0OSA1LjE4MTk3IDcuMjgyMjMgNS4zNjQyNkM3LjQ2NDUyIDUuNTQxOTkgNy42ODMyNyA1LjYzMDg2IDcuOTM4NDggNS42MzA4NloiIGZpbGw9IiMwQTg0RkYiLz4KPC9zdmc+Cg==");
+        }
+      }
+    }
+    &.-noactive {
+      .level {
+        background: hsla(0, 0%, 100%, .1) !important;
+        color: hsla(0, 0%, 100%, .75) !important;
+      }
+      .name {
+        color: hsla(0, 0%, 100%, .75) !important;
+      }
+      .link-pic {
+        background-image: url('/assets/images/game/tiers/link-inactive.svg');
+      }
+      .status {
+        color: hsla(0, 0%, 100%, .75);
+        .info-icon {
+          background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTggMTUuMDM3MUM3LjA0NzUzIDE1LjAzNzEgNi4xNDk3NCAxNC44NTQ4IDUuMzA2NjQgMTQuNDkwMkM0LjQ2ODEgMTQuMTI1NyAzLjcyNzU0IDEzLjYyMjEgMy4wODQ5NiAxMi45Nzk1QzIuNDQyMzggMTIuMzM2OSAxLjkzODggMTEuNTk2NCAxLjU3NDIyIDEwLjc1NzhDMS4yMDk2NCA5LjkxNDcxIDEuMDI3MzQgOS4wMTY5MyAxLjAyNzM0IDguMDY0NDVDMS4wMjczNCA3LjExMTk4IDEuMjA5NjQgNi4yMTY0NyAxLjU3NDIyIDUuMzc3OTNDMS45Mzg4IDQuNTM0ODMgMi40NDAxIDMuNzkxOTkgMy4wNzgxMiAzLjE0OTQxQzMuNzIwNyAyLjUwNjg0IDQuNDYxMjYgMi4wMDMyNiA1LjI5OTggMS42Mzg2N0M2LjE0MjkgMS4yNzQwOSA3LjA0MDY5IDEuMDkxOCA3Ljk5MzE2IDEuMDkxOEM4Ljk0NTY0IDEuMDkxOCA5Ljg0MzQyIDEuMjc0MDkgMTAuNjg2NSAxLjYzODY3QzExLjUyOTYgMi4wMDMyNiAxMi4yNzI1IDIuNTA2ODQgMTIuOTE1IDMuMTQ5NDFDMTMuNTU3NiAzLjc5MTk5IDE0LjA2MTIgNC41MzQ4MyAxNC40MjU4IDUuMzc3OTNDMTQuNzkwNCA2LjIxNjQ3IDE0Ljk3MjcgNy4xMTE5OCAxNC45NzI3IDguMDY0NDVDMTQuOTcyNyA5LjAxNjkzIDE0Ljc5MDQgOS45MTQ3MSAxNC40MjU4IDEwLjc1NzhDMTQuMDYxMiAxMS41OTY0IDEzLjU1NzYgMTIuMzM2OSAxMi45MTUgMTIuOTc5NUMxMi4yNzI1IDEzLjYyMjEgMTEuNTI5NiAxNC4xMjU3IDEwLjY4NjUgMTQuNDkwMkM5Ljg0Nzk4IDE0Ljg1NDggOC45NTI0NyAxNS4wMzcxIDggMTUuMDM3MVpNNi43Njk1MyAxMi4wMTU2SDkuNjMzNzlDOS43Nzk2MiAxMi4wMTU2IDkuOTAyNjcgMTEuOTcwMSAxMC4wMDI5IDExLjg3ODlDMTAuMTAzMiAxMS43ODMyIDEwLjE1MzMgMTEuNjYyNCAxMC4xNTMzIDExLjUxNjZDMTAuMTUzMyAxMS4zNzk5IDEwLjEwMzIgMTEuMjYzNyAxMC4wMDI5IDExLjE2OEM5LjkwMjY3IDExLjA2NzcgOS43Nzk2MiAxMS4wMTc2IDkuNjMzNzkgMTEuMDE3Nkg4Ljc2NTYyVjcuNDQyMzhDOC43NjU2MiA3LjI1MDk4IDguNzE3NzcgNy4wOTYwMyA4LjYyMjA3IDYuOTc3NTRDOC41MzA5MiA2Ljg1OTA1IDguMzk0MjEgNi43OTk4IDguMjExOTEgNi43OTk4SDYuODg1NzRDNi43NDQ0NyA2Ljc5OTggNi42MjM3IDYuODQ5OTMgNi41MjM0NCA2Ljk1MDJDNi40MjMxOCA3LjA0NTkgNi4zNzMwNSA3LjE2MjExIDYuMzczMDUgNy4yOTg4M0M2LjM3MzA1IDcuNDQ0NjYgNi40MjMxOCA3LjU2NTQzIDYuNTIzNDQgNy42NjExM0M2LjYyMzcgNy43NTIyOCA2Ljc0NDQ3IDcuNzk3ODUgNi44ODU3NCA3Ljc5Nzg1SDcuNjM3N1YxMS4wMTc2SDYuNzY5NTNDNi42MjM3IDExLjAxNzYgNi41MDA2NSAxMS4wNjc3IDYuNDAwMzkgMTEuMTY4QzYuMzAwMTMgMTEuMjYzNyA2LjI1IDExLjM3OTkgNi4yNSAxMS41MTY2QzYuMjUgMTEuNjYyNCA2LjMwMDEzIDExLjc4MzIgNi40MDAzOSAxMS44Nzg5QzYuNTAwNjUgMTEuOTcwMSA2LjYyMzcgMTIuMDE1NiA2Ljc2OTUzIDEyLjAxNTZaTTcuOTM4NDggNS42MzA4NkM4LjE5ODI0IDUuNjMwODYgOC40MTQ3MSA1LjU0MTk5IDguNTg3ODkgNS4zNjQyNkM4Ljc2NTYyIDUuMTgxOTcgOC44NTQ0OSA0Ljk2MzIyIDguODU0NDkgNC43MDgwMUM4Ljg1NDQ5IDQuNDQ4MjQgOC43NjU2MiA0LjIyOTQ5IDguNTg3ODkgNC4wNTE3NkM4LjQxNDcxIDMuODY5NDcgOC4xOTgyNCAzLjc3ODMyIDcuOTM4NDggMy43NzgzMkM3LjY4MzI3IDMuNzc4MzIgNy40NjQ1MiAzLjg2OTQ3IDcuMjgyMjMgNC4wNTE3NkM3LjEwNDQ5IDQuMjI5NDkgNy4wMTU2MiA0LjQ0ODI0IDcuMDE1NjIgNC43MDgwMUM3LjAxNTYyIDQuOTYzMjIgNy4xMDQ0OSA1LjE4MTk3IDcuMjgyMjMgNS4zNjQyNkM3LjQ2NDUyIDUuNTQxOTkgNy42ODMyNyA1LjYzMDg2IDcuOTM4NDggNS42MzA4NloiIGZpbGw9IndoaXRlIiBmaWxsLW9wYWNpdHk9IjAuNzUiLz4KPC9zdmc+Cg==");
+        }
+      }
+    }
+  }
+}
+
+.info {
+  position: fixed;
+  width: calc(100% - 309px);
+  left: 292px;
+  bottom: 20px;
+  font-size: 14px;
+  line-height: 20px;
+  display: flex;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.1);
+
+  padding: 12px 24px;
+  backdrop-filter: blur(20px);
+  z-index: 10;
+
+  border-radius: 8px;
+
+  .select-text {
+    color: #ffffff !important;
+  }
+
+  .container-right {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+  }
+
+  .margin-right-32 {
+    margin-right: 32px;
+  }
+
+  .close {
+    color: rgba(255, 255, 255, 0.5) !important;
+    cursor: pointer;
+    font-size: 22px !important;
+    padding: 0 !important;
+  }
+}
+
+.info-collapsed {
+  left: 112px;
+  width: calc(100% - 149px) !important;
+}
+
+@media (max-width: 700px) {
+  .info {
+    width: calc(100% - 20px) !important;
+    left: 10px;
+    .col-8{
+      padding-right: 4px !important;
+    }
+  }
+}
+

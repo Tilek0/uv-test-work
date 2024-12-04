@@ -1,0 +1,190 @@
+<div class="row h-100 m-0">
+  <div
+    class="col-12 d-flex align-items-center justify-content-between header-menu">
+    <div
+      class="back-arrow-wallet d-flex align-items-center cursor-pointer"
+      (click)="backSlideNav()">
+      <div class="icon"></div>
+      {{ 'SIDE_NAV_WALLET_ACTION.BACK' | translate }}
+    </div>
+    <img
+      class="button-close cursor-pointer button-black"
+      (click)="closeALLSlideNav(false)"
+      src="/assets/icon/closeButton.svg"
+      alt="" />
+  </div>
+
+  <div class="loader-container" *ngIf="isOrderStateLoading">
+    <div class="loader"></div>
+  </div>
+
+  <div class="sell-body">
+    <h1>{{ 'SIDE_NAV_WALLET_ACTION.SELL_MFC' | translate }}</h1>
+
+    <div class="ImportantlyPanel">
+      <div class="header" (click)="toggleImportant()">
+        <div class="title">
+          {{ 'SIDE_NAV_WALLET_ACTION.IMPORTANTLY' | translate }}
+        </div>
+        <div
+          class="arrow"
+          [ngClass]="isImportantOpened ? '-up' : '-down'"></div>
+      </div>
+      <div *ngIf="isImportantOpened" class="body">
+        {{ 'SIDE_NAV_WALLET_ACTION.INFO' | translate }}
+      </div>
+    </div>
+
+    <div class="buyback">
+      {{ 'SIDE_NAV_WALLET_ACTION.BUYBACK_INFO' | translate }}
+      <span class="buyback-link" (click)="openBuybackMFC()">
+        {{ 'SIDE_NAV_WALLET_ACTION.BUYBACK_LINK' | translate }}
+      </span>
+    </div>
+
+    <div *ngIf="hasActiveOrder" class="OpenedOrder">
+      <div class="RatePanel">
+        <div class="line"></div>
+        <div class="currency-value">1 HC: {{ mfsPrice | currency: '' : '' : '1.0-2'}} DAI</div>
+        <div class="line"></div>
+      </div>
+
+      <div class="order-card">
+        <div class="card-top">
+          {{ 'SIDE_NAV_WALLET_ACTION.OPEN' | translate }}
+        </div>
+        <div class="card-body">
+          <div class="info">
+            <div class="current-amount">
+              <div class="title">
+                {{ 'SIDE_NAV_WALLET_ACTION.COMPLETED' | translate }}
+              </div>
+              <h1>{{ +(formatEther(currentOrder.info.executedAmount)) | currency: '' : '' : '1.0-2' }} HC</h1>
+              <div class="cur">{{ (+formatEther(currentOrder.info.executedAmount) * mfsPrice)  | currency: '' : '' : '1.0-2' }} DAI</div>
+            </div>
+            <div class="total-amount">
+              <div class="title">
+                {{ 'SIDE_NAV_WALLET_ACTION.AMOUNT' | translate }}
+              </div>
+              <h1>{{ +(formatEther(currentOrder.info.initialAmount)) | currency: '' : '' : '1.0-2' }} HC</h1>
+              <div class="cur">{{ (+formatEther(currentOrder.info.initialAmount) * mfsPrice)  | currency: '' : '' : '1.0-2' }} DAI</div>
+            </div>
+          </div>
+          <div class="progress-wrapper">
+            <div class="progress"
+                 [ngStyle]="{'width': ((+currentOrder.info.executedAmount) / currentOrder.info.initialAmount * 100) + '%'}"
+                 [ngClass]="{'-full': +currentOrder.info.executedAmount >= currentOrder.info.initialAmount }">
+            </div>
+          </div>
+        </div>
+
+        <div class="card-bottom">
+          <div class="line">
+            <div class="title">
+              {{ 'SIDE_NAV_WALLET_ACTION.QUEUE' | translate }}
+            </div>
+            <div class="title">
+              <span class="-white">{{+currentOrder.queueNumber+1}}</span>&nbsp;{{
+                'SIDE_NAV_WALLET_ACTION.OPERATIONS' | translate
+              }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-orange -red" [disabled]="isProcessing" (click)="onCancelClicked()">
+        <span
+          *ngIf="isProcessing"
+          class="spinner-border spinner-border-sm"
+          role="status"
+          aria-hidden="true"></span>
+        {{ 'SIDE_NAV_WALLET_ACTION.CANCEL_ORDER' | translate }}
+      </button>
+    </div>
+
+    <div *ngIf="!hasActiveOrder" class="SellForm">
+      <div class="RatePanel">
+        <div class="line"></div>
+        <div class="currency-value">
+          1 HC: {{ mfsPrice.toLocaleString() }} DAI
+        </div>
+        <div class="line"></div>
+      </div>
+
+      <div class="sell-form" [ngClass]="isSellDisabled || isProcessing ? 'disabled' : ''">
+        <div class="info-wrapper">
+          <div class="token-name">
+            <div class="token-logo -fc"></div>
+            <div class="token">
+              <div class="title">
+                {{ 'SIDE_NAV_WALLET_ACTION.YOU_GIVE' | translate }}
+              </div>
+              <div class="name">HC</div>
+            </div>
+          </div>
+          <div class="available">
+            <div class="value">
+              <div class="title">
+                {{ 'SIDE_NAV_WALLET_ACTION.AVAILABLE' | translate }}
+              </div>
+              <div class="name">{{ mfsBalance.toLocaleString() }}</div>
+            </div>
+            <div class="set-max" (click)="setMaxMFS()">
+              {{ 'SIDE_NAV_WALLET_ACTION.MAX' | translate }}
+            </div>
+          </div>
+        </div>
+        <input
+          class="set-sell"
+          type="text"
+          inputmode="numeric"
+          (keypress)="keyPressInput($event)"
+          [(ngModel)]="mfsValue"
+          (ngModelChange)="onMFSValueChange(+$event)" />
+      </div>
+
+      <div class="sell-form" [ngClass]="isSellDisabled || isProcessing ? 'disabled' : ''">
+        <div class="info-wrapper">
+          <div class="token-name">
+            <div class="token-logo -dai"></div>
+            <div class="token">
+              <div class="title">
+                {{ 'SIDE_NAV_WALLET_ACTION.YOU_RECEIVE' | translate }}
+              </div>
+              <div class="name">DAI</div>
+            </div>
+          </div>
+          <div class="available">
+            <div class="value">
+              <div class="title">
+                {{ 'SIDE_NAV_WALLET_ACTION.AVAILABLE' | translate }}
+              </div>
+              <div class="name">{{ daiBalance.toLocaleString() }}</div>
+            </div>
+          </div>
+        </div>
+        <input
+          class="set-sell"
+          type="text"
+          inputmode="numeric"
+          (keypress)="keyPressInput($event)"
+          [(ngModel)]="daiValue"
+          (ngModelChange)="onDAIValueChange(+$event)" />
+      </div>
+
+      <button
+        class="btn-orange"
+        [disabled]="isSellDisabled || isProcessing"
+        (click)="onSellClicked()">
+        <span
+          *ngIf="isProcessing"
+          class="spinner-border spinner-border-sm"
+          role="status"
+          aria-hidden="true"></span>
+        {{ 'SIDE_NAV_WALLET_ACTION.SELL' | translate }}
+      </button>
+    </div>
+
+    <recent-operations [refetch]="refetchRecentOperations" [type]="recentOperationsType" [mfsPrice]="mfsPrice"></recent-operations>
+  </div>
+</div>

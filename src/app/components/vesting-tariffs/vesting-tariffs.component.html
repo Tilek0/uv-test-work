@@ -1,0 +1,170 @@
+<div class="VestingTariffs">
+    <div class="title">{{ 'VESTING_TARIFFS.BALANCES' | translate }}</div>
+
+    <div class="balances-wrapper">
+        <div class="balances">
+            <div class="balance">
+                <img src="/assets/coinIcon/H.svg" alt="" width="40" height="40" class="ng-star-inserted">
+                <div class="value">
+                    <span>{{ +(+forcecoinBalance).toFixed(2) }}</span>
+                    <span class="info"> / Holichain</span>
+                </div>
+            </div>
+            <div class="balance">
+                <img src="/assets/coinIcon/H.svg" alt="" width="40" height="40" class="ng-star-inserted">
+                <div class="value">
+                    <span>{{ +(+vestingBalance).toFixed(2) }}</span>
+                    <span class="info"> / Vesting</span>
+                </div>
+            </div>
+        </div>
+        <div class="balances">
+            <div class="balance">
+                <img src="/assets/coinIcon/H.svg" alt="" width="40" height="40" class="ng-star-inserted">
+                <div class="value">
+                    <span>{{ vestingFundAmount.toFixed(2) }}</span>
+                    <span class="info">
+                        / <div class="inner-info">
+                            {{ 'VESTING_TARIFFS.FUNDING_AMOUNT' | translate }}
+                            <!-- <br >
+                            {{ 'VESTING_TARIFFS.BURN' | translate }} -->
+                        </div>
+                    </span>
+                </div>
+            </div>
+<!--            <div class="info">{{ 'VESTING_TARIFFS.FUNDING_AMOUNT' | translate }} {{ poolAmount }} HC</div>-->
+<!--            <div class="info">{{ 'VESTING_TARIFFS.BURN' | translate }}</div>-->
+        </div>
+    </div>
+
+    <div *ngIf="isTariffsFormInactive" class="info">
+        {{ 'VESTING_TARIFFS.NO_VESTING_BALANCE_INFO' | translate }}
+    </div>
+
+    <ng-container *ngIf="!isTariffsFormInactive">
+        <div *ngIf="canSelect" class="title">{{ 'VESTING_TARIFFS.TITLE' | translate }}</div>
+        <div *ngIf="!canSelect" class="title">{{ 'VESTING_TARIFFS.CURRENT_TARIFF' | translate }}</div>
+
+        <div *ngIf="!canSelect && (selectedTariff === 1 || selectedTariff === 2 || selectedTariff === 5)" class="info">
+            <div class="receives">
+                {{ 'VESTING_TARIFFS.FUND_RECEIVED' | translate }}
+                <span class="default-info">{{ iHavePaidToVestingFund.toFixed(2) }}&nbsp;HC</span>
+                ({{ selectedTariff === 1 ? '30' : (selectedTariff === 2 ? '15' : '50')}}%)
+            </div>
+        </div>
+
+        <div *ngIf="canSelect" class="vesting-info">
+            {{ 'VESTING_TARIFFS.TARIFFS_COMMON_INFO' | translate }}
+            <br>
+            <br>
+            <span class="buyback">
+                {{ 'VESTING_TARIFFS.BUYBACK_INFO' | translate }}
+                <span class="buyback-link" (click)="openBuybackMFC()">
+                    {{ 'VESTING_TARIFFS.BUYBACK_LINK' | translate }}
+                </span>
+            </span>
+            <br>
+            <div class="error">{{ 'VESTING_TARIFFS.TARIFFS_COMMON_INFO_WARNING' | translate }}</div>
+        </div>
+
+        <div class="tariffs">
+            <div
+               *ngFor="let number of [5,1,2,0,3,4]; let i = index"
+               class="tariff-card"
+               [ngClass]="{
+               '-selected': number === selectedTariff,
+               'disabled':
+                    (!isSmallTariffsAvailable && i < 3) ||
+                    (!isBigTariffsAvailable && i > 3) ||
+                    (!canSelect && number !== selectedTariff) ||
+                    isProcessing
+            }"
+                    (click)="selectTariff(number)"
+            >
+                <div *ngIf="defaultTariff !== number && canSelect" class="poll-bar-wrapper">
+                    <div class="progress-wrapper">
+                        <div class="progress"
+                             [ngStyle]="{'width': poolsProgress[number] + '%'}"
+                             [ngClass]="{'-full': (!isSmallTariffsAvailable && i < 3) ||
+-                    (!isBigTariffsAvailable && i >= 3) }">
+                        </div>
+                    </div>
+                    <div class="poll-size">
+                        {{ vestingPools[number] ? vestingPools[number].toFixed(2) : 0 }} HC
+                    </div>
+                </div>
+
+                <div class="tariff-wrapper">
+                    <div class="tariff-info">
+                        <div class="name">
+                            {{ 'VESTING_TARIFFS.TARIFF_' + (i+1) + '_NAME' | translate }}
+                            <span *ngIf="defaultTariff === number && canSelect" class="default-info">
+                                ({{ 'VESTING_TARIFFS.DEFAULT' | translate }})
+                            </span>
+                        </div>
+                        <div class="description">
+                            {{ 'VESTING_TARIFFS.TARIFF_' + (i+1) + '_DESCRIPTION' | translate }}
+                        </div>
+                    </div>
+                    <div class="select"></div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="canSelect" class="info -right">
+            <!-- * {{ 'VESTING_TARIFFS.TARIFFS_INFO' | translate }} -->
+            <ng-container *ngIf="!isSmallTariffsAvailable">
+                <!-- <br> -->
+                ** {{ 'VESTING_TARIFFS.TARIFFS_DISABLED_SMALL' | translate }}
+            </ng-container>
+            <ng-container *ngIf="!isBigTariffsAvailable">
+                <br>
+                ** {{ 'VESTING_TARIFFS.TARIFFS_DISABLED_BIG' | translate }}
+            </ng-container>
+        </div>
+
+        <div *ngIf="processingError && processingError.length > 0" class="error-wrapper">
+            <div *ngFor="let err of processingError" class="error">
+                {{ err }}
+            </div>
+        </div>
+
+        <div *ngIf="canSelect" class="button-wrapper">
+            <div class="will-receive">
+                <ng-container *ngIf="userWillReceive > 0">
+                    <div class="receives">
+                        {{ 'VESTING_TARIFFS.USER_WILL_RECEIVE' | translate }}
+                        <span class="default-info">{{ userWillReceive.toFixed(2) }}&nbsp;HC</span>
+                    </div>
+                    <div class="receives">
+                        {{ 'VESTING_TARIFFS.FUND_WILL_RECEIVE' | translate }}
+                        <span class="default-info">{{ fundWillReceive.toFixed(2) }}&nbsp;HC</span>
+                    </div>
+                </ng-container>
+            </div>
+            <button
+                class="btn-orange -red"
+                [disabled]="
+                    isProcessing ||
+                    (processingError && processingError.length > 0) ||
+                    !canSelect
+                "
+                (click)="openConfirmModal()"
+            >
+            <span
+                    *ngIf="isProcessing"
+                    class="spinner-border spinner-border-sm"
+                    role="status"
+                    aria-hidden="true"></span>
+                {{ 'VESTING_TARIFFS.SELECT_TARIFF' | translate }}
+            </button>
+        </div>
+    </ng-container>
+</div>
+
+<confirm-modal
+    [isOpen]="isOpen"
+    [tariff]="selectedTariff"
+    (openEvent)="isOpen = $event"
+    (onSucceedEvent)="onSucceed($event)"
+></confirm-modal>

@@ -1,0 +1,29 @@
+<div class="row h-100 m-0">
+  <div
+    class="col-12 d-flex align-items-center justify-content-between header-menu">
+    <div
+      class="back-arrow-social d-flex align-items-center cursor-pointer"
+      (click)="closeSlideNavSecondary(false)">
+      <div class="icon"></div>
+      {{ 'SIDE_NAV_SOCIAL.BACK' | translate }}
+    </div>
+    <div class="header-title">
+      {{ 'SIDE_NAV_SOCIAL.SOCIAL_META_FORCE' | translate }}
+    </div>
+    <img
+      class="button-close cursor-pointer button-black"
+      (click)="closeSlideNavSecondary(false)"
+      src="/assets/icon/closeButton.svg"
+      alt="" />
+  </div>
+  <div
+    class="col-12 d-flex justify-content-center align-items-center height-container-menu">
+    <div class="row m-0">
+      <div class="col-12 p-0" *ngFor="let child of childs">
+        <a class="d-flex item-social" [href]="child.url" [target]="'_blank'">
+          <img [src]="child.img" alt="" /> <span>{{ child.title }}</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,140 @@
+<div
+  class="loader-container"
+  [ngClass]="{ 'with-close-nuv-bar': isCollapsed }"
+  *ngIf="isLoader">
+  <div class="loader"></div>
+</div>
+<div class="row m-0">
+  <div class="col-12 col-sm-3 container-card">
+    <div class="card card-height">
+      <div class="row m-0 card-body force-coin">
+        <div class="col-12 p-0 d-flex justify-content-center">
+          <img src="assets/images/coin.png" />
+        </div>
+        <div class="col-12 p-0 d-flex flex-column align-items-center title">
+          {{ 'LEVEL_LISTS.FORCE_COIN' | translate }}
+          <div>= {{ +(+mfsPriceInUSD).toFixed(2) }} DAI</div>
+        </div>
+        <div class="col-12 p-0 d-flex justify-content-center description">
+          {{ 'LEVEL_LISTS.FORCE_COIN_DESCRIPTION' | translate }}
+        </div>
+        <div class="col-12 p-0 d-flex justify-content-center">
+          <button
+            class="btn btn-warning size-button"
+            routerLink="/pages/forcecoin">
+            {{ 'LEVEL_LISTS.FORCE_COIN_BUTTON' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-sm-3 container-card">
+    <div class="card card-height">
+      <div class="row m-0 card-body members-card">
+        <div class="col-12 p-0 d-flex justify-content-center peoples-img">
+          <img src="assets/icon/peoples.png" />
+        </div>
+        <div class="col-12 p-0 d-flex justify-content-center text-member-info">
+          {{ 'LEVEL_LISTS.UNITEVERSE_MEMBERS' | translate }}
+        </div>
+        <div class="col-12 p-0 d-flex justify-content-center members-value">
+          {{ +membersValue }}
+        </div>
+        <div class="col-12 p-0 d-flex justify-content-center dollar-img">
+          <img src="assets/icon/coins.png" />
+        </div>
+        <div class="col-12 p-0 d-flex justify-content-center text-member-info">
+          {{ 'LEVEL_LISTS.UNITEVERSE_MEMBER_INCOME' | translate }}
+        </div>
+        <div
+          class="col-12 p-0 d-flex justify-content-center members-income-value-mfs">
+          <span *ngIf="+membersIncomeValue > 0">
+            {{ numberWithComma(+(+membersIncomeValue / +mfsPriceInUSD)) }} HC
+          </span>
+          <span *ngIf="+membersIncomeValue === 0"> 0 HC </span>
+        </div>
+        <div
+          class="col-12 p-0 d-flex justify-content-center members-income-value-dai">
+          {{ numberWithComma(+membersIncomeValue) }} DAI
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-sm-6 card p-0">
+    <div class="row m-0 card-body choose-profit">
+      <div
+        class="col-12 p-0 d-flex justify-content-center title"
+        innerHTML="{{
+          'LEVEL_LISTS.CHOOSE_WHAT_MAKE_PROFIT' | translate
+        }}"></div>
+      <div class="col-12 p-0 d-flex justify-content-center">
+        <app-steper-input
+          *ngIf="userInfo !== undefined"
+          class="w-100"
+          [typeValue]="newTypeReward"
+          (changeTypeEvent)="newSetTypeReward($event)"></app-steper-input>
+      </div>
+      <div class="col-12 p-0 d-flex justify-content-center">
+        <button
+          *ngIf="userInfo !== undefined"
+          [disabled]="
+            userInfo.rewardType === newTypeReward || isLoaderTypeReward
+          "
+          class="btn btn-secondary button-apply-profit size-button"
+          (click)="onChangeTypeReward()">
+          <span
+            *ngIf="isLoaderTypeReward"
+            class="spinner-border spinner-border-sm"
+            role="status"
+            aria-hidden="true"></span>
+          {{ 'LEVEL_LISTS.CHOOSE_WHAT_MAKE_PROFIT_BUTTON' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="containet-list position-relative">
+  <div
+    class="row info m-0"
+    *ngIf="isInfo"
+    [ngClass]="isCollapsed ? 'info-collapsed' : ''">
+    <div class="col-8 col-sm-9 p-0">
+      {{ 'LEVEL_LISTS.YOU' | translate }}
+      <span class="select-text"
+        >{{ 'LEVEL_LISTS.LOST' | translate }} {{ lostValue }} DAI</span
+      >
+      {{ 'LEVEL_LISTS.TOTAL' | translate }}
+    </div>
+    <div class="col-4 col-sm-3 container-right p-0">
+      <a
+        [routerLink]="['/pages/recent-activity-details']"
+        href=""
+        target="_blank"
+        class="select-text margin-right-32">
+        {{ 'LEVEL_LISTS.LEARN_MORE' | translate }}
+      </a>
+      <span class="material-icons close" (click)="closeInfo()"> close </span>
+    </div>
+  </div>
+  <div class="containet-item" *ngFor="let item of lists">
+    <app-level-item
+      [readyNumberLevel]="readyNumberLevel"
+      [item]="item"
+      [isLoader]="isLoader"
+      (changePack)="openChooseModal($event)"></app-level-item>
+  </div>
+</div>
+<app-extend-choose-type-modal
+  [isOpen]="isOpenExtendChooseModal"
+  [item]="currenItem"
+  (openEvent)="isOpenExtendChooseModal = $event"
+  (openModalEvent)="openPackModal($event)"></app-extend-choose-type-modal>
+<!-- <app-pack-modal
+  [isLoadingModal]="isLoadingModal"
+  [isOpen]="isOpenPackModal"
+  [isExtand]="isExtand"
+  [isActivated]="isActivated"
+  [item]="currenItem"
+  (openEvent)="isOpenPackModal = $event"
+  (applyEvent)="changePack($event)">
+</app-pack-modal> -->

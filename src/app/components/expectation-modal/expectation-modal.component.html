@@ -1,0 +1,50 @@
+<div class="expectation-background">
+  <div
+    class="row expectation-modal"
+    [ngClass]="step === 2 && 'expectation-modal-sm'">
+    <div
+      class="col-12 d-flex p-0 justify-content-end expectation-badge-container"
+      *ngIf="step <= 2; else finalStep">
+      <div class="expectation-badge">
+        {{ 'EXPECTATION_MODAL.STEP' | translate }} {{ step }}
+        {{ 'EXPECTATION_MODAL.OUT_OF' | translate }}
+      </div>
+    </div>
+    <ng-template #finalStep>
+      <div
+        class="col-12 d-flex p-0 justify-content-end expectation-badge-container">
+        <div class="expectation-badge">
+          {{ 'EXPECTATION_MODAL.FINAL_STEP' | translate }}
+        </div>
+      </div>
+    </ng-template>
+
+    <div class="col-12 p-0 margin-top-min-38">
+      <img src="/assets/gif/coin.gif" alt="" />
+    </div>
+    <div class="col-12 titel-text">
+      {{
+        step <= 2
+          ? ('EXPECTATION_MODAL.CONFIRM_ACTION' | translate)
+          : ('EXPECTATION_MODAL.PLEASE_WAIT' | translate)
+      }}
+    </div>
+    <div class="col-12 titel-description margin-top-min-28" *ngIf="step > 2">
+      {{ 'EXPECTATION_MODAL.IT_TAKES_UP_30_SEC' | translate }}
+    </div>
+    <div class="col-12 body-text margin-top-min-8">
+      {{
+        step === 1
+          ? ('EXPECTATION_MODAL.CONFIRM_ACTION_BODY' | translate)
+          : step === 2
+            ? ('EXPECTATION_MODAL.PLEASE_CONFIRM_YOUR_TRANSACTION_WALLET'
+              | translate)
+            : ('EXPECTATION_MODAL.PLEASE_WAIT_BODY' | translate)
+      }}
+    </div>
+    <div class="progress-bar-container" *ngIf="step === 3">
+      <mat-progress-bar class="example-margin" [value]="progressBarValue">
+      </mat-progress-bar>
+    </div>
+  </div>
+</div>

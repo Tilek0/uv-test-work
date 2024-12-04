@@ -1,0 +1,67 @@
+<div class="marging-24px row">
+  <div
+    class="col-12 p-0"
+    *ngFor="let orbitReferal of arrayOrbit; let i = index">
+    <div class="m-0 row">
+      <div
+        class="col-12 p-0 orbit-text cursor-pointer d-flex align-item-center"
+        (click)="isOpen(orbitReferal)">
+        {{ orbitReferal.levelOrbit }}
+        {{
+          currentLevel === 0
+            ? ('MARKETING_TABEL.LINE' | translate)
+            : ('MARKETING_TABEL.ORBIT' | translate)
+        }}
+        <span class="material-icons" *ngIf="!orbitReferal.isOpen">
+          expand_more
+        </span>
+        <span class="material-icons" *ngIf="orbitReferal.isOpen">
+          expand_less
+        </span>
+        <span
+          *ngIf="orbitReferal.isLoading"
+          class="spinner-border spinner-border-sm ml-1"
+          role="status"
+          aria-hidden="true"></span>
+      </div>
+      <div class="m-0 row" *ngIf="orbitReferal.isOpen">
+        <div
+          class="col-12"
+          *ngFor="let referal of orbitReferal.referals; let i = index">
+          <div class="row container-row margin-bottom-16">
+            <img
+              class="avatar"
+              [src]="
+                referal.avatar ? referal.avatar : 'assets/images/User.png'
+              " />
+            <div class="col">
+              <div class="row">
+                <div class="col-12 p-0 header">
+                  {{ 'MARKETING_TABEL.FORCE_ID' | translate }}
+                  {{ !orbitReferal.isLodingForceID ? referal.id : '' }}
+                </div>
+                <div
+                  *ngIf="referal.userInfo !== undefind"
+                  class="col-12 p-0 description">
+                  <div>
+                    {{ 'MARKETING_TABEL.WALLET' | translate }}
+                    {{ referal.userInfo.walletAddress }}
+                  </div>
+                  <div>
+                    {{ 'MARKETING_TABEL.UV_TIER' | translate }}
+                    {{ referal.userInfo.tier }}
+                  </div>
+                  <div>
+                    {{ 'MARKETING_TABEL.PROFIT' | translate }}
+                    {{ referal.userInfo.profitDAI + ' DAI' }} /
+                    {{ referal.userInfo.profitMFS + ' HC' }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

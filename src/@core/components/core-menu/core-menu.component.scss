@@ -1,0 +1,33 @@
+//  Hide collapsible menu while menu is collapsed
+.vertical-layout:not(.vertical-overlay-menu) {
+  .main-menu:not(.expanded) {
+    .id-value {
+      display: none;
+    }
+    .container-forse-icon {
+      display: none !important;
+    }
+    .container-icon {
+      display: none;
+    }
+    .icon-copy-button {
+      display: block;
+    }
+    .text-copy-button {
+      display: none;
+    }
+    .btn-copy {
+      padding: 14px;
+    }
+    .nav-item.has-sub.open {
+      .menu-content {
+        display: none;
+      }
+    }
+  }
+}
+.nav-item {
+  &.disabled {
+    outline: none;
+  }
+}

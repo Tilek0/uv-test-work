@@ -1,0 +1,11 @@
+<!-- <div class="background" *ngIf="!isSmallMenu && isOpen"></div> -->
+<li
+  ngbDropdown
+  class="nav-item dropdown-notification"
+  [ngClass]="{ 'small-menu button-grey': isSmallMenu }"
+  (click)="openSlideNav()">
+  <a class="btn button-wallet" [ngClass]="{ 'button-grey': !isSmallMenu }">
+    <img [src]="'assets/icon/newWallet.svg'" />
+    <span *ngIf="isSmallMenu">{{ 'WALLET.WALLET' | translate }}</span>
+  </a>
+</li>

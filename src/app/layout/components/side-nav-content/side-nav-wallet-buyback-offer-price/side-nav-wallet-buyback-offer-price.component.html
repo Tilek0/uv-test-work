@@ -1,0 +1,143 @@
+<div class="row h-100 m-0">
+  <div class="col-12 d-flex align-items-center justify-content-between header-menu">
+    <div class="back-arrow-wallet d-flex align-items-center cursor-pointer" (click)="backSlideNav()">
+      <div class="icon"></div>
+      {{ 'SIDE_NAV_WALLET_BUYBACK_OFFER_PRICE.BACK' | translate }}
+    </div>
+    <img
+      class="button-close cursor-pointer button-black"
+      (click)="closeALLSlideNav(false)"
+      src="/assets/icon/closeButton.svg"
+      alt="" />
+  </div>
+
+  <div class="sell-body">
+    <h1>{{ 'SIDE_NAV_WALLET_BUYBACK_OFFER_PRICE.TITLE' | translate }}</h1>
+
+    <div class="ImportantlyPanel">
+      <div class="header" (click)="toggleImportant()">
+        <div class="title">
+          {{ 'SIDE_NAV_WALLET_BUYBACK_OFFER_PRICE.IMPORTANTLY' | translate }}
+        </div>
+        <div class="arrow" [ngClass]="isImportantOpened ? '-up' : '-down'"></div>
+      </div>
+      <div *ngIf="isImportantOpened" class="body">
+        {{ 'SIDE_NAV_WALLET_BUYBACK_OFFER_PRICE.INFO1' | translate }}
+      </div>
+    </div>
+
+    <div class="SellForm">
+
+      <div class="sell-form" [ngClass]="isProcessing ? 'disabled' : ''">
+        <div class="info-wrapper">
+          <div class="token-name">
+            <div class="token-logo -fc"></div>
+            <div class="token">
+              <div class="title">
+                {{ 'SIDE_NAV_WALLET_BUYBACK_OFFER_PRICE.YOU_GIVE' | translate }}
+              </div>
+              <div class="name">HC</div>
+            </div>
+          </div>
+          <div class="available">
+            <div class="value">
+              <div class="title">
+                {{ 'SIDE_NAV_WALLET_BUYBACK_OFFER_PRICE.AVAILABLE' | translate }}
+              </div>
+              <div class="name">{{ mfsBalance.toLocaleString() }}</div>
+            </div>
+            <div class="set-max" (click)="setMaxMFS()" [ngClass]="isProcessing || buybackOrderRequest ? 'disabled' : ''">
+              {{ 'SIDE_NAV_WALLET_BUYBACK_OFFER_PRICE.MAX' | translate }}
+            </div>
+          </div>
+        </div>
+        <input
+                [disabled]="isProcessing || buybackOrderRequest"
+                class="set-sell"
+                type="text"
+                inputmode="numeric"
+                name="inputMFS"
+                (keydown)="keyPressInput($event)"
+                (keyup)="keyUpInput($event)"
+                [(ngModel)]="mfsValue"
+                (ngModelChange)="onMFSValueChange($event)" />
+      </div>
+      
+      <div class="sell-form" [ngClass]="isProcessing ? 'disabled' : ''">
+        <div class="info-wrapper">
+          <div class="token-name">
+            <div class="token-logo -dai"></div>
+            <div class="token">
+              <div class="title">
+                {{ 'SIDE_NAV_WALLET_BUYBACK_OFFER_PRICE.PRICE' | translate }}
+              </div>
+              <div class="name">DAI</div>
+            </div>
+          </div>
+        </div>
+        <div class="fix-prices">
+          <button
+            *ngFor="let price of buybackOfferPrices"
+            (click)="setOfferPrice(price)"
+            [ngClass]="mfsPrice === price ? 'btn-orange' : 'button-grey'"
+          >
+              {{ price }}
+          </button>
+        </div>
+      </div>
+
+      <div class="sell-form" [ngClass]="isProcessing ? 'disabled' : ''">
+        <div class="info-wrapper">
+          <div class="token-name">
+            <div class="token-logo -dai"></div>
+            <div class="token">
+              <div class="title">
+                {{ 'SIDE_NAV_WALLET_BUYBACK_OFFER_PRICE.YOU_RECEIVE' | translate }}
+              </div>
+              <div class="name">DAI</div>
+            </div>
+          </div>
+          <!-- <div class="available">
+            <div class="value">
+              <div class="title">
+                {{ 'SIDE_NAV_WALLET_BUYBACK_OFFER_PRICE.AVAILABLE' | translate }}
+              </div>
+              <div class="name">{{ daiBalance.toLocaleString() }}</div>
+            </div>
+          </div> -->
+        </div>
+
+        <input
+          disabled
+          class="set-sell"
+          type="text"
+          name="inputDAI"
+          inputmode="numeric"
+          [(ngModel)]="daiValue"
+        />
+      </div>
+
+      <button *ngIf="!buybackOrderRequest"
+              class="btn-orange"
+              [disabled]="isSellDisabled || isProcessing || buybackOrderRequest"
+              (click)="openConfirmModal()">
+        <span
+                *ngIf="isProcessing"
+                class="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"></span>
+        {{ 'SIDE_NAV_WALLET_BUYBACK_OFFER_PRICE.OFFER_YOUR_PRICE' | translate }}
+      </button>
+      <div *ngIf="buybackOrderRequest" class="buttom-info">
+        {{ 'SIDE_NAV_WALLET_BUYBACK_OFFER_PRICE.ALREADY_CREATE_OFFER' | translate }}
+      </div>
+    </div>
+  </div>
+</div>
+
+<confirm-buyback-offer-price-modal
+    [isOpen]="isModalOpen"
+    [offerPrice]="mfsPrice"
+    (openEvent)="isModalOpen = $event"
+    (onSucceedEvent)="onSucceed($event)"
+></confirm-buyback-offer-price-modal>

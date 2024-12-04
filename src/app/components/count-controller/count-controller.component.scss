@@ -1,0 +1,75 @@
+.CountController {
+  width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 12px;
+  .info {
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
+    .title {
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 16px;
+      text-transform: uppercase;
+      color: hsla(0, 0%, 100%, .75);
+    }
+    .set-max {
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 16px;
+      color: hsl(28, 97%, 47%);
+      cursor: pointer;
+    }
+  }
+  .controller {
+    height: 32px;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    padding: 8px;
+    border-radius: 8px;
+    background: hsla(0, 0%, 100%, .05);
+
+    input.set-bundle {
+      width: 100%;
+      background-color: transparent;
+      border: none;
+      padding: 12px;
+      color: hsl(0, 0%, 100%);
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 16px;
+      text-align: center;
+      &:focus-visible {
+        outline: none;
+      }
+      &:disabled {
+        color: hsla(0, 0%, 100%, .3);
+        cursor: default;
+        pointer-events: none;
+      }
+    }
+
+    .plus, .minus {
+      text-align: center;
+      width: 40px;
+      cursor: pointer;
+
+      &:hover {
+        color: hsl(0, 0%, 100%);
+      }
+    }
+
+    .count {
+      text-align: center;
+      color: hsl(0, 0%, 100%);
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 16px;
+      width: 100%;
+    }
+  }
+}

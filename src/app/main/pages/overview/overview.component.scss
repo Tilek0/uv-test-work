@@ -1,0 +1,671 @@
+.Overview {
+  width: 100%;
+  height: calc(100vh - 90px);
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: stretch;
+  overflow: hidden;
+  gap: 16px;
+  @media (max-width: 760px) {
+    height: unset;
+    overflow: unset;
+    flex-flow: column nowrap;
+    margin-bottom: 70px;
+  }
+
+  .twin {
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: stretch;
+    justify-content: stretch;
+    gap: 8px;
+  }
+  .title {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    margin-top: 2px;
+  }
+  .grey-box {
+    width: 100%;
+    padding: 16px;
+    border-radius: 8px;
+    background: hsl(0, 0%, 100%, .05);
+    border: 1px solid hsl(0, 0%, 100%, .05);
+  }
+
+  .game-help {
+    width: calc(100% - 16px);
+    margin-top: 16px;
+    margin-left: 16px;
+    padding: 16px;
+    gap: 16px;
+    border-radius: 8px;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
+    background: hsla(0, 0%, 100%, .05);
+    backdrop-filter: blur(8px);
+    @media (max-width: 760px) {
+      flex-flow: column nowrap;
+      margin-left: 0;
+      width: 100%;
+    }
+    .info-wrapper {
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+      gap: 16px;
+      @media (max-width: 760px) {
+        flex-flow: column nowrap;
+      }
+      .icon-wrapper {
+        min-width: 48px;
+        min-height: 48px;
+        border-radius: 50%;
+        background: hsla(0, 0%, 100%, .05);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .info-icon {
+          width: 24px;
+          height: 24px;
+          background-size: cover;
+          background-position: center center;
+          background-repeat: no-repeat;
+          background-color: transparent;
+          background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTQuOTIxODggMTAuNjQ4NEgzLjQyMTg4QzMuMjM5NTggMTAuNjQ4NCAzLjA4MzMzIDEwLjU4MzMgMi45NTMxMiAxMC40NTMxQzIuODIyOTIgMTAuMzE3NyAyLjc1NzgxIDEwLjE1ODkgMi43NTc4MSA5Ljk3NjU2QzIuNzU3ODEgOS43OTQyNyAyLjgyMjkyIDkuNjM1NDIgMi45NTMxMiA5LjVDMy4wODMzMyA5LjM2NDU4IDMuMjM5NTggOS4yOTY4OCAzLjQyMTg4IDkuMjk2ODhINC45MjE4OEM1LjEwNDE3IDkuMjk2ODggNS4yNjMwMiA5LjM2NDU4IDUuMzk4NDQgOS41QzUuNTM5MDYgOS42MzAyMSA1LjYwOTM4IDkuNzg5MDYgNS42MDkzOCA5Ljk3NjU2QzUuNjA5MzggMTAuMTU4OSA1LjUzOTA2IDEwLjMxNzcgNS4zOTg0NCAxMC40NTMxQzUuMjYzMDIgMTAuNTgzMyA1LjEwNDE3IDEwLjY0ODQgNC45MjE4OCAxMC42NDg0Wk02LjUyMzQ0IDUuNDUzMTJMNS40NjA5NCA0LjM4MjgxQzUuMzMwNzMgNC4yNTI2IDUuMjY1NjIgNC4wOTYzNSA1LjI2NTYyIDMuOTE0MDZDNS4yNjU2MiAzLjczMTc3IDUuMzMwNzMgMy41NzI5MiA1LjQ2MDk0IDMuNDM3NUM1LjU5NjM1IDMuMzA3MjkgNS43NTc4MSAzLjI0MjE5IDUuOTQ1MzEgMy4yNDIxOUM2LjEzMjgxIDMuMjQyMTkgNi4yODkwNiAzLjMwNzI5IDYuNDE0MDYgMy40Mzc1TDcuNDY4NzUgNC41MDc4MUM3LjU5ODk2IDQuNjM4MDIgNy42NjQwNiA0Ljc5NDI3IDcuNjY0MDYgNC45NzY1NkM3LjY2OTI3IDUuMTU4ODUgNy42MDQxNyA1LjMxNzcxIDcuNDY4NzUgNS40NTMxMkM3LjMzODU0IDUuNTgzMzMgNy4xNzk2OSA1LjY0ODQ0IDYuOTkyMTkgNS42NDg0NEM2LjgwOTkgNS42NDMyMyA2LjY1MzY1IDUuNTc4MTIgNi41MjM0NCA1LjQ1MzEyWk0xMS4zMjgxIDIuOTA2MjVWMS40MDYyNUMxMS4zMjgxIDEuMjIzOTYgMTEuMzkzMiAxLjA2NTEgMTEuNTIzNCAwLjkyOTY4OEMxMS42NTg5IDAuNzk0MjcxIDExLjgxNzcgMC43MjY1NjIgMTIgMC43MjY1NjJDMTIuMTgyMyAwLjcyNjU2MiAxMi4zNDExIDAuNzk0MjcxIDEyLjQ3NjYgMC45Mjk2ODhDMTIuNjEyIDEuMDY1MSAxMi42Nzk3IDEuMjIzOTYgMTIuNjc5NyAxLjQwNjI1VjIuOTA2MjVDMTIuNjc5NyAzLjA4ODU0IDEyLjYxMiAzLjI0NzQgMTIuNDc2NiAzLjM4MjgxQzEyLjM0NjQgMy41MTMwMiAxMi4xODc1IDMuNTc4MTIgMTIgMy41NzgxMkMxMS44MTc3IDMuNTc4MTIgMTEuNjU4OSAzLjUxMzAyIDExLjUyMzQgMy4zODI4MUMxMS4zOTMyIDMuMjQ3NCAxMS4zMjgxIDMuMDg4NTQgMTEuMzI4MSAyLjkwNjI1Wk0xNi41MjM0IDQuNTA3ODFMMTcuNTkzOCAzLjQzNzVDMTcuNzI0IDMuMzA3MjkgMTcuODgwMiAzLjI0MjE5IDE4LjA2MjUgMy4yNDIxOUMxOC4yNDQ4IDMuMjQyMTkgMTguNDAzNiAzLjMwNzI5IDE4LjUzOTEgMy40Mzc1QzE4LjY2OTMgMy41NzI5MiAxOC43MzQ0IDMuNzMxNzcgMTguNzM0NCAzLjkxNDA2QzE4LjczNDQgNC4wOTYzNSAxOC42NjkzIDQuMjUyNiAxOC41MzkxIDQuMzgyODFMMTcuNDY4OCA1LjQ1MzEyQzE3LjM0MzggNS41ODMzMyAxNy4xODc1IDUuNjQ4NDQgMTcgNS42NDg0NEMxNi44MTc3IDUuNjQ4NDQgMTYuNjU4OSA1LjU4MzMzIDE2LjUyMzQgNS40NTMxMkMxNi4zOTMyIDUuMzE3NzEgMTYuMzI4MSA1LjE1ODg1IDE2LjMyODEgNC45NzY1NkMxNi4zMjgxIDQuNzk0MjcgMTYuMzkzMiA0LjYzODAyIDE2LjUyMzQgNC41MDc4MVpNMjAuNTYyNSAxMC42NDg0SDE5LjA2MjVDMTguODgwMiAxMC42NDg0IDE4LjcyMTQgMTAuNTgzMyAxOC41ODU5IDEwLjQ1MzFDMTguNDU1NyAxMC4zMTc3IDE4LjM5MDYgMTAuMTU4OSAxOC4zOTA2IDkuOTc2NTZDMTguMzkwNiA5Ljc4OTA2IDE4LjQ1NTcgOS42MzAyMSAxOC41ODU5IDkuNUMxOC43MjE0IDkuMzY0NTggMTguODgwMiA5LjI5Njg4IDE5LjA2MjUgOS4yOTY4OEgyMC41NjI1QzIwLjc0NDggOS4yOTY4OCAyMC45MDM2IDkuMzY0NTggMjEuMDM5MSA5LjVDMjEuMTc0NSA5LjYzNTQyIDIxLjI0MjIgOS43OTQyNyAyMS4yNDIyIDkuOTc2NTZDMjEuMjQyMiAxMC4xNTg5IDIxLjE3NDUgMTAuMzE3NyAyMS4wMzkxIDEwLjQ1MzFDMjAuOTAzNiAxMC41ODMzIDIwLjc0NDggMTAuNjQ4NCAyMC41NjI1IDEwLjY0ODRaTTEyIDUuMDMxMjVDMTIuNjg3NSA1LjAzMTI1IDEzLjMzMDcgNS4xNDg0NCAxMy45Mjk3IDUuMzgyODFDMTQuNTI4NiA1LjYxNzE5IDE1LjA1MjEgNS45NDI3MSAxNS41IDYuMzU5MzhDMTUuOTUzMSA2Ljc3MDgzIDE2LjMwNDcgNy4yNTI2IDE2LjU1NDcgNy44MDQ2OUMxNi44MDk5IDguMzU2NzcgMTYuOTM3NSA4Ljk1MzEyIDE2LjkzNzUgOS41OTM3NUMxNi45Mzc1IDEwLjE1NjIgMTYuODc3NiAxMC42NTYyIDE2Ljc1NzggMTEuMDkzOEMxNi42NDMyIDExLjUzMTIgMTYuNDk0OCAxMS45NTgzIDE2LjMxMjUgMTIuMzc1QzE2LjEzMDIgMTIuNzkxNyAxNS45Mzc1IDEzLjI1IDE1LjczNDQgMTMuNzVDMTUuNTMxMiAxNC4yNDQ4IDE1LjM0MzggMTQuODMzMyAxNS4xNzE5IDE1LjUxNTZDMTUgMTYuMTk3OSAxNC44NjQ2IDE3LjAyODYgMTQuNzY1NiAxOC4wMDc4QzE0Ljc1NTIgMTguMTQzMiAxNC43MTA5IDE4LjI1MjYgMTQuNjMyOCAxOC4zMzU5QzE0LjU1OTkgMTguNDE0MSAxNC40NTA1IDE4LjQ1MzEgMTQuMzA0NyAxOC40NTMxSDkuNjk1MzFDOS41NDk0OCAxOC40NTMxIDkuNDM3NSAxOC40MTQxIDkuMzU5MzggMTguMzM1OUM5LjI4NjQ2IDE4LjI1MjYgOS4yNDIxOSAxOC4xNDMyIDkuMjI2NTYgMTguMDA3OEM5LjEzMjgxIDE3LjAyODYgOSAxNi4xOTc5IDguODI4MTIgMTUuNTE1NkM4LjY1NjI1IDE0LjgzMzMgOC40Njg3NSAxNC4yNDQ4IDguMjY1NjIgMTMuNzVDOC4wNjI1IDEzLjI1IDcuODY5NzkgMTIuNzkxNyA3LjY4NzUgMTIuMzc1QzcuNTA1MjEgMTEuOTU4MyA3LjM1Njc3IDExLjUzMTIgNy4yNDIxOSAxMS4wOTM4QzcuMTI3NiAxMC42NTYyIDcuMDcwMzEgMTAuMTU2MiA3LjA3MDMxIDkuNTkzNzVDNy4wNzAzMSA4Ljk1MzEyIDcuMTk1MzEgOC4zNTY3NyA3LjQ0NTMxIDcuODA0NjlDNy42OTUzMSA3LjI1MjYgOC4wNDQyNyA2Ljc3MDgzIDguNDkyMTkgNi4zNTkzOEM4Ljk0NTMxIDUuOTQyNzEgOS40Njg3NSA1LjYxNzE5IDEwLjA2MjUgNS4zODI4MUMxMC42NjE1IDUuMTQ4NDQgMTEuMzA3MyA1LjAzMTI1IDEyIDUuMDMxMjVaTTkuNjcxODggMjAuMDQ2OUM5LjU0Njg4IDIwLjA0NjkgOS40NDAxIDIwLjAwNTIgOS4zNTE1NiAxOS45MjE5QzkuMjY4MjMgMTkuODMzMyA5LjIyNjU2IDE5LjcyNjYgOS4yMjY1NiAxOS42MDE2QzkuMjI2NTYgMTkuNDcxNCA5LjI2ODIzIDE5LjM2NDYgOS4zNTE1NiAxOS4yODEyQzkuNDQwMSAxOS4xOTc5IDkuNTQ2ODggMTkuMTU2MiA5LjY3MTg4IDE5LjE1NjJIMTQuMzI4MUMxNC40NTgzIDE5LjE1NjIgMTQuNTY1MSAxOS4xOTc5IDE0LjY0ODQgMTkuMjgxMkMxNC43MzcgMTkuMzY0NiAxNC43ODEyIDE5LjQ3MTQgMTQuNzgxMiAxOS42MDE2QzE0Ljc4MTIgMTkuNzI2NiAxNC43MzcgMTkuODMzMyAxNC42NDg0IDE5LjkyMTlDMTQuNTY1MSAyMC4wMDUyIDE0LjQ1ODMgMjAuMDQ2OSAxNC4zMjgxIDIwLjA0NjlIOS42NzE4OFpNMTIgMjIuMTg3NUMxMS40MjE5IDIyLjE4NzUgMTAuOTE5MyAyMi4wNTQ3IDEwLjQ5MjIgMjEuNzg5MUMxMC4wNzAzIDIxLjUyMzQgOS44NDYzNSAyMS4xNzcxIDkuODIwMzEgMjAuNzVIMTQuMTc5N0MxNC4xNTM2IDIxLjE3NzEgMTMuOTI3MSAyMS41MjM0IDEzLjUgMjEuNzg5MUMxMy4wNzI5IDIyLjA1NDcgMTIuNTcyOSAyMi4xODc1IDEyIDIyLjE4NzVaIiBmaWxsPSJ3aGl0ZSIgZmlsbC1vcGFjaXR5PSIwLjciLz4KPC9zdmc+Cg==");
+        }
+      }
+
+      .info {
+        display: flex;
+        flex-flow: column nowrap;
+        gap: 8px;
+        @media (max-width: 760px) {
+          align-items: center;
+        }
+        .info-title {
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 20px;
+          color: hsl(0, 0%, 100%);
+        }
+        .info-description {
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 16px;
+          color: hsla(0, 0%, 100%, 0.7);
+        }
+      }
+    }
+    button {
+      white-space: nowrap;
+      @media (max-width: 760px) {
+        width: 100%;
+      }
+    }
+  }
+
+  .user-info {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+    z-index: 2;
+    @media (max-width: 1100px) {
+      width: 100%;
+      min-width: unset;
+    }
+    @media (max-width: 760px) {
+      width: 100%;
+      min-width: 100%;
+      gap: 136px;
+      height: unset;
+    }
+    .background-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-color: transparent;
+      background-image: url('/assets/images/game/overview/bg-desk.png');
+      z-index: -2;
+    }
+    .gradient-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, #111111 0%, rgba(17, 17, 17, 0) 50%, #111111 100%);
+      z-index: -1;
+    }
+    .balances-wrapper {
+      width: 100%;
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: stretch;
+      justify-content: stretch;
+      gap: 24px;
+      color: hsl(0, 0%, 100%, .75);
+      @media (max-width: 1100px) {
+        flex-flow: column nowrap;
+      }
+
+      .balances {
+        width: 100%;
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: stretch;
+        justify-content: stretch;
+        gap: 12px;
+        .wallet-balance {
+          display: flex;
+          flex-flow: row nowrap;
+          align-items: center;
+          gap: 4px;
+          .value {
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 20px;
+            color: hsl(28, 97%, 47%);
+          }
+          .short-name {
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 16px;
+          }
+        }
+        .token-balance {
+          display: flex;
+          flex-flow: row nowrap;
+          align-items: center;
+          gap: 16px;
+
+          .pic-ore {
+            min-width: 24px;
+            min-height: 44px;
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-color: transparent;
+            background-image: url('/assets/images/game/overview/qre.png');
+          }
+          .pic-btf {
+            min-width: 40px;
+            min-height: 40px;
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-color: transparent;
+            background-image: url('/assets/images/game/overview/bitforce.png');
+          }
+          .info {
+            display: flex;
+            flex-flow: column nowrap;
+            align-items: flex-start;
+            gap: 8px;
+            .val-wrapper {
+              display: flex;
+              flex-flow: row nowrap;
+              align-items: baseline;
+              gap: 4px;
+            }
+            .full-name, .short-name {
+              font-size: 12px;
+              font-weight: 400;
+              line-height: 16px;
+              text-transform: uppercase;
+              white-space: nowrap;
+            }
+            .value {
+              font-size: 16px;
+              font-weight: 600;
+              line-height: 20px;
+              color: hsl(0, 0%, 100%);
+            }
+          }
+        }
+      }
+      .socials {
+        width: 100%;
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: stretch;
+        justify-content: stretch;
+        gap: 12px;
+        @media (max-width: 1100px) {
+          flex-flow: row nowrap;
+        }
+        .social {
+          width: 100%;
+          display: flex;
+          flex-flow: column nowrap;
+          gap: 12px;
+          .token-balance {
+            width: 100%;
+            display: flex;
+            flex-flow: row nowrap;
+            align-items: baseline;
+            gap: 8px;
+            .short-name {
+              font-size: 12px;
+              font-weight: 400;
+              line-height: 16px;
+              color: hsl(0, 0%, 100%);
+            }
+            .value {
+              color: hsl(210, 100%, 52%);
+            }
+            &.-eqn {
+              background:
+                linear-gradient(0deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05)),
+                linear-gradient(360deg, rgba(10, 132, 255, 0) 0%, rgba(10, 132, 255, 0.2) 100%);
+              .value {
+                color: hsl(210, 100%, 52%);
+              }
+            }
+            &.-qen {
+              justify-content: space-between;
+              align-items: center;
+              background:
+                linear-gradient(0deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05)),
+                linear-gradient(360deg, rgba(0, 164, 85, 0) 0%, rgba(0, 164, 85, 0.2) 100%);
+              .info-wrapper {
+                display: flex;
+                flex-flow: column nowrap;
+                align-items: flex-start;
+                gap: 8px;
+                .qen-balance-wrapper {
+                  display: flex;
+                  flex-flow: row nowrap;
+                  align-items: baseline;
+                  gap: 8px;
+                  .value {
+                    color: hsl(151, 100%, 32%);
+                  }
+                }
+              }
+              .timer {
+                font-size: 12px;
+                font-weight: 400;
+                line-height: 16px;
+                color: hsl(0, 0%, 100%);
+              }
+            }
+          }
+          .chip-balance {
+            position: relative;
+            width: 100%;
+            display: flex;
+            flex-flow: row nowrap;
+            align-items: center;
+            gap: 16px;
+            cursor: pointer;
+            &:after {
+              content: "";
+              background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236e6b7b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-chevron-right'%3E%3Cpolyline points='9 18 15 12 9 6'%3E%3C/polyline%3E%3C/svg%3E");
+              background-repeat: no-repeat;
+              background-position: center;
+              height: 16px;
+              width: 16px;
+              position: absolute;
+              right: 16px;
+              cursor: pointer;
+            }
+            .pic-chip {
+              min-width: 44px;
+              min-height: 44px;
+              background-size: cover;
+              background-position: center center;
+              background-repeat: no-repeat;
+              background-color: transparent;
+              background-image: url('/assets/images/game/overview/chip.png');
+            }
+            .info {
+              display: flex;
+              flex-flow: column nowrap;
+              align-items: flex-start;
+              gap: 8px;
+              .name {
+                font-size: 12px;
+                font-weight: 400;
+                line-height: 16px;
+                text-transform: uppercase;
+                white-space: nowrap;
+              }
+              .value {
+                font-size: 16px;
+                font-weight: 600;
+                line-height: 20px;
+                color: hsl(0, 0%, 100%);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .mining {
+    width: 484px;
+    min-width: 484px;
+    height: 100vh;
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 8px;
+    @media (max-width: 1100px) {
+      width: 100%;
+      min-width: unset;
+    }
+    @media (max-width: 760px) {
+      height: unset;
+      width: 100%;
+      min-width: 100%;
+    }
+    .title {
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 16px;
+      text-transform: uppercase;
+      color: hsla(0, 0%, 100%, .75);
+    }
+    .launch {
+      position: relative;
+      height: 140px;
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: flex-start;
+      justify-content: space-between;
+      .background-layer {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-image: url('/assets/images/game/overview/wave.png');
+        z-index: 0;
+      }
+      .gradient-layer {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background:
+          linear-gradient(90deg, hsl(0, 0%, 10%) 0%, transparent 50%, hsl(0, 0%, 10%) 100%),
+          linear-gradient(180deg, hsl(0, 0%, 10%) 0%, transparent 50%, hsl(0, 0%, 10%) 100%);
+        z-index: 1;
+      }
+      .content-box {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: flex-start;
+        justify-content: space-between;
+        z-index: 2;
+      }
+
+
+
+
+
+
+
+      .machines {
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 20px;
+        color: hsl(0, 0%, 100%);
+        .ready {
+          font-size: 32px;
+          font-weight: 600;
+          line-height: 40px;
+          color: hsla(28, 97%, 47%, 1);
+        }
+      }
+      .wave-progress {
+        width: 100%;
+        height: 4px;
+        border-radius: 4px;
+        background-color: hsl(0, 0%, 100%, .1);
+        .current-progress {
+          width: 50%;
+          height: 4px;
+          background-color: hsla(28, 97%, 47%, 1);
+          border-radius: 4px;
+        }
+      }
+    }
+    .tunnels {
+      display: flex;
+      flex-flow: column nowrap;
+      gap: 16px;
+      .info-wrapper {
+        height: calc(100vh - 363px);
+        overflow-y: auto;
+        display: flex;
+        flex-flow: column nowrap;
+        @media (max-width: 760px) {
+          height: unset;
+          overflow-y: unset;
+          order: 3;
+        }
+      }
+      .space {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: center;
+        padding: 29px 0 41px 0;
+        border-bottom: 1px solid hsla(0, 0%, 100%, .2);
+        background-size: 339px 100%;
+        background-position: right center;
+        background-repeat: no-repeat;
+        background-image: url('/assets/images/game/overview/rock-bg.png');
+      }
+
+      .tier-box {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        justify-content: space-between;
+        padding: 6px;
+        backdrop-filter: blur(4px);
+        .name-wrapper {
+          width: 150px;
+          display: flex;
+          flex-flow: row nowrap;
+          align-items: center;
+          gap: 8px;
+          .level {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 4px;
+            background: hsla(28, 97%, 47%, .2);
+            color: hsl(28, 97%, 47%);
+          }
+          .name {
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 16px;
+            text-transform: uppercase;
+            color: hsl(28, 97%, 47%);
+          }
+        }
+        .icon {
+          position: relative;
+          width: 118px;
+          height: 28px;
+          background-size: cover;
+          background-position: center center;
+          background-repeat: no-repeat;
+          .tier-connector {
+            position: absolute;
+            top: -32px;
+            left: 37px;
+            height: 32px;
+            width: 46px;
+            border-right: 1px solid hsla(0, 0%, 100%, .2);
+            border-left: 1px solid hsla(0, 0%, 100%, .2);
+            display: flex;
+            flex-flow: row nowrap;
+            align-items: stretch;
+            justify-content: space-around;
+            .track {
+              height: 100%;
+              width: 0;
+              border-left: 1px dashed hsla(0, 0%, 100%, .2);
+              &.-active {
+                border-left: 1px dashed hsl(28, 97%, 47%);
+              }
+            }
+          }
+        }
+        .arrow {
+          width: 12px;
+          height: 24px;
+          background-size: cover;
+          background-position: center center;
+          background-repeat: no-repeat;
+          background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAxMiAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTExLjEyMTYgMTIuMDA2OEMxMS4xMjE2IDEyLjIxNDQgMTEuMDM4NiAxMi4zOTcgMTAuODgwOSAxMi41NTQ3TDQuMzA2NjQgMTguOTg3OEM0LjE1NzIzIDE5LjEzNzIgMy45NzQ2MSAxOS4yMTE5IDMuNzU4NzkgMTkuMjExOUMzLjMzNTQ1IDE5LjIxMTkgMy4wMDM0MiAxOC44ODgyIDMuMDAzNDIgMTguNDU2NUMzLjAwMzQyIDE4LjI0MDcgMy4wODY0MyAxOC4wNTgxIDMuMjE5MjQgMTcuOTE3TDkuMjYyMjEgMTIuMDA2OEwzLjIxOTI0IDYuMDk2NjhDMy4wODY0MyA1Ljk1NTU3IDMuMDAzNDIgNS43NjQ2NSAzLjAwMzQyIDUuNTU3MTNDMy4wMDM0MiA1LjEyNTQ5IDMuMzM1NDUgNC44MDE3NiAzLjc1ODc5IDQuODAxNzZDMy45NzQ2MSA0LjgwMTc2IDQuMTU3MjMgNC44NzY0NiA0LjMwNjY0IDUuMDE3NThMMTAuODgwOSAxMS40NTlDMTEuMDM4NiAxMS42MDg0IDExLjEyMTYgMTEuNzk5MyAxMS4xMjE2IDEyLjAwNjhaIiBmaWxsPSIjRUI3MTA0Ii8+Cjwvc3ZnPgo=');
+          //cursor: pointer;
+        }
+        &.-space {
+          border-radius: 8px;
+          background-color: hsla(0, 0%, 100%, .05);
+          border: 1px solid hsla(0, 0%, 100%, .05);
+          cursor: pointer;
+          .gas-pic {
+            width: 16px;
+            height: 16px;
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-image: url('/assets/images/game/overview/gas.svg');
+            cursor: pointer;
+          }
+          .icon {
+            position: relative;
+            width: 116px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-image: url('/assets/images/game/overview/space-icon.png');
+            .orange-pic {
+              position: absolute;
+              width: 48px;
+              height: 48px;
+              bottom: -48px;
+              background-size: cover;
+              background-position: center center;
+              background-repeat: no-repeat;
+              background-image: url('/assets/images/game/overview/space-orange.svg');
+            }
+            .dotted-pic {
+              position: absolute;
+              width: 30px;
+              height: 69px;
+              bottom: -45px;
+              left: 4px;
+              background-size: cover;
+              background-position: center center;
+              background-repeat: no-repeat;
+              background-image: url('/assets/images/game/overview/space-dotted.svg');
+            }
+          }
+        }
+        &.-active {
+          border-radius: 8px;
+          background-color: hsla(0, 0%, 100%, .05);
+          border: 1px solid hsla(0, 0%, 100%, .05);
+          cursor: pointer;
+          .icon {
+            background-image: url('/assets/images/game/overview/tier-active.png');
+          }
+        }
+        &.-ready {
+          border-radius: 8px;
+          background-color: hsla(0, 0%, 100%, .05);
+          border: 1px solid hsla(0, 0%, 100%, .05);
+          cursor: pointer;
+          .ready {
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 16px;
+            text-transform: uppercase;
+            color: hsl(210, 100%, 52%);
+          }
+          .icon {
+            background-image: url('/assets/images/game/overview/tier-ready.png');
+          }
+        }
+        &.-noactive {
+          cursor: unset;
+          pointer-events: none;
+          .level {
+            background: hsla(0, 0%, 100%, .1) !important;
+            color: hsla(0, 0%, 100%, .75) !important;
+          }
+          .name {
+            color: hsla(0, 0%, 100%, .75) !important;
+          }
+          .arrow {
+            opacity: 0;
+            cursor: unset;
+          }
+          .icon {
+            background-image: url('/assets/images/game/overview/tier-noactive.png');
+          }
+        }
+      }
+
+      .tiers-list {
+        width: 100%;
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: stretch;
+        gap: 18px;
+        padding-top: 25px;
+        background: radial-gradient(49.89% 87.65% at 49.89% 12.35%, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+        .loader-wrapper {
+          width: 100%;
+          height: 100px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+
+      button {
+        width: 100%;
+        @media (max-width: 760px) {
+          order: 2;
+        }
+      }
+    }
+  }
+}

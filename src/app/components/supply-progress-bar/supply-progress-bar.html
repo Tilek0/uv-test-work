@@ -1,0 +1,80 @@
+<div class=" lable">
+  <span>Emission</span>  <span class="value">{{ (current / total)*100 | number : '1.2-2' }}%</span>
+</div>
+<div
+  class="row progress-bar-box mx-0 w-100 position-relative"
+  popoverClass="popover-progress-class"
+>
+<div
+  class="row progress-bar-box mx-0 w-100 position-relative"
+  popoverClass="popover-progress-class"
+  (click)="open($event)"
+  #customeProgressBar
+  (mousemove)="mouseMoved($event)"
+  (mouseenter)="mouseOpen(true)"
+  (mouseleave)="mouseOpen(false)">
+  <div #customePopover *ngIf="openPopover" class="custom-popover">
+    <div>Price: {{price.toFixed(4)}} DAI</div>
+    Emission: {{(current / 1000000 | number : '1.2-4') + ' m'+ ' / ' + (total /
+    1000000 | number : '1.0-0') + ' m'}}
+    <div #customeArrow class="arrow"></div>
+  </div>
+
+  <div class="progress-bar">
+    <div
+      class="progress-bar-fill"
+      [ngStyle]="{'width.%': (progress1 * 100)}"></div>
+  </div>
+
+  <div
+    *ngIf="progress2 == 0"
+    class="progress-bar-empty"
+    [ngStyle]="{'width.%': 100/4 -1}"></div>
+  <div
+    *ngIf="progress2 != 0"
+    class="progress-bar"
+    [ngStyle]="{'width.%': 100/4 -1}">
+    <div
+      class="progress-bar-fill"
+      [ngStyle]="{'width.%': (progress2 * 100)}"></div>
+  </div>
+
+  <div
+    *ngIf="progress3 == 0"
+    class="progress-bar-empty"
+    [ngStyle]="{'width.%': 100/8 -1}"></div>
+  <div
+    *ngIf="progress3 != 0"
+    class="progress-bar"
+    [ngStyle]="{'width.%': 100/8 -1}">
+    <div
+      class="progress-bar-fill"
+      [ngStyle]="{'width.%': (progress3 * 100)}"></div>
+  </div>
+
+  <div
+    *ngIf="progress4 == 0"
+    class="progress-bar-empty"
+    [ngStyle]="{'width.%': 100/16 -1}"></div>
+  <div
+    *ngIf="progress4 != 0"
+    class="progress-bar"
+    [ngStyle]="{'width.%': 100/16 -1}">
+    <div
+      class="progress-bar-fill"
+      [ngStyle]="{'width.%': (progress4 * 100)}"></div>
+  </div>
+
+  <div
+    *ngIf="progress5 == 0"
+    class="progress-bar-empty"
+    [ngStyle]="{'width.%': 100/32 -1}"></div>
+  <div
+    *ngIf="progress5 != 0"
+    class="progress-bar"
+    [ngStyle]="{'width.%': 100/32 -1}">
+    <div
+      class="progress-bar-fill"
+      [ngStyle]="{'width.%': (progress5 * 100)}"></div>
+  </div>
+</div>

@@ -1,0 +1,372 @@
+<div class="row h-100 m-0">
+  <div
+    class="col-12 d-flex align-items-center justify-content-between header-menu">
+    <div class="d-flex align-items-center">
+      <button class="btn button-grey" (click)="disconnectWallet()">
+        {{ 'SIDE_NAV_WALLET_VALUE.DISCONECT' | translate }}
+      </button>
+    </div>
+    <div class="header-title">
+      {{ 'SIDE_NAV_WALLET_VALUE.WALLET' | translate }}
+      <div class="header-address-wallet">
+        {{ addressWalletClipped }}
+      </div>
+    </div>
+    <img
+      class="button-close cursor-pointer button-black"
+      (click)="closeSlideNav(false)"
+      src="/assets/icon/closeButton.svg"
+      alt="" />
+  </div>
+
+  <div class="col-12 height-container-menu">
+    <div class="loader-container" *ngIf="isLoading">
+      <div class="loader"></div>
+    </div>
+    <div class="row m-0">
+      <div class="col-12 container-total-balance d-flex justify-content-center">
+        <div>
+          {{ 'SIDE_NAV_WALLET_VALUE.TOTAL_BALANCE' | translate }}
+        </div>
+        <div class="total-balance-container">
+          <span class="total-balance-value">
+            $
+            <span *ngIf="isCostCoin && paymentBalance[0].costCoin > 0">
+              {{
+                (
+                  +walletBalance[0].costCoin * +walletBalance[0].value +
+                  +walletBalance[1].costCoin * +walletBalance[1].value +
+                  +walletBalance[2].costCoin * +walletBalance[2].value +
+                  +paymentBalance[0].costCoin * +paymentBalance[0].valuePayment +
+                  +paymentBalance[2].costCoin * +paymentBalance[2].valuePayment
+                ).toFixed(2)
+              }}
+            </span>
+            <span *ngIf="isCostCoin && paymentBalance[0].costCoin === 0">
+              0
+            </span>
+          </span>
+          <span class="conteiner-coning-soon">
+            <img
+              class="total-balance-plus disabled"
+              src="/assets/icon/plusOrange.png"
+              alt="" />
+            <div class="coning-soon coning-soon-right">
+              {{ 'SIDE_NAV_WALLET_VALUE.CONING_SOON' | translate }}
+            </div>
+          </span>
+        </div>
+        <div>HC / DAI / POL</div>
+      </div>
+      <div class="container-button col-12">
+<!--        <div class="row m-0 p-0">-->
+<!--          <div class="conteiner-coning-soon col-12 p-0">-->
+<!--            <button class="btn button-grey -br8" (click)="openTransfer()">-->
+<!--              <img-->
+<!--                      class="icon-btn-secondary"-->
+<!--                      src="/assets/icon/transferIcon.png"-->
+<!--                      alt="" />-->
+<!--              {{ 'SIDE_NAV_WALLET_VALUE.TRANSFER' | translate }}-->
+<!--            </button>-->
+<!--          </div>-->
+<!--        </div>-->
+
+        <div class="row m-0 p-0">
+          <div class="conteiner-coning-soon col-4 ">
+            <button class="btn button-grey -br8" (click)="openTrade()">
+              <img
+                class="icon-btn-secondary"
+                src="/assets/icon/sellIcon.png"
+                style="transform: scaleY(-1)"
+                alt="" />
+              {{ 'SIDE_NAV_WALLET_VALUE.TRADE' | translate }}
+            </button>
+          </div>
+          <div class="conteiner-coning-soon col-4  padding-right-5px padding-left-5px">
+            <button class="btn button-grey -br8" (click)="openHoldMFSWallet()">
+              <img
+                class="icon-btn-secondary"
+                src="/assets/icon/sellIcon.png"
+                alt="" />
+              {{ 'SIDE_NAV_WALLET_VALUE.HOLD_MFS' | translate }}
+            </button>
+          </div>
+          <div class="conteiner-coning-soon col-4  padding-left-4px pr-0">
+            <button class="btn button-grey -br8" (click)="openSwaphMFSOnMFS()">
+              <img
+                class="icon-btn-secondary"
+                src="/assets/icon/sellIcon.png"
+                alt="" />
+              {{ 'SIDE_NAV_WALLET_VALUE.SWAP' | translate }} hHC
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row m-0 scrollable-container media-list" [perfectScrollbar]>
+      <div class="col-12 p-0 inner-balace-container">
+        <div
+          class="inner-balace-container-header d-flex justify-content-between">
+          <a
+            target="_blank"
+            class="cursor-pointer"
+            [href]="
+              environment.innerBalance +
+              userId +
+              '&language=' +
+              translate.currentLang
+            ">
+            <span>{{ 'SIDE_NAV_WALLET_VALUE.BALANCE' | translate }}</span>
+          </a>
+          <a
+            target="_blank"
+            class="cursor-pointer link-site"
+            [href]="
+              environment.innerBalance +
+              userId +
+              '&language=' +
+              translate.currentLang
+            ">
+            <span>ib.holiverse.ai</span>
+          </a>
+        </div>
+        <div class="inner-balace-container-body">
+          <!-- [ngIf]="i != 1 || +coin.value > 0" -->
+          <ng-container *ngFor="let coin of paymentBalance; let i = index">
+            <div
+              *ngIf="i != 1 || +coin.valuePayment > 1"
+              class="row inner-balace-container-coin m-0 cursor-pointer"
+              (click)="openHistory(coin, sideNavType.inner)">
+            <div
+              class="col-6 p-0 d-flex"
+              [ngClass]="{
+                'align-items-center new-container-coin':
+                  coin.name != 'MFS' &&
+                  coin.name != 'DAI' &&
+                  coin.secondName != 'Matic'
+              }">
+              <app-crypto-tokens
+                class="margin-right-16px margin-top-16px"
+                [imgName]="coin.img">
+              </app-crypto-tokens>
+              <span
+                class="w-100 border-bottom-custom"
+                [ngClass]="{
+                  '    border-bottom-1px height-76px d-flex align-items-center':
+                    coin.name != 'MFS' &&
+                    coin.name != 'DAI' &&
+                    coin.secondName != 'Matic',
+                  'border-none': i === paymentBalance.length - 1 && lastIndexNotZerohMfsBalance === null
+                }">
+                <div class="inner-balace-coin-header">
+                  <span class="text-white">{{ coin.name == 'MFS' ? 'HC' : coin.name }}</span
+                  ><span class="text-grey"> / {{ coin.secondName }}</span>
+                </div>
+
+                <div
+                  class="inner-balace-coin-description text-grey"
+                  *ngIf="
+                    coin.name === 'MFS' ||
+                    coin.name === 'DAI' ||
+                    coin.secondName === 'Matic'
+                  "
+                  [ngClass]="{
+                    'border-none': i === paymentBalance.length - 1 && lastIndexNotZerohMfsBalance === null
+                  }">
+                  <span>$ {{ +(+coin.costCoin).toFixed(2) }}</span>
+                  <!-- <span  class="text-green">
+                                      +{{coin.changeCoin}}%</span> -->
+                </div>
+              </span>
+            </div>
+            <div
+              class="col-6 p-0 text-right border-bottom-custom"
+              [ngClass]="{
+                'd-flex align-items-center justify-content-end padding-bottom border-bottom-1px':
+                  coin.name != 'MFS' &&
+                  coin.name != 'DAI' &&
+                  coin.secondName != 'Matic',
+                'border-none': i === paymentBalance.length - 1 && lastIndexNotZerohMfsBalance === null
+              }">
+              <div class="inner-balace-coin-header text-white">
+                {{ +(+coin.valuePayment).toFixed(2) }}
+              </div>
+              <div
+                class="inner-balace-coin-description text-grey"
+                *ngIf="
+                  coin.name === 'MFS' ||
+                  coin.name === 'DAI' ||
+                  coin.secondName === 'Matic'
+                "
+                [ngClass]="{ 'border-none': i === paymentBalance.length - 1 && lastIndexNotZerohMfsBalance === null }">
+                <span>
+                  ${{ +(+coin.costCoin * +coin.valuePayment).toFixed(2) }}
+                </span>
+              </div>
+            </div>
+          </div>
+          </ng-container>
+
+          <ng-container *ngFor="let coin of hMFSBalance; let i = index">
+            <div
+              *ngIf="+coin.value > 0"
+              class="row inner-balace-container-coin m-0 cursor-pointer"
+              [ngClass]="{'border-none': lastIndexNotZerohMfsBalance == i}"
+              (click)="openHoldMFSWallet()"
+            >
+              <div
+                class="col-6 p-0 d-flex align-items-center new-container-coin"
+                [ngClass]="{'border-none': lastIndexNotZerohMfsBalance == i}"
+              >
+                <app-crypto-tokens
+                    class="margin-right-16px margin-top-16px"
+                    [imgName]="coin.img">
+                </app-crypto-tokens>
+                <span
+                  class="w-100 border-bottom-custom border-bottom-1px height-76px d-flex align-items-center"
+                  [ngClass]="{'border-none': lastIndexNotZerohMfsBalance == i}"
+                >
+                  <div class="inner-balace-coin-header">
+                    <span class="text-white">{{ coin.newName }}</span>
+                  </div>
+                </span>
+              </div>
+              <div
+                class="col-6 p-0 text-right border-bottom-custom d-flex align-items-center justify-content-end padding-bottom border-bottom-1px"
+                [ngClass]="{'border-none': lastIndexNotZerohMfsBalance == i}"
+              >
+                <div class="inner-balace-coin-header text-white">
+                  {{ +(+coin.value).toFixed(2) }}
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+<!--      <div class="col-12 container-checkbox">-->
+<!--        <div-->
+<!--          *ngIf="!isReservedAddress"-->
+<!--          class="custom-control custom-checkbox custom-checkbox-green">-->
+<!--          <input-->
+<!--            type="checkbox"-->
+<!--            class="custom-control-input custom-control-input-green"-->
+<!--            [ngModel]="directPaymentStatus"-->
+<!--            (change)="changeCheckbox($event)"-->
+<!--            id="customCheck1" />-->
+<!--          <label class="custom-control-label" for="customCheck1">-->
+<!--            <span class="description">{{-->
+<!--              'SIDE_NAV_WALLET_VALUE.CHECK_NAME' | translate-->
+<!--            }}</span></label-->
+<!--          >-->
+<!--        </div>-->
+      <div *ngIf="isReservedAddress" class="col-12 container-checkbox">
+        <div
+          class="inner-balace-container-header-extra-walet d-flex justify-content-between align-items-center">
+          <span>{{ 'SIDE_NAV_WALLET_VALUE.EXTRA_WALLET' | translate }}</span>
+          <span
+            class="address cursor-pointer"
+            (click)="copyWalletReservedAddress()">
+            {{
+              reservedAddress.slice(0, 5).toUpperCase() +
+                '...' +
+                reservedAddress.slice(reservedAddress.length - 4).toUpperCase()
+            }}
+
+            <span
+              class="text-white text-copied mr-1 badge badge-secondary"
+              *ngIf="isCopyReservedAddress"
+              >copied !</span
+            >
+            <img
+              class="cursor-pointer copy-icon-extra-walet"
+              src="assets/icon/copy.png" />
+          </span>
+        </div>
+      </div>
+      <div class="col-12 p-0 inner-balace-container" [ngStyle]="{'margin-top': !isReservedAddress ? '10px' : '0'}">
+        <div
+          class="inner-balace-container-header-walet d-flex justify-content-between align-items-center">
+          <span>{{ 'SIDE_NAV_WALLET_VALUE.WALLET_BALANCE' | translate }}</span>
+          <span class="address cursor-pointer" (click)="copyWallet()">
+            {{ addressWalletClipped }}
+            <span
+              class="text-white text-copied mr-1 badge badge-secondary"
+              *ngIf="isCopy"
+              >copied !</span
+            >
+            <img class="cursor-pointer copy-icon" src="assets/icon/copy.png" />
+          </span>
+        </div>
+        <div class="inner-balace-container-body">
+          <div
+            class="row inner-balace-container-coin m-0 cursor-pointer"
+            *ngFor="let coin of walletBalance; let i = index"
+            (click)="openHistory(coin, sideNavType.wallet)">
+            <div
+              class="col-6 d-flex p-0"
+              [ngClass]="{
+                ' align-items-center new-container-coin ':
+                  coin.name != 'MFS' &&
+                  coin.name != 'DAI' &&
+                  coin.secondName != 'Matic'
+              }">
+              <app-crypto-tokens
+                class="margin-right-16px margin-top-16px"
+                [imgName]="coin.img">
+              </app-crypto-tokens>
+              <span
+                class="w-100 border-bottom-custom"
+                [ngClass]="{
+                  ' border-bottom-1px height-76px d-flex align-items-center':
+                    coin.name != 'MFS' &&
+                    coin.name != 'DAI' &&
+                    coin.secondName != 'Matic',
+                  'border-none': i === walletBalance.length - 1
+                }">
+                <div class="inner-balace-coin-header">
+                  <span class="text-white">{{ coin.name }}</span
+                  ><span class="text-grey"> / {{ coin.secondName }}</span>
+                </div>
+                <div
+                  class="inner-balace-coin-description text-grey"
+                  *ngIf="
+                    coin.name === 'MFS' ||
+                    coin.name === 'DAI' ||
+                    coin.secondName === 'Matic'
+                  "
+                  [ngClass]="{ 'border-none': i === walletBalance.length - 1 }">
+                  <span>$ {{ +(+coin.costCoin).toFixed(2) }}</span>
+                  <!-- <span  class="text-green">
+                                           +{{coin.changeCoin}}%</span> -->
+                </div>
+              </span>
+            </div>
+            <div
+              class="col-6 p-0 text-right border-bottom-custom"
+              [ngClass]="{
+                'd-flex align-items-center justify-content-end padding-bottom border-bottom-1px':
+                  coin.name != 'MFS' &&
+                  coin.name != 'DAI' &&
+                  coin.secondName != 'Matic',
+                'border-none': i === walletBalance.length - 1
+              }">
+              <div class="inner-balace-coin-header text-white">
+                {{ +(+coin.value).toFixed(2) }}
+              </div>
+              <div
+                class="inner-balace-coin-description text-grey"
+                *ngIf="
+                  coin.name === 'MFS' ||
+                  coin.name === 'DAI' ||
+                  coin.secondName === 'Matic'
+                "
+                [ngClass]="{ 'border-none': i === walletBalance.length - 1 }">
+                <span> ${{ +(+coin.costCoin * +coin.value).toFixed(2) }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

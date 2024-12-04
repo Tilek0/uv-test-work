@@ -1,0 +1,62 @@
+@import '../../../../../@core/scss/base/bootstrap-extended/include';
+
+.header-menu {
+  padding: 16px;
+
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: -0.004em;
+  text-align: center;
+
+  .back-arrow-social {
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  .icon {
+    margin-right: 8px;
+    background-image: url(str-replace(
+      str-replace($chevron-left, 'currentColor', $body-color),
+      '#',
+      '%23'
+    ));
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 2rem;
+    height: 2.5rem;
+    width: 1.5rem;
+  }
+
+  .header-title {
+    color: rgba(255, 255, 255, 1);
+  }
+}
+
+.height-container-menu {
+  height: calc(100vh - 72px);
+  padding: 16px 16px;
+}
+
+.button-close {
+  width: 40px;
+  height: 40px;
+}
+
+.item-social {
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: -0.004em;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.4) !important;
+  margin-bottom: 8px;
+
+  img {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+  }
+}

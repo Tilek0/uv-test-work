@@ -1,0 +1,20 @@
+.card-title {
+  background: rgba(255, 255, 255, 0.03);
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 32px;
+  margin: 0;
+
+  letter-spacing: -0.01em;
+  padding: 24px;
+  color: #e6e6e6;
+}
+
+.size-button {
+  height: 48px;
+  width: 110px;
+}
+
+.card {
+  height: calc(100vh - 176px);
+}

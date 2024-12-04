@@ -1,0 +1,26 @@
+﻿export const locale = {
+  lang: 'ur',
+  data: {
+    LEVEL_ITEM: {
+      TIER: 'درجہ',
+      SUSPENDED: 'معطل',
+      ACTIVE_UNTIL: 'رسائی کا وقت',
+      DAY: 'دن',
+      HOUS: 'گھنٹے',
+      MIN: 'منٹ',
+      ACTIVATION_PRICE: 'فعال کرنے کی قیمت',
+      RENEWAL_PRICE: 'تجدید کی قیمت',
+      SHOW_LEVEL: 'دکھانے کے لئے کلک کریں',
+      ACTIVATE: 'فعال کریں',
+      EXTAND: 'توسیع کریں',
+      EXTENSION_TIME: 'توسیع کا وقت',
+      EXTEND_TIME: 'وقت بڑھائیں',
+      DELTA: 'ڈیلٹا',
+      BADGE_READY: 'تیار',
+      BADGE_EXTENSION: 'توسیع',
+      BADGE_ACTIVE: 'فعال',
+      BADGE_NO_ACTIVE: 'غیر فعال',
+      OR: 'یا',
+    },
+  },
+};

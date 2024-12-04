@@ -1,0 +1,96 @@
+<div class="row container-value">
+  <div class="col-6 p-0">
+    <div class="row m-0">
+      <div class="col-12 text-value-header p-0">DAI</div>
+      <div
+        class="col-12 d-flex align-items-center text-value p-0"
+        [ngClass]="{
+          'text-size-value-min': balancesOnPayment.stablecoin.length > 8,
+          'text-size-value-max':
+            balancesOnPayment.stablecoin.length <= 8 &&
+            balancesOnPayment.stablecoin.length > 4
+        }">
+        <div class="dot dal-color-dot"></div>
+        {{ (+balancesOnPayment.stablecoin).toFixed(1) }}
+      </div>
+    </div>
+  </div>
+  <div class="col-6 p-0">
+    <div class="row m-0">
+      <div class="col-12 text-value-header p-0">HC</div>
+      <div
+        class="col-12 text-value p-0 d-flex align-items-center"
+        [ngClass]="{
+          'text-size-value-min': balancesOnPayment.mfs.length > 8,
+          'text-size-value-max':
+            balancesOnPayment.mfs.length <= 8 &&
+            balancesOnPayment.mfs.length > 4
+        }">
+        <div class="dot mfc-color-dot"></div>
+        {{ (+balancesOnPayment.mfs).toFixed(1) }}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="gainedChartoptions" #gainedChartRef class="d-flex container-chart ">
+  <!-- <div class="spark-line-custome">
+        <div class="row m-0">
+            <div class="col-12 p-0">
+                <div class="row m-0 marging-1-line">
+                    <div class="col-4 p-0">
+                        $ {{data.subscribers_gained.series[0].data[data.subscribers_gained.series[0].data.length-1] + (data.subscribers_gained.series[0].data[data.subscribers_gained.series[0].data.length-1] /100 *20)}}
+                    </div>
+                    <div class="col-8 border-line p-0">
+
+                    </div>
+                </div>
+              
+            </div>
+            <div class="col-12 p-0">
+                <div class="row m-0 marging-2-line">
+                    <div class="col-4 p-0">
+                        ${{data.subscribers_gained.series[0].data[data.subscribers_gained.series[0].data.length-2]}} 
+                    </div>
+                    <div class="col-8 border-line p-0">
+
+                    </div>
+                </div>
+                
+            </div>
+            <div class="col-12 p-0">
+                <div class="row m-0 marging-2-line">
+                    <div class="col-4 p-0">
+                        $ {{data.subscribers_gained.series[0].data[math.ceil((data.subscribers_gained.series[0].data.length-1)/2)]}} 
+                    </div>
+                    <div class="col-8 border-line p-0">
+
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+    </div> -->
+  <apx-chart class="apex-custom"
+    [series]="data.subscribers_gained.series"
+    [chart]="{
+      height: '100%',
+
+      type: 'area',
+      toolbar: {
+        show: false
+      },
+      sparkline: {
+        enabled: false
+      }
+    }"
+    [stroke]="gainedChartoptions.stroke"
+    [fill]="gainedChartoptions.fill"
+    [tooltip]="gainedChartoptions.tooltip"
+    [colors]="gainedChartoptions.colors"
+    [dataLabels]="gainedChartoptions.dataLabels"
+    [xaxis]="gainedChartoptions.xaxis"
+    [yaxis]="gainedChartoptions.yaxis"
+    [grid]="gainedChartoptions.grid"
+    [legend]="gainedChartoptions.legend"></apx-chart>
+</div>

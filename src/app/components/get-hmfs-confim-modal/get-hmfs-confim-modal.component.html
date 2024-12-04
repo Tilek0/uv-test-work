@@ -1,0 +1,60 @@
+<ng-template #confirmBuyback let-modal>
+    <div class="modal-header">
+      <fa-icon (click)="closeModal()" [icon]="faCircleXmark"></fa-icon>
+      <div class="modal-title">
+        {{ 'CONFIRM_GETHMFS_MODAL.TITLE' | translate }}
+      </div>
+    </div>
+  
+    <div class="modal-body" tabindex="0" ngbAutofocus>
+      <div class="info">
+        <div class="title">
+          <span *ngIf="getAmmount < 0 || isHold">
+            {{ 'CONFIRM_GETHMFS_MODAL.INFO' | translate }} {{ coin.amount }} {{ coin.currentEntryLevel === 0 ? 'HC' : coin.name }}?
+          </span>
+          
+        <br *ngIf="getAmmount < 0 || isHold">
+        <br *ngIf="getAmmount < 0 || isHold">
+          <div *ngIf="getAmmount < 0 || isHold">
+            {{ 'CONFIRM_GETHMFS_MODAL.INFO_1' | translate }} {{ coin.amount }} {{ coin.currentEntryLevel === 0 ? 'HC' : coin.name }}
+            {{ 'CONFIRM_GETHMFS_MODAL.INFO_2' | translate }} {{ coin.currentEntryLevel === 0 ? 'HC.' : 'hHC.' }}
+          </div>
+         <div *ngIf="getAmmount > -1">
+          {{ 'CONFIRM_GETHMFS_MODAL.QUESTION' | translate }} {{ getAmmount}} {{ coin.currentEntryLevel === 0 ? 'HC' : coin.name }}?
+         </div>
+
+          
+          
+        </div>
+  
+        <!-- <div class="custom-control custom-checkbox custom-checkbox-green">
+          <input
+              type="checkbox"
+              class="custom-control-input custom-control-input-green"
+              [ngModel]="yesIamSure"
+              (change)="changeCheckbox($event)"
+              id="yesIamShure" />
+          <label class="custom-control-label" for="yesIamShure">
+              <span class="description">
+                {{ 'CONFIRM_GETHMFS_MODAL.AGREEMENT' | translate }}
+              </span>
+          </label>
+        </div> -->
+  
+        <div class="bottom">
+          <button type="button" class="btn-orange"  (click)="confirm()">
+            <span
+              *ngIf="isProcessing"
+              class="spinner-border spinner-border-sm"
+              role="status"
+              aria-hidden="true"></span>
+              {{ 'CONFIRM_GETHMFS_MODAL.YES' | translate }}
+          </button>
+          <button type="button" class="btn-orange -grey"  (click)="closeModal()">
+            {{ 'CONFIRM_GETHMFS_MODAL.NO' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  

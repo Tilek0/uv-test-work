@@ -1,0 +1,236 @@
+.modal-header {
+  width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+  .header-wrapper {
+    position: relative;
+    padding: 18px 16px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .modal-title {
+      color: hsl(0, 0%, 100%);
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 20px;
+    }
+    fa-icon {
+      position: absolute;
+      top: 18px;
+      right: 16px;
+      color: hsla(0, 0%, 100%, .5);
+      cursor: pointer;
+      .fa-circle-xmark {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+  .body-wrapper {
+    width: 100%;
+    min-height: 760px;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    background-image: url('/assets/images/game/overview/bg-desk.png');
+    padding-bottom: 24px;
+    @media (max-width: 760px) {
+      min-height: 480px;
+    }
+    .help-title {
+      font-size: 24px;
+      font-weight: 600;
+      line-height: 32px;
+      color: hsl(28, 97%, 47%);
+      @media (max-width: 760px) {
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 20px;
+        text-align: center;
+      }
+    }
+    .help-subtitle {
+      font-size: 40px;
+      font-weight: 600;
+      line-height: 48px;
+      color: hsl(0, 0%, 100%);
+      @media (max-width: 760px) {
+        font-size: 32px;
+        font-weight: 600;
+        line-height: 40px;
+        text-align: center;
+      }
+    }
+    button {
+      margin-top: 32px;
+      width: 180px;
+    }
+  }
+}
+
+.modal-body {
+  width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+  padding: 0;
+  background: hsl(0, 0%, 10%);
+  @media (max-width: 576px) {
+    padding: 16px;
+  }
+  .sticky-close {
+    width: 100%;
+    height: 0;
+    display: flex;
+    justify-content: flex-end;
+    position: sticky;
+    top: 0;
+    .sticky-inner-wrapper {
+      position: relative;
+    }
+    fa-icon {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+    }
+  }
+  .video-guide {
+    width: 100%;
+    height: 448px;
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-color: hsl(0, 0%, 0%);
+  }
+  .info {
+    width: 100%;
+    height: 240px;
+    padding: 24px 80px;
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 16px;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    .title {
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 24px;
+      color: hsl(0, 0%, 100%);
+    }
+    .description {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 16px;
+      color: hsl(0, 0%, 100%);
+      white-space: pre-line;
+    }
+  }
+  .pagination {
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    padding: 16px;
+    justify-content: space-between;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    .current {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 24px;
+      color: hsla(0, 0%, 100%, .7);
+    }
+    .prev, .next {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: hsla(0, 0%, 100%, .05);
+      cursor: pointer;
+      &.-disabled {
+        cursor: unset;
+        pointer-events: none;
+        opacity: .5;
+      }
+      .arrow {
+        width: 24px;
+        height: 24px;
+        background-size: auto;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-color: transparent;
+        background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTUiIHZpZXdCb3g9IjAgMCAxMCAxNSIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTkuMTQwNjIgNy4zNTkzOEM5LjE0MDYyIDcuNjc5NjkgOS4wMzEyNSA3Ljk0NTMxIDguNzczNDQgOC4xOTUzMUwyLjc1NzgxIDE0LjA3ODFDMi41NTQ2OSAxNC4yODEyIDIuMzEyNSAxNC4zODI4IDIuMDIzNDQgMTQuMzgyOEMxLjQzNzUgMTQuMzgyOCAwLjk2MDkzOCAxMy45MTQxIDAuOTYwOTM4IDEzLjMyODFDMC45NjA5MzggMTMuMDMxMiAxLjA4NTk0IDEyLjc3MzQgMS4yOTY4OCAxMi41NjI1TDYuNjQwNjIgNy4zNTE1NkwxLjI5Njg4IDIuMTU2MjVDMS4wODU5NCAxLjk0NTMxIDAuOTYwOTM4IDEuNjc5NjkgMC45NjA5MzggMS4zOTA2MkMwLjk2MDkzOCAwLjgwNDY4OCAxLjQzNzUgMC4zNDM3NSAyLjAyMzQ0IDAuMzQzNzVDMi4zMTI1IDAuMzQzNzUgMi41NTQ2OSAwLjQzNzUgMi43NTc4MSAwLjY0MDYyNUw4Ljc3MzQ0IDYuNTIzNDRDOS4wMjM0NCA2Ljc3MzQ0IDkuMTQwNjIgNy4wMzkwNiA5LjE0MDYyIDcuMzU5MzhaIiBmaWxsPSJ3aGl0ZSIgZmlsbC1vcGFjaXR5PSIwLjUiLz4KPC9zdmc+Cg==");
+      }
+    }
+    .prev .arrow {
+      transform: rotateY(180deg);
+    }
+  }
+  &.-mobile {
+    padding: 0;
+    .step-wrapper {
+      width: 100%;
+      display: flex;
+      flex-flow: column nowrap;
+      padding-bottom: 24px;
+    }
+    .img-guide {
+      width: 100%;
+      height: 480px;
+      background-size: contain;
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-color: hsl(0, 0%, 0%);
+    }
+    .info {
+      width: 100%;
+      padding: 24px;
+      height: unset;
+      display: flex;
+      flex-flow: column nowrap;
+      gap: 12px;
+      border-radius: unset;
+      .title {
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 20px;
+        color: hsl(0, 0%, 100%);
+      }
+      .description {
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 16px;
+        color: hsl(0, 0%, 100%);
+        white-space: pre-line;
+      }
+      .pagination {
+        width: 100%;
+        display: block;
+        padding: 0;
+        .current {
+          font-size: 14px;
+          font-weight: 500;
+          line-height: 16px;
+          color: hsla(0, 0%, 100%, .7);
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,88 @@
+.LevelItemChip {
+  width: 100%;
+  height: max-content;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 8px;
+  padding: 16px;
+  background: hsl(0, 0%, 10%);
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 16px;
+  &:hover {
+    background: hsl(0, 0%, 8%);
+  }
+
+  .top {
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
+    .name {
+      color: hsl(0, 0%, 100%);
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 20px;
+    }
+    .amount {
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+      gap: 8px;
+      .name {
+        color: hsla(0, 0%, 100%, 0.5);
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 16px;
+        text-transform: uppercase;
+      }
+      .value {
+        padding: 4px 8px;
+        border-radius: 4px;
+        background: hsl(28, 97%, 47%);
+        color: hsl(0, 0%, 100%);
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 16px;
+      }
+    }
+  }
+
+  button {
+    width: 100%;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 20px;
+    color: hsl(0, 0%, 100%);
+    &:disabled {
+      background: hsl(0, 0%, 15%) !important;
+      color: hsla(0, 0%, 100%, 0.5) !important;
+    }
+  }
+
+  .pic-wrapper {
+    width: 100%;
+    padding: 8px 30px;
+    .pic-box {
+      display: block;
+      width: 0;
+      height: 0;
+      min-width: 100%;
+      max-width: 100%;
+      position: relative;
+      padding-top: 90%;
+      .pic {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        // background-image: url('/assets/images/chip.png');
+      }
+    }
+  }
+}

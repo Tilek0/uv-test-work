@@ -1,0 +1,7 @@
+/.github
+/.k8s
+/.gitlab-ci.yml
+/.gitignore
+/dist
+/node_modules
+/.angular

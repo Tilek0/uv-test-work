@@ -1,0 +1,99 @@
+<div
+  class="LevelItem"
+  (click)="showTier(item.levelNumber)"
+  [ngClass]="{
+    '-extension': item.isActive && extendStatus,
+    '-active': item.isActive && !extendStatus,
+    '-ready': !item.isActive && canActivate && !canExtend,
+    '-not-active': !item.isActive && !canActivate && !canExtend
+  }">
+    <div class="top">
+      <div class="name">
+        {{ 'LEVEL_ITEM.TIER' | translate }} {{ item.levelNumber }}
+      </div>
+      <div class="status">
+        <span *ngIf="item.isActive && extendStatus">
+          {{ 'LEVEL_ITEM.BADGE_EXTENSION' | translate }}
+        </span>
+        <span *ngIf="item.isActive && !extendStatus">
+          {{ 'LEVEL_ITEM.BADGE_ACTIVE' | translate }}
+        </span>
+        <span *ngIf="!item.isActive && canActivate && !canExtend">
+          {{ 'LEVEL_ITEM.BADGE_READY' | translate }}
+        </span>
+        <span *ngIf="!item.isActive && !canActivate && !canExtend">
+          {{ 'LEVEL_ITEM.BADGE_NO_ACTIVE' | translate }}
+        </span>
+        <fa-icon [icon]="faCircleInfo"></fa-icon>
+      </div>
+    </div>
+
+    <div class="pic-wrapper">
+      <div class="pic-box">
+        <div class="pic" [ngClass]="pictureClass"></div>
+      </div>
+    </div>
+
+    <div *ngIf="!showExtendTime" class="date-time">
+      <div class="title">
+        <span *ngIf="item.isActive && extendStatus">
+          {{ 'LEVEL_ITEM.EXTENSION_TIME' | translate }}
+        </span>
+        <span *ngIf="item.isActive && !extendStatus">
+          {{ 'LEVEL_ITEM.ACTIVE_UNTIL' | translate }}
+        </span>
+        <span *ngIf="!item.isActive && canActivate && !canExtend">
+          {{ 'LEVEL_ITEM.BADGE_NO_ACTIVE' | translate }}
+        </span>
+        <span *ngIf="!item.isActive && !canActivate && !canExtend">
+          {{ 'LEVEL_ITEM.BADGE_NO_ACTIVE' | translate }}
+        </span>
+      </div>
+      <div class="time-number" *ngIf="item.isActive">
+        {{ day }}d : {{ hours }}h : {{ minutes }}m
+      </div>
+      <div class="time-number" *ngIf="!item.isActive">
+        0d : 0h : 0m
+      </div>
+    </div>
+    <div *ngIf="showExtendTime" class="date-time -extend">
+        <div class="title">
+            {{ 'LEVEL_ITEM.EXTEND_TEXT' | translate }}
+        </div>
+        <div class="time-number">
+            {{ day - 10 }}d : {{ hours }}h : {{ minutes }}m
+        </div>
+    </div>
+
+    <div *ngIf="!isUserDataLoaded" class="price">
+      - HC
+      <span class="dai-info">( - DAI)</span>
+    </div>
+    <div *ngIf="isUserDataLoaded && canExtend" class="price -discount">
+     <span >~ </span> {{ math.ceil((item.costInMFS * discount)* 100)/ 100 }} hHC 
+      <span  class="dai-info"> ({{ +(item.costInDAI ).toFixed(2) }} DAI)</span>
+    </div>
+    <div *ngIf="isUserDataLoaded && !canExtend" class="price">
+      <span >~ </span>  {{ +(item.costInMFS).toFixed(2) }} HC
+      <span class="dai-info">({{ +(item.costInDAI).toFixed(2) }} DAI)</span>
+    </div>
+    <div class="activate-button">
+      <button *ngIf="!canExtend"
+          class="btn-orange"
+          [disabled]="!canActivate"
+          type="button"
+          (click)="clickPackActivate($event)">
+        <span>{{ 'LEVEL_ITEM.ACTIVATE' | translate }}</span>
+      </button>
+
+      <button *ngIf="canExtend"
+          class="btn-orange"
+          
+          type="button"
+          (click)="clickPackExtand($event)"
+          (mouseenter)="mouseenterExtend($event)"
+          (mouseleave)="mouseleaveExtend($event)">
+        <span>{{ 'LEVEL_ITEM.EXTEND_TIME' | translate }}</span>
+      </button>
+    </div>
+</div>

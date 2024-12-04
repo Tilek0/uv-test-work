@@ -1,0 +1,216 @@
+.modal-header {
+  width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  background-color: #191a1a !important;
+  .close-wrapper {
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+    z-index: 10;
+    fa-icon {
+      color: hsla(0, 0%, 100%, .5);
+      cursor: pointer;
+      .fa-circle-xmark {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+
+  .modal-title {
+    color: hsl(0, 0%, 100%);
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 32px;
+  }
+}
+
+.modal-body {
+  width: 100%;
+  //min-height: calc(100vh - 100px);
+  padding: 0 16px 16px 16px;
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 16px;
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+  background-color: #191a1a !important;
+  color: hsla(0, 0%, 100%, .75);
+
+  .title {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+    text-transform: uppercase;
+    &.-white {
+      color: hsl(0, 0%, 100%);
+    }
+
+  }
+  .error {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+    color: hsl(4, 82%, 48%);
+  }
+
+  .body-wrapper {
+    width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 16px;
+    .info-wrapper {
+      width: 100%;
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: flex-start;
+      gap: 8px;
+      .info {
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 16px;
+      }
+      .learn-more {
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 16px;
+        color: hsl(28, 97%, 47%);
+        cursor: pointer;
+      }
+    }
+
+    .balance-row {
+      display: flex;
+      flex-flow: row nowrap;
+      width: 100%;
+      color: hsl(0, 0%, 100%);
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 16px;
+      justify-content: stretch;
+      .name, .number {
+        white-space: nowrap;
+      }
+      .number {
+        font-weight: 500;
+      }
+      .separator {
+        width: 100%;
+        border-bottom: 1px dashed hsl(0, 0%, 20%);
+      }
+    }
+
+    .battery-block {
+      width: 100%;
+      display: flex;
+      flex-flow: column nowrap;
+      gap: 10px;
+      margin-top: 20px;
+      .battery-list {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-around;
+        .battery {
+          width: 120px;
+          display: flex;
+          flex-flow: column nowrap;
+          align-items: center;
+          gap: 12px;
+          .name-wrapper {
+            width: 100%;
+            display: flex;
+            flex-flow: column nowrap;
+            align-items: center;
+            gap: 4px;
+          }
+          .name {
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 16px;
+            color: hsl(0, 0%, 100%);
+            .orange {
+              color: hsl(28, 97%, 47%);
+            }
+            .white-grey {
+              color: hsla(0, 0%, 100%, .75);
+            }
+          }
+          .under-name {
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 16px;
+            color: hsla(0, 0%, 100%, .75);
+          }
+          &.-locked {
+            .name, .under-name, .name .orange, .name .white-grey {
+              color: hsla(0, 0%, 100%, .2);
+            }
+          }
+          &.-lock-active {
+            .name, .name .orange, .name .white-grey {
+              color: hsla(0, 0%, 100%, .2);
+            }
+            .under-name {
+              color: hsl(28, 97%, 47%);
+            }
+          }
+          &.-partial {
+            .name {
+              color: hsla(0, 0%, 100%, .2);
+            }
+            .name .white {
+              color: hsl(0, 0%, 100%);
+            }
+            .under-name {
+              color: hsl(28, 97%, 47%);
+            }
+          }
+        }
+      }
+      button {
+        width: 100%;
+        border-radius: 8px !important;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 16px;
+        color: hsla(0, 0%, 100%, .75);
+      }
+    }
+
+    .err-msg {
+      margin-top: 30px;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 16px;
+      color: hsla(4, 82%, 48%);
+    }
+  }
+}
+
+.-disabled {
+  opacity: .3;
+  cursor: unset;
+  pointer-events: none;
+}
+
+button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  height: 32px;
+}
+
+.bottom {
+  padding-top: 24px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  gap: 8px;
+  button {
+    width: 100%;
+  }
+}

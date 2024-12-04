@@ -1,0 +1,213 @@
+<div
+  class="row h-100 m-0 container-level container-level-is-not-active cursor-pointer"
+  (click)="showTier(item.levelNumber)"
+  [ngClass]="{
+    'containet-item-top': item.levelNumber === 0,
+    'containet-item-bottom': item.levelNumber === 9,
+    'container-level-is-active':
+      (item.status === 'active' && timeMs > 0) || item.levelNumber === 0
+  }">
+  <div class="col-12 col-sm-8">
+    <div class="row h-100" *ngIf="item.levelNumber === 0">
+      <div
+        class="col-6 col-sm-4 p-0 padding-left-24 sm-padding-bottom-18 left-item h-100 d-flex justify-content-center flex-column">
+        <div class="row ml-0 size-level align-items-center active-level">
+          {{ 'LEVEL_ITEM.DELTA' | translate }}
+        </div>
+        <div class="row ml-0">
+          <span class="mt-1 click-show-button big-size">
+            <!-- <span routerLink="{{ link.link }}"> -->
+            {{ 'LEVEL_ITEM.SHOW_LEVEL' | translate }}
+            <img
+              class="click-show-img"
+              src="/assets/images/rightArrowWhite.png"
+              alt="" />
+          </span>
+        </div>
+      </div>
+      <div class="col-6 col-sm-8 h-100 sm-padding-bottom-18" *ngIf="timeMs > 0">
+        <div
+          class="d-flex justify-content-center end-item align-items-center h-100 flex-column">
+          <div class="row time-text">
+            {{ 'LEVEL_ITEM.EXTENSION_TIME' | translate }}
+          </div>
+          <div class="row time-number">
+            {{ day }} : {{ hours }} : {{ minutes }}
+          </div>
+          <div class="row time-text">
+            <span class="padding-right-18">{{
+              'LEVEL_ITEM.DAY' | translate
+            }}</span>
+            <span class="padding-right-18">{{
+              'LEVEL_ITEM.HOUS' | translate
+            }}</span
+            ><span>{{ 'LEVEL_ITEM.MIN' | translate }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row h-100" *ngIf="item.levelNumber !== 0">
+      <div
+        class="col-6 col-sm-4 p-0 padding-left-24 sm-padding-bottom-18 left-item h-100 d-flex justify-content-center flex-column">
+        <div
+          class="row ml-0 size-level"
+          [ngClass]="item.status === 'active' && timeMs > 0 && 'active-level'">
+          {{ 'LEVEL_ITEM.TIER' | translate }} {{ item.levelNumber }}
+          <div class="col-sm col-12 p-0">
+            <div
+              *ngIf="item.status !== 'not active' && timeMs < 0"
+              class="badge badge-warning">
+              {{ 'LEVEL_ITEM.BADGE_EXTENSION' | translate }}
+              <fa-icon [icon]="faCircleInfo"></fa-icon>
+            </div>
+            <div
+              *ngIf="item.status !== 'not active' && timeMs > 0"
+              class="badge badge-success">
+              {{ 'LEVEL_ITEM.BADGE_ACTIVE' | translate }}
+              <fa-icon [icon]="faCircleInfo"></fa-icon>
+            </div>
+            <div
+              *ngIf="item.status === 'not active' && !item.disabled"
+              class="badge badge-success-line">
+              {{ 'LEVEL_ITEM.BADGE_READY' | translate }}
+              <fa-icon [icon]="faCircleInfo"></fa-icon>
+            </div>
+            <div
+              *ngIf="item.status === 'not active' && item.disabled"
+              class="badge badge-not-active">
+              {{ 'LEVEL_ITEM.BADGE_NO_ACTIVE' | translate }}
+              <fa-icon [icon]="faCircleInfo"></fa-icon>
+            </div>
+            <!-- <div  class="badge badge-danger ">
+                                {{'LEVEL_ITEM.SUSPENDED' | translate}}</div> -->
+          </div>
+        </div>
+        <div class="row ml-0">
+          <span class="mt-1 click-show-button big-size">
+            <!-- <span routerLink="{{ link.link }}"> -->
+            {{ 'LEVEL_ITEM.SHOW_LEVEL' | translate }}
+            <img
+              class="click-show-img"
+              src="/assets/images/rightArrowWhite.png"
+              alt="" />
+          </span>
+        </div>
+      </div>
+      <div
+        class="col-6 col-sm-8 h-100 sm-padding-bottom-18"
+        *ngIf="item.status === 'active'">
+        <div
+          class="d-flex justify-content-center end-item align-items-center h-100 flex-column">
+          <div class="row time-text">
+            {{
+              item.status !== 'not active' && timeMs < 0
+                ? ('LEVEL_ITEM.EXTENSION_TIME' | translate)
+                : ('LEVEL_ITEM.ACTIVE_UNTIL' | translate)
+            }}
+          </div>
+          <div class="row time-number">
+            {{ day }} : {{ hours }} : {{ minutes }}
+          </div>
+          <div class="row time-text">
+            <span class="padding-right-18">{{
+              'LEVEL_ITEM.DAY' | translate
+            }}</span>
+            <span class="padding-right-18">{{
+              'LEVEL_ITEM.HOUS' | translate
+            }}</span
+            ><span>{{ 'LEVEL_ITEM.MIN' | translate }}</span>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="col-12 col-sm-4 d-flex justify-content-center left-item align-items-end h-100 flex-column sm-padding-bottom-18"  *ngIf="!isHideBlock || item.status !== 'active' && isHideBlock">
+                <div class="row">
+                    {{item.status === 'not active' ? ('LEVEL_ITEM.ACTIVATION_PRICE' | translate)  :
+           ( 'LEVEL_ITEM.RENEWAL_PRICE'  | translate)}}
+                     
+                </div>
+                <div class="row align-items-center">
+                    <span class="time-number">{{item.costInDAI}} DAI</span> <span class="dots">&#8226;</span> <span class="price-number">{{item.costInMFS}} HC</span>
+                </div>
+            </div> -->
+    </div>
+  </div>
+  <div
+    class="col-12 col-sm-4 d-flex align-items-center justify-content-end padding-right-24 padding-0 btn-container">
+    <div
+      *ngIf="item.levelNumber !== 0 && item.status !== 'not active'"
+      class="container-button d-flex row justify-content-end m-0 order-1 order-sm-0">
+      <div class="col-12 p-0 d-flex justify-content-end">
+        <button
+          [disabled]="item.disabled || readyNumberLevel < item.levelNumber"
+          type="button"
+          [ngClass]="
+            item.status !== 'not active' && timeMs > 0
+              ? 'btn-line'
+              : 'btn-warning'
+          "
+          class="btn 'btn-warning' size-button"
+          rippleEffect
+          (click)="clickPackExtand($event)">
+          {{ 'LEVEL_ITEM.EXTEND_TIME' | translate }}
+          <span>
+            · {{ +(item.costInMFS / 5).toFixed(2) }} HC ({{
+              item.costInDAI / 5
+            }}
+            DAI) {{ 'LEVEL_ITEM.OR' | translate }}
+            {{ item.costInDAI }} DAI</span
+          >
+        </button>
+      </div>
+
+      <div
+        class="container-text-value d-flex justify-content-center"
+        [ngClass]="
+          item.disabled || item.status === 'not active' ? '' : 'white-text'
+        ">
+        {{ +(item.costInMFS / 5).toFixed(2) }} HC ({{
+          item.costInDAI / 5
+        }}
+        DAI) {{ 'LEVEL_ITEM.OR' | translate }} {{ item.costInDAI }} DAI
+      </div>
+    </div>
+    <div
+      *ngIf="item.levelNumber !== 0 && item.status === 'not active'"
+      class="container-button order-0 order-sm-1">
+      <button
+        [disabled]="item.disabled"
+        type="button"
+        [ngClass]="
+          item.disabled
+            ? 'btn-secondary'
+            : item.status !== 'not active'
+              ? 'btn-line'
+              : 'btn-warning'
+        "
+        class="btn size-button btn-activate"
+        rippleEffect
+        (click)="clickPackActivate($event)">
+        {{ 'LEVEL_ITEM.ACTIVATE' | translate }}
+        <span> · {{ item.costInDAI }} DAI</span>
+      </button>
+
+      <div
+        class="container-text-value d-flex justify-content-center"
+        [ngClass]="item.disabled ? '' : 'white-text'">
+        {{ item.costInDAI }} DAI
+      </div>
+    </div>
+    <div class="w-100 order-2 small-size">
+      <span
+        class="mt-1 click-show-button"
+        [routerLink]="['/pages/uniteverse']"
+        [queryParams]="{ levelNumber: item.levelNumber }">
+        <!-- <span routerLink="{{ link.link }}"> -->
+        {{ 'LEVEL_ITEM.SHOW_LEVEL' | translate }}
+        <img
+          class="click-show-img"
+          src="/assets/images/rightArrowWhite.png"
+          alt="" />
+      </span>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+.links-style {
+  //styleName: Regular/16;
+
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: -0.004em;
+  text-align: left;
+
+  color: #ffffff66 !important;
+
+  /* Black/Black 500 */
+
+  a {
+    color: #ffffff66 !important;
+  }
+}
+.breadcrumb .breadcrumb-item + .breadcrumb-item:before {
+  background-size: 22px !important;
+  margin-top: 1px;
+  margin-right: 8px;
+}
+
+.breadcrumb-item + .breadcrumb-item {
+  color: #ffffff !important;
+  padding-left: 8px !important;
+}

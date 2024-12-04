@@ -1,0 +1,431 @@
+<div class="Tiers">
+    <div class="tiers-info">
+        <div class="machines-info">
+            <div class="launch">
+                <div class="background-layer"></div>
+                <div class="gradient-layer"></div>
+                <div class="content-box">
+                    <div class="title">
+                        {{ 'TIERS.NEW_WAVE' | translate }}
+                    </div>
+                    <div class="machines">
+                        <span class="ready">{{ completedMachines }}</span>
+                        {{ 'TIERS.OF' | translate }} {{ totalDevices }}
+                    </div>
+                    <div class="wave-progress">
+                        <div
+                            class="current-progress"
+                            [ngStyle]="{ 'width': (completedMachines / totalDevices) * 100  + '%' }"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="vertical-divider -flipper"></div>
+            <div class="set-chips">
+                <div class="title">
+                    {{ 'TIERS.SET_CHIPS' | translate }}
+                </div>
+                <div *ngIf="userChipsGrouped.length > 0" class="chips-list">
+                    <div *ngFor="let chip of userChipsGrouped; let i = index" class="level">
+                        <div class="name">
+                            <span class="hide-desktop">{{ 'TIERS.CHIPS' | translate }} </span>{{ 'TIERS.TIER' | translate }} {{ chip.level }}
+                        </div>
+                        <div class="amount">
+                            {{ chip.readyChips }}&nbsp;{{ 'TIERS.ITEM' | translate }}
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="userChipsGrouped.length == 0" class="chips-list -empty-list">
+                    <div class="empty-state">
+                        {{ 'TIERS.SET_CHIPS_EMPTY_STATE' | translate }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grey-box access-info">
+            <div class="title">
+                {{ 'TIERS.ACCESS_KEY' | translate }}
+            </div>
+            <div class="tunnels-info">
+                <div class="access-key">
+                    <div class="access-key-pic" [ngClass]="'-level-' + lastActiveLevelNumber"></div>
+                </div>
+                <div class="tunnels-list">
+                    <div
+                        *ngFor="let accessKey of lists; let i = index"
+                        class="tunnel"
+                        [ngClass]="{
+                            '-active': accessKey.isActive,
+                            '-noactive': !accessKey.isActive && accessKey.levelNumber !== lastActiveLevelNumber + 1,
+                            '-ready': accessKey.levelNumber == lastActiveLevelNumber + 1
+                    }">
+                        <div class="level">{{ accessKey.levelNumber }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bordered-box -space">
+        <div class="name-wrapper">
+            <div class="level">
+                <div class="gas-pic"></div>
+            </div>
+            <div class="name">{{ 'TIERS.SPACE' | translate }}</div>
+        </div>
+
+        <div class="space-info">
+            <div class="grey-box">
+                <div class="title">{{ 'TIERS.MACHINE_ORE' | translate }}</div>
+                <div class="twin -switch">
+                    <div class="ore-machine"></div>
+                    <div *ngIf="allWaves == 0" class="grey-box box-content -empty-state">
+                        {{ 'TIERS.PROCESSING_ORE_EMPTY_STATE' | translate }}
+                    </div>
+                    <div *ngIf="allWaves > 0" class="grey-box box-content">
+                        <div class="header">
+                            <div class="icon -ore"></div>
+                            {{ 'TIERS.PROCESSING_ORE' | translate }}
+                        </div>
+                        <div class="content-divider"></div>
+                        <div class="content-row">
+                            <div class="key">{{ 'TIERS.ALL' | translate }}</div>
+                            <div class="value">{{ allWaves }}</div>
+                        </div>
+                        <div class="content-row">
+                            <div class="key">{{ 'TIERS.PROGRESS' | translate }}</div>
+                            <div class="value">{{ progressWaves }}</div>
+                        </div>
+                        <div class="content-row">
+                            <div class="key">{{ 'TIERS.COMPLETED' | translate }}</div>
+                            <div class="value">{{ completedWaves }}</div>
+                        </div>
+                        <div class="go-to-link" (click)="goToProcessing()">
+                            {{ 'TIERS.GO_TO_PROCESSING' | translate }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="link-pic-wrapper"><div class="link-pic"></div></div>
+            <div class="grey-box">
+                <div class="title">{{ 'TIERS.MACHINE_BFC' | translate }}</div>
+                <div class="twin -switch">
+                    <div class="bfc-machine"></div>
+                    <div *ngIf="allWaves == 0" class="grey-box box-content -empty-state">
+                        {{ 'TIERS.PROCESSING_BFC_EMPTY_STATE' | translate }}
+                    </div>
+                    <div *ngIf="allWaves > 0" class="grey-box box-content">
+                        <div class="header">
+                            <div class="icon -bfc"></div>
+                            {{ 'TIERS.PROCESSING_BFC' | translate }}
+                        </div>
+                        <div class="content-divider"></div>
+                        <div class="content-row">
+                            <div class="key">{{ 'TIERS.ALL' | translate }}</div>
+                            <div class="value">0</div>
+                        </div>
+                        <div class="content-row">
+                            <div class="key">{{ 'TIERS.PROGRESS' | translate }}</div>
+                            <div class="value">0</div>
+                        </div>
+                        <div class="content-row">
+                            <div class="key">{{ 'TIERS.COMPLETED' | translate }}</div>
+                            <div class="value">0</div>
+                        </div>
+                        <div class="go-to-link -disabled" (click)="goToProcessing()">
+                            {{ 'TIERS.START_MINING' | translate }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tiers-list">
+        <div
+        class="row info m-0"
+        *ngIf="isInfo"
+        [ngClass]="isCollapsed ? 'info-collapsed' : ''">
+        <div class="col-8 col-sm-9 p-0">
+          {{ 'TIERS.YOU' | translate }}
+          <span class="select-text"
+            >{{ 'TIERS.LOST' | translate }} {{ (+lostValue).toFixed(2) }} HC</span
+          >
+          {{ 'TIERS.TOTAL' | translate }}
+        </div>
+        <div class="col-4 col-sm-3 container-right p-0">
+          <a
+            [routerLink]="['/pages/recent-activity-details']"
+            href=""
+            target="_blank"
+            class="select-text margin-right-32">
+            {{ 'TIERS.LEARN_MORE' | translate }}
+          </a>
+          <span class="material-icons close" (click)="closeInfo()"> close </span>
+        </div>
+      </div>
+        <div
+            *ngFor="let tier of lists; let i = index"
+            [id]="'tier' + tier.levelNumber"
+            class="bordered-box"
+            [ngClass]="{
+                '-active': tier.isActive,
+                '-noactive': !tier.isActive && tier.levelNumber !== lastActiveLevelNumber + 1,
+                '-ready': tier.levelNumber == lastActiveLevelNumber + 1
+        }">
+            <div class="name-wrapper">
+                <div class="level">
+                    {{ tier.levelNumber }}
+                </div>
+                <div class="name">{{ 'TIERS.TIER' | translate }}</div>
+            </div>
+
+            <div class="tier-info">
+                <div class="access-wrapper">
+                    <div class="grey-box access-time">
+                    <div class="title">
+                        {{ 'TIERS.ACCESS_TIER' | translate }}
+                        <div *ngIf="tier.isActive" class="status">
+                            {{ 'TIERS.ACTIVE' | translate }}
+                            <div class="info-icon"
+                                 [matTooltip]="translateService.instant('TIERS.TOOLTIP')"
+                                 matTooltipPosition="below"></div>
+                        </div>
+                        <div *ngIf="!tier.isActive && tier.levelNumber !== lastActiveLevelNumber + 1" class="status">
+                            {{ 'TIERS.NO_ACTIVE' | translate }}
+                            <div class="info-icon"
+                                 [matTooltip]="translateService.instant('TIERS.TOOLTIP')"
+                                 matTooltipPosition="below"></div>
+                        </div>
+                        <div *ngIf="tier.levelNumber == lastActiveLevelNumber + 1" class="status">
+                            {{ 'TIERS.READY' | translate }}
+                            <div class="info-icon"
+                                 [matTooltip]="translateService.instant('TIERS.TOOLTIP')"
+                                 matTooltipPosition="below"></div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="tier.isActive" class="timer-wrapper">
+                        <div class="title">{{ 'TIERS.ACTIVE_UNTILL' | translate }}</div>
+                        <div class="timer">{{ tier.day }}d : {{ tier.hours }}h : {{ tier.minutes }}m</div>
+                    </div>
+
+                    <div *ngIf="tier.levelNumber == lastActiveLevelNumber + 1" class="access-key-pic-wrapper">
+                        <div class="access-key-pic" [ngClass]="'-level-' + tier.levelNumber"></div>
+                    </div>
+
+                    <div *ngIf="!tier.isActive && tier.levelNumber !== lastActiveLevelNumber + 1" class="access-key-pic-wrapper">
+                        <div class="access-key-pic -inactive" [ngClass]="'-level-' + tier.levelNumber"></div>
+                    </div>
+
+                    <div *ngIf="
+                            tier.levelNumber == lastActiveLevelNumber + 1 ||
+                            !tier.isActive && tier.levelNumber !== lastActiveLevelNumber + 1
+                        "
+                        class="price-wrapper"
+                    >
+                        <div class="title">{{ 'TIERS.PRICE' | translate }}</div>
+                        <div class="price">
+                            ~{{ +(tier.costInMFS).toFixed(2) }} HC
+                            <span class="small">({{ +(tier.costInDAI).toFixed(2) }} DAI)</span>
+                        </div>
+                    </div>
+
+                    <div *ngIf="tier.countRenewal > 0" class="chips-queue">
+                        <div class="title">{{ 'TIERS.COMPLETED_EXTENDED' | translate }}</div>
+                        <div class="number">{{ tier.countRenewal }}</div>
+                    </div>
+
+                    <div *ngIf="getChipsQueue(tier.levelNumber) > 0" class="chips-queue">
+                        <div class="title">{{ 'TIERS.CHIPS_LEFT' | translate }}</div>
+                        <div class="number">{{ getChipsQueue(tier.levelNumber) }}</div>
+                    </div>
+
+                    <button
+                        class="btn-orange"
+                        [ngClass]="{'-outline': tier.day >= 10}"
+                        [disabled]="!tier.canExtend"
+                        (click)="openChooseModal(tier, 'extend')"
+                    >
+                        {{ 'TIERS.EXTEND_TIME' | translate }}
+                    </button>
+                    <button
+                        [disabled]="!tier.canActivate"
+                        class="btn-orange"
+                        (click)="openChooseModal(tier, 'activate')"
+                    >
+                        {{ 'TIERS.ACTIVATE' | translate }}
+                    </button>
+                </div>
+                    <div class="link-pic-wrapper"
+                         [ngClass]="{'hide-mobile': tier.levelNumber == lastActiveLevelNumber + 1 ||
+                            !tier.isActive && tier.levelNumber !== lastActiveLevelNumber + 1}"
+                    ><div class="link-pic"></div></div>
+                    <div class="grey-box chips-left" [id]="'queue-box-' + tier.levelNumber">
+                        <div class="title">
+                            {{ 'TIERS.CHIPS_LEFT_TITLE' | translate }}
+                            <div class="info-icon"
+                                 [matTooltip]="translateService.instant('TIERS.CHIPS_LEFT_TOOLTIP')"
+                                 matTooltipPosition="below"></div>
+                        </div>
+
+                        <div *ngIf="tier.isActive && ((tunnels[tier.levelNumber - 1] && tunnels[tier.levelNumber - 1].your > 0) || getChipsQueue(tier.levelNumber) > 0)" class="chips-queue-wrapper" [ngClass]="{'-single': getChipsQueue(tier.levelNumber) == 0}">
+                            <div
+                                *ngIf="getChipsQueue(tier.levelNumber) > 0 && checkOverflow(tier.levelNumber) && haveScroll('prev', tier.levelNumber)"
+                                class="fadeout -prev"
+                            >
+                                <div *ngIf="isDesktop" class="arrow" (click)="scrollChips('prev', tier.levelNumber)"></div>
+                            </div>
+                            <div class="chips-queue" [id]="'queue-' + tier.levelNumber">
+                                <div
+                                    *ngIf="tunnels[tier.levelNumber - 1] && tunnels[tier.levelNumber - 1].your > 0"
+                                    class="chip"
+                                    [ngClass]="{'-single': getChipsQueue(tier.levelNumber) == 0}"
+                                    (mousedown)="startSwipe($event, tier.levelNumber)"
+                                    (touchstart)="startSwipe($event, tier.levelNumber)"
+                                >
+                                    <div class="chip-pic"></div>
+                                    <div class="title">
+                                        <span>{{ 'TIERS.CHIP' | translate }}</span>
+                                    </div>
+                                    <div class="status">
+                                        {{ 'TIERS.ACTIVE' | translate }}
+                                    </div>
+                                </div>
+
+                                <div
+                                    *ngFor="let chip of getChipsQueueArr(tier.levelNumber); let i = index"
+                                    class="chip"
+                                    [ngClass]="{'-single': getChipsQueue(tier.levelNumber) == 0 && tunnels[tier.levelNumber - 1] && tunnels[tier.levelNumber - 1].your == 0}"
+                                    (mousedown)="startSwipe($event, tier.levelNumber)"
+                                    (touchstart)="startSwipe($event, tier.levelNumber)"
+                                >
+                                    <div class="chip-pic"></div>
+                                    <div class="title">
+                                        <span>{{ 'TIERS.CHIP' | translate }}</span><span>&nbsp;{{ 'TIERS.NEX_CHIP' | translate }}</span>
+                                    </div>
+                                    <div class="timer">
+                                        {{ getChipsTimer(tier.levelNumber, i + 1).days }}d :
+                                        {{ getChipsTimer(tier.levelNumber, i + 1).hours }}h :
+                                        {{ getChipsTimer(tier.levelNumber, i + 1).minutes }}m
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                *ngIf="getChipsQueue(tier.levelNumber) > 0 && checkOverflow(tier.levelNumber) && haveScroll('next', tier.levelNumber)"
+                                class="fadeout -next"
+                            >
+                                <div *ngIf="isDesktop" class="arrow" (click)="scrollChips('next', tier.levelNumber)"></div>
+                            </div>
+                        </div>
+
+                        <div *ngIf="!tier.isActive || (tunnels[tier.levelNumber - 1] && tunnels[tier.levelNumber - 1].your == 0 && getChipsQueue(tier.levelNumber) == 0)" class="empty-chips-queue">
+                            <div class="chip-pic"></div>
+                            <div class="title">
+                                {{ 'TIERS.EMPTY_CHIPS' | translate }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="link-pic-wrapper"
+                     [ngClass]="{'hide-mobile': tier.levelNumber == lastActiveLevelNumber + 1 ||
+                            !tier.isActive && tier.levelNumber !== lastActiveLevelNumber + 1}"
+                ><div class="link-pic"></div></div>
+                <div class="grey-box"
+                     [ngClass]="{'hide-mobile': tier.levelNumber == lastActiveLevelNumber + 1 ||
+                            !tier.isActive && tier.levelNumber !== lastActiveLevelNumber + 1}"
+                >
+                    <div class="title">
+                        {{ 'TIERS.MACHINE_START' | translate }}
+                        <div class="info-icon"
+                             [matTooltip]="translateService.instant('TIERS.MACHINES_TOOLTIP')"
+                             matTooltipPosition="below"></div>
+                    </div>
+
+                    <div *ngIf="tier.isActive" class="twin -g16 -switch">
+                        <div class="machine"></div>
+                        <div class="box-content-wrapper twin -g16">
+                            <div class="grey-box box-content -chips">
+                                <div class="header-machines">
+                                    <div class="title">{{ 'TIERS.IS_READY' | translate }}</div>
+                                    <div class="value">{{ tunnels[i].machines }}</div>
+                                </div>
+                                <div class="content-divider"></div>
+
+                                <div class="title">
+                                    {{ 'TIERS.NEXT_MACHINE' | translate }}
+                                </div>
+
+                                <div class="progress-chips-wrapper">
+                                    <app-chips-progress [tunnel]="tunnels[i]"></app-chips-progress>
+                                </div>
+                            </div>
+                            <div class="grey-box box-content -network">
+                                <div class="header">
+                                    <div class="icon -gaf"></div>
+                                    {{ 'TIERS.GAME_MINING' | translate }}
+                                </div>
+                                <div class="content-divider"></div>
+
+                                <div class="network-wrapper">
+    <!--                                <div class="leftside">-->
+    <!--                                    <div class="title">-->
+    <!--                                        {{ 'TIERS.MINING_NETWORK' | translate }}-->
+    <!--                                    </div>-->
+    <!--                                    <div class="network-value">-->
+    <!--                                        63-->
+    <!--                                    </div>-->
+    <!--                                </div>-->
+    <!--                                <div class="vertical-divider"></div>-->
+    <!--                                <div class="rightside">-->
+    <!--                                    <div class="title">-->
+    <!--                                        {{ 'TIERS.TOTAL_REWARDS' | translate }}-->
+    <!--                                    </div>-->
+    <!--                                    <div class="rewards-value">-->
+    <!--                                        10,835,836.08-->
+    <!--                                        <span class="small">EQN</span>-->
+    <!--                                    </div>-->
+    <!--                                    <div class="rewards-value">-->
+    <!--                                        10,835,836.08-->
+    <!--                                        <span class="small">HC</span>-->
+    <!--                                    </div>-->
+    <!--                                </div>-->
+                                </div>
+
+                                <div class="go-to-link" (click)="goToDelta()">
+                                    {{ 'TIERS.GO_TO_AF' | translate }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="
+                            tier.levelNumber == lastActiveLevelNumber + 1 ||
+                            !tier.isActive && tier.levelNumber !== lastActiveLevelNumber + 1
+                        "
+                        class="unavailable"
+                    >
+                        <div class="machine-unavailable"></div>
+                        <div class="unavailable-info">{{ 'TIERS.UNAVAILABLE' | translate }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-extend-choose-type-modal-new
+    [item]="accessKeyToActivate"
+    [isOpen]="isOpenActivationModal"
+    [lastActiveLevelNumber]="lastActiveLevelNumber"
+    [operationType]="activationMethod"
+
+    [isUpdatePrice]="isUpdatePrice"
+    [chipsQueue]="getChipsQueue(accessKeyToActivate?.levelNumber || 0)"
+    [updatePriceWithCheckMethod]="updatePriceWithCheck"
+    [updatePriceMethod]="updatePrice"
+    (openEvent)="isOpenActivationModal = $event"
+    (onSucceedEvent)="onSucceed($event)">
+</app-extend-choose-type-modal-new>
+
+
+

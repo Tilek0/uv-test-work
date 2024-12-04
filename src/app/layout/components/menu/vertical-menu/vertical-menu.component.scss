@@ -1,0 +1,126 @@
+@import '../../../../../@core/scss/base/bootstrap-extended/include'; // Bootstrap includes
+@import '../../../../../@core/scss/base/components/include'; // Components includes
+
+.colaps-btn {
+  height: 16px;
+  width: 24px;
+  object-fit: contain;
+}
+
+.icon-social {
+  width: 20px;
+  height: 20px;
+}
+.text-copy-button {
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 3px;
+}
+.copy-link {
+  width: 280px;
+  height: 64px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #ed8a00 !important;
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: -0.004em;
+  text-align: left;
+  background: #ed8a0033;
+}
+
+.copy-link:hover {
+  background: rgba(237, 138, 0, 1) !important;
+  color: rgba(255, 255, 255, 1) !important;
+  img {
+    filter: brightness(0) invert(1) !important;
+  }
+}
+
+.container-menu {
+  position: absolute;
+  bottom: 0px;
+}
+
+.container-icon {
+  justify-content: space-between;
+  margin: 0 !important;
+  margin-top: 24px !important;
+}
+
+.force-id-button {
+  padding: 16px;
+  width: 280px;
+  display: block;
+  //styleName: Medium/16;
+
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: -0.004em;
+
+  color: #ffffff66 !important;
+  background: #ffffff0d !important;
+
+  .container-icon-copy-grey {
+    background: #ffffff0d;
+    height: 24px;
+    width: 24px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .img-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: contain;
+  }
+  .id-value {
+    margin-left: 12px;
+    margin-right: 12px;
+  }
+  .container-forse-icon {
+    justify-content: end;
+  }
+  .icon {
+    content: '';
+    background-image: url(str-replace(
+      str-replace($chevron-right, 'currentColor', $body-color),
+      '#',
+      '%23'
+    ));
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 1.5rem;
+    height: 1.5rem;
+    width: 1.5rem;
+  }
+}
+.icon-copy-link {
+  width: 32px;
+  height: 32px;
+}
+.icon-copy-button {
+  width: 16px !important;
+  height: 16px !important;
+}
+.text-copied-forceId {
+  position: absolute;
+  right: -40px;
+  top: -32px;
+  font-size: 16px !important;
+  line-height: 24px !important;
+}
+.text-copied {
+  position: absolute;
+  right: 0px;
+  top: -18px;
+  font-size: 16px !important;
+  line-height: 24px !important;
+}

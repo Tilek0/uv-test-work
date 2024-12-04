@@ -1,0 +1,290 @@
+.VestingTariffs {
+  padding: 24px;
+  background: hsl(0, 0%, 10%);
+  border-radius: 8px;
+  margin-bottom: 150px;
+
+  .title {
+    font-size: 24px;
+    color: hsl(0, 0%, 100%);
+  }
+
+  .balances-wrapper {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    margin: 24px 0;
+    @media (max-width: 750px) {
+      gap: 24px;
+      flex-flow: column nowrap;
+    }
+  }
+
+  .balances {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 32px;
+    @media (max-width: 750px) {
+      flex-flow: column nowrap;
+    }
+    .balance {
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+      gap: 16px;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 24px;
+      letter-spacing: -0.064px;
+      color: hsl(0, 0%, 100%);
+      .info {
+        font-size: 16px;
+        color: hsla(0, 0%, 100%, 0.4);
+        margin-top: 0;
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        gap: 8px;
+      }
+      .value {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        gap: 8px;
+      }
+    }
+  }
+
+  .tariffs {
+    margin-top: 24px;
+    width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 16px;
+  }
+
+  .tariff-card {
+    width: 100%;
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid hsla(0, 0%, 100%, .4);
+    cursor: pointer;
+    display: flex;
+    flex-flow: column nowrap;
+
+    .poll-bar-wrapper {
+      width: 100%;
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+      @media (max-width: 750px) {
+        flex-flow: column nowrap;
+        gap: 6px;
+        align-items: flex-end;
+      }
+      .progress-wrapper {
+        width: 100%;
+        height: 8px;
+        border-radius: 23px;
+        border: 1px solid hsl(151, 100%, 32%);
+        background: repeating-linear-gradient(
+                        -45deg,
+                        hsla(151, 100%, 32%, .4) 4px 3px,
+                        hsla(151, 100%, 32%, .2) 10px 20px
+        );
+        overflow: hidden;
+
+        .progress {
+          background: hsl(151, 100%, 32%);
+          border-bottom-left-radius: 7px;
+          border-top-left-radius: 7px;
+          border-bottom-right-radius: 0;
+          border-top-right-radius: 0;
+          height: 8px;
+          &.-full {
+            border-bottom-right-radius: 7px;
+            border-top-right-radius: 7px;
+          }
+        }
+      }
+      .poll-size {
+        width: 180px;
+        white-space: nowrap;
+        color: hsl(0, 0%, 100%);
+        font-weight: 400;
+        text-align: right;
+        &.-wide {
+          width: 100%;
+        }
+      }
+    }
+
+    .tariff-wrapper {
+      width: 100%;
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+    }
+
+    .name {
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 24px;
+      letter-spacing: -0.004em;
+      margin-top: 8px;
+      color: hsl(0, 0%, 90%);
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+      gap: 12px;
+    }
+    .description {
+      margin-top: 8px;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+      color: hsl(0, 0%, 80%);
+    }
+
+    .arrow {
+      min-width: 26px;
+      min-height: 26px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-chevron-right'%3E%3Cpolyline points='9 18 15 12 9 6'%3E%3C/polyline%3E%3C/svg%3E");
+      &.-up {
+        transform: rotate(-90deg);
+      }
+      &.-down {
+        transform: rotate(90deg);
+      }
+      &:hover {
+        color: hsl(0, 0%, 100%);
+      }
+    }
+
+    .select {
+      width: 24px;
+      height: 24px;
+      min-width: 24px;
+      min-height: 24px;
+    }
+
+    &:hover {
+      border-color: hsl(0, 0%, 100%);
+      .name {
+        color: hsl(0, 0%, 100%);
+      }
+    }
+    &.-selected {
+      border-color: hsl(35, 100%, 46%);
+      cursor: unset;
+      pointer-events: none;
+      .select {
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-image: url('/assets/icon/checkmark.svg');
+      }
+      .description {
+        height: auto;
+        overflow: unset;
+      }
+    }
+    &.disabled {
+      .progress-wrapper {
+        border: 1px solid hsl(0, 0%, 40%) !important;
+        background: repeating-linear-gradient(
+                        -45deg,
+                        hsla(0, 0%, 40%, .4) 4px 3px,
+                        hsla(0, 0%, 40%, .2) 10px 20px
+        ) !important;
+        .progress {
+          background: hsl(0, 0%, 40%) !important;
+        }
+      }
+    }
+  }
+
+  .info {
+    margin-top: 24px;
+    width: 100%;
+    font-weight: 400;
+    &.-right {
+      text-align: right;
+    }
+  }
+  .vesting-info {
+    color: hsl(0, 0%, 80%);
+    font-size: 16px;
+    margin: 20px 0;
+
+    .buyback {
+      color: hsl(0, 0%, 100%);
+      .buyback-link {
+        color: hsl(35, 100%, 46%) !important;
+        cursor: pointer;
+      }
+    }
+
+    .error {
+      padding-top: 20px;
+    }
+  }
+
+  .button-wrapper {
+    margin-top: 24px;
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 32px;
+    @media (max-width: 750px) {
+      flex-flow: column nowrap;
+    }
+    .will-receive {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 20px;
+      color: hsl(0, 0%, 100%);
+    }
+    button {
+      width: 200px;
+      @media (max-width: 750px) {
+        width: 100%;
+      }
+    }
+  }
+
+  .default-info {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: hsl(151, 100%, 32%);
+    text-transform: uppercase;
+  }
+
+  .error-wrapper {
+    width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 8px;
+    margin-top: 24px;
+    overflow: hidden;
+  }
+
+  .error {
+    font-weight: 400;
+    font-size: 16px;
+    color: hsl(0, 100%, 50%);
+  }
+
+  .disabled {
+    pointer-events: none;
+    opacity: .4;
+  }
+}

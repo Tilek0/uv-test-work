@@ -1,0 +1,75 @@
+.progress-bar-box {
+  /* display: flexbox; */
+  /* flex: 0 0 100%; */
+  /* width: 100%; */
+}
+
+.popover-progress-class {
+  background-color: #ff9501;
+  font-size: small;
+  max-width: 180px !important;
+}
+
+.progress-bar-empty {
+  width: 50%;
+  height: 10px;
+  margin-right: 3px;
+  border: #1a1a1a 3px solid;
+  border-radius: 4px;
+  background-color: #313131;
+}
+
+.progress-bar {
+  width: 50%;
+  height: 10px;
+  margin-right: 3px;
+  border: #313131 3px solid;
+  border-radius: 4px;
+  background-color: #1a1a1a;
+}
+
+.progress-bar-fill {
+  border-radius: 2px;
+  background-color: #ff9501;
+  height: 80%;
+  /* This is important */
+}
+
+.lable {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  letter-spacing: -0.004em;
+  color: #666666;
+}
+
+.custom-popover {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  height: 40px;
+  left: 0px;
+  top: -50px;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 16px;
+  color: rgba(255, 255, 255, 0.5);
+  padding: 4px 8px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  white-space: nowrap;
+  border-radius: 8px;
+  z-index: 999999;
+}
+
+.arrow {
+  height: 0;
+  position: absolute;
+  width: 0;
+  left: 44%;
+  bottom: -20px;
+
+  border: 10px solid transparent;
+  border-top-color: rgba(255, 255, 255, 0.1);
+}

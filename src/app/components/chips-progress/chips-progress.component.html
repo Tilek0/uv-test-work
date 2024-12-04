@@ -1,0 +1,31 @@
+<div class="ChipsProgress">
+  <div class="box-row -in-progress" [ngClass]="isInTunnel ? '-in-tunnel' : ''">
+    <span class="name">{{ 'CHIPS_PROGRESS.CHIPS' | translate }}</span>
+    <span class="number">
+        <span [ngClass]="{'-orange': tunnel.in_progress > 0}">
+            {{ tunnel.in_progress }}
+        </span>
+        <span class="-grey">{{ 'CHIPS_PROGRESS.OF' | translate }} {{ getTierLevel() }}</span>
+    </span>
+  </div>
+
+<!--  <div class="machine-progress">-->
+<!--    <div class="progress"-->
+<!--         [ngStyle]="{'width': (tunnel.in_progress / getTierLevel() * 100) + '%'}"-->
+<!--    >-->
+<!--    </div>-->
+<!--  </div>-->
+
+  <div class="machine-slots" [ngClass]="{
+      '-fill-8': tunnel.level - 1 == 0,
+      '-fill-13': tunnel.level - 1 == 1,
+      '-fill-18': tunnel.level - 1 == 2,
+      '-fill-23': tunnel.level - 1 == 3
+  }">
+    <div
+        *ngFor="let slot of getTierLevelSlots(); let slotId = index"
+        class="slot"
+        [ngClass]="{'-active': slotId < tunnel.in_progress}"
+    ></div>
+  </div>
+</div>

@@ -1,0 +1,151 @@
+<div class="row m-0">
+  <div
+    class="col-12 d-flex align-items-center justify-content-between header-menu">
+    <div
+      class="back-arrow-wallet d-flex align-items-center cursor-pointer"
+      (click)="closeSlideNav(false)">
+      <div class="icon"></div>
+      {{ 'SIDE_NAV_WALLET_VESTING.BACK' | translate }}
+    </div>
+    <div class="header-title">
+      {{ 'SIDE_NAV_WALLET_VESTING.INNER_BALANCE' | translate }}
+    </div>
+    <img
+      class="button-close cursor-pointer button-black"
+      (click)="closeALLSlideNav(false)"
+      src="/assets/icon/closeButton.svg"
+      alt="" />
+  </div>
+
+  <div class="col-12">
+    <div class="row m-0">
+      <div class="col-12 container-total-balance d-flex justify-content-center">
+        <div>
+          {{ 'SIDE_NAV_WALLET_VESTING.VESTING_BALANCE' | translate }}
+          <span>
+            {{ item.name === 'MFS' ? 'HC' : item.name }}
+          </span>
+        </div>
+        <div class="total-balance-container">
+          <span class="total-balance-value">
+            {{
+              +(
+                item.sideNavType === sideNavType.inner
+                  ? +item.valuePayment
+                  : +item.value
+              ).toFixed(2)
+            }}
+          </span>
+          <!-- <span class="conteiner-coning-soon">
+            <img
+              class="total-balance-plus disabled"
+              src="/assets/icon/plusOrange.png"
+              alt="" />
+            <div class="coning-soon coning-soon-right">
+              {{ 'SIDE_NAV_WALLET_VESTING.COMING_SOON' | translate }}
+            </div>
+          </span> -->
+        </div>
+        <div>
+          $
+          {{
+            +(
+              +item.costCoin *
+              (item.sideNavType === sideNavType.inner
+                ? +item.valuePayment
+                : +item.value)
+            ).toFixed(1)
+          }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="col-12">
+    <div class="row m-0">
+      <div class="col-12">
+        <div class="vesting-info">
+          <span class="buyback">
+            {{ 'SIDE_NAV_WALLET_VESTING.YOU_CAN_SELL_VESTING_MFS' | translate }}
+            <span class="buyback-link" (click)="openBuybackMFC()">
+                {{ 'SIDE_NAV_WALLET_VESTING.THIS_LINK' | translate }}
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!isLoading" class="currentTariff">
+    <div class="tariff-card">
+      <div class="text-wrapper">
+        <span class="info">
+          {{ 'SIDE_NAV_WALLET_VESTING.YOUR_TARIFF' | translate }}
+        </span>
+        <span class="name">
+          {{ 'SIDE_NAV_WALLET_VESTING.TARIFF_' + vestingInfo.tariff + '_NAME' | translate }}
+        </span>
+      </div>
+      <a
+        [routerLink]="'/pages/forcecoin'"
+        routerLinkActive="active-link"
+        (click)="closeALLSlideNav(false)"
+        target="_self">
+        <div class="info-icon"></div>
+      </a>
+    </div>
+  </div>
+
+  <div *ngIf="!isLoading" class="OpenedOrder">
+    <div class="order-card">
+      <div class="card-top">
+        <div class="line">
+          <div class="title">
+            <!--        {{ 'SIDE_NAV_WALLET_VESTING.OPEN' | translate }}-->
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div class="info">
+          <div class="current-amount">
+            <div class="title">
+              {{ 'SIDE_NAV_WALLET_VESTING.RELEASED' | translate }}
+            </div>
+            <h1>{{ +(formatEther(vestingInfo.releasedAmount)) | currency: '' : '' : '1.0-2' }} HC</h1>
+            <div class="cur">{{ (+formatEther(vestingInfo.releasedAmount) * mfsPrice)  | currency: '' : '' : '1.0-2' }} DAI</div>
+          </div>
+          <div class="total-amount">
+            <div class="title">
+              {{ 'SIDE_NAV_WALLET_VESTING.AMOUNT' | translate }}
+            </div>
+            <h1>{{ +(formatEther(vestingInfo.totalVestingAmount)) | currency: '' : '' : '1.0-2' }} HC</h1>
+            <div class="cur">{{ (+formatEther(vestingInfo.totalVestingAmount) * mfsPrice)  | currency: '' : '' : '1.0-2' }} DAI</div>
+          </div>
+        </div>
+        <div class="progress-wrapper">
+          <div class="progress"
+               [ngStyle]="{'width': ((+vestingInfo.releasedAmount) / +vestingInfo.totalVestingAmount * 100) + '%'}"
+               [ngClass]="{'-full': +vestingInfo.releasedAmount >= +vestingInfo.totalVestingAmount }">
+          </div>
+        </div>
+      </div>
+
+      <div class="card-bottom">
+        <div class="line">
+          <div class="title">
+            <!-- {{ 'SIDE_NAV_WALLET_VESTING.QUEUE' | translate }} -->
+          </div>
+          <div class="title">
+            <!-- <span class="-white">{{+currentOrder.queueNumber+1}}</span>&nbsp;{{
+            'SIDE_NAV_WALLET_VESTING.OPERATIONS' | translate
+            }} -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <recent-operations class="wide" [refetch]="refetchRecentOperations" [type]="recentOperationsType" [mfsPrice]="mfsPrice"></recent-operations> -->
+</div>

@@ -1,0 +1,7 @@
+<div class="MachinesProgress">
+    <div
+        *ngFor="let p of getDashess(); let i = index"
+        [ngClass]="{ '-active': i + 1 <= ready }"
+        class="progress">
+    </div>
+</div>

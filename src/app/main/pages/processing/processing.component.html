@@ -1,0 +1,127 @@
+<div class="Processing">
+    <div class="background-layer"></div>
+    <div class="gradient-layer"></div>
+
+    <div class="header-top">
+        <div class="header-title">
+            {{ 'PROCESSING.TITLE' | translate }}
+        </div>
+    </div>
+
+    <div class="controls-wrapper">
+        <tabs
+            [items]="tabs"
+            [currentTab]="currentFilter"
+            (setFilter)="setWavesFilter($event)"
+        ></tabs>
+
+        <div class="next hide-mobile -disabled">
+            {{ 'PROCESSING.NEXT' | translate }}
+        </div>
+    </div>
+
+    <div *ngIf="!isLoading && waves && waves.length && waves.length > 0" class="waves-list">
+        <div
+            *ngFor="let wave of waves; let i = index"
+            [ngClass]="{'-completed': wave.waveCurrentStatus == 'COMPLETED'}"
+            class="wave-card"
+        >
+            <div class="card-title">
+                <div class="title">{{ 'PROCESSING.QUANTUM_WAVE' | translate }} {{ wave.waveId }}</div>
+                <div class="info-icon"
+                     [matTooltip]="translateService.instant('PROCESSING.TOOLTIP')"
+                     matTooltipPosition="below"></div>
+            </div>
+
+            <div class="timer">
+                <div class="title">{{ 'PROCESSING.TIME_LEFT' | translate }}</div>
+                <div *ngIf="wave.waveCurrentStatus == 'COMPLETED'" class="number -completed">
+                    {{ 'PROCESSING.COMPLETED' | translate }}
+                </div>
+                <div *ngIf="wave.waveCurrentStatus != 'COMPLETED'" class="number">{{ wave.day }}d : {{ wave.hours }}h : {{ wave.minutes }}m</div>
+            </div>
+
+            <div class="battery-block">
+                <div class="battery-list">
+                    <div *ngFor="let battery of wave.batteries; let bi = index"
+                         class="battery"
+                         [ngClass]="{
+                            '-on-charge': battery.status == 'on-charge',
+                            '-partial': battery.status == 'partial',
+                            '-locked': battery.status == 'locked' || battery.status == 'lock-active'
+                         }">
+<!--                        <div *ngIf="battery.status == 'partial'" class="name"><span class="white">X0.2</span> / X{{ bi + 1 }}</div>-->
+<!--                        <div *ngIf="battery.status != 'partial'" class="name">X{{ bi + 1 }}</div>-->
+                        <battery-progress
+                            [ready]="battery.ready"
+                            [total]="battery.total"
+                            [readyTotal]="battery.readyTotal"
+                            [expanded]="battery.extended"
+                            [status]="battery.status"
+                            [type]="'info'"
+                        ></battery-progress>
+                        <div class="connector"></div>
+                    </div>
+                </div>
+                <div class="reward-block">
+                    <div *ngIf="wave.waveCurrentStatus !== 'COMPLETED'" class="reward-top">
+                        <div class="title">
+                            {{ 'PROCESSING.APPROXIMATE_REWARD' | translate }}
+                        </div>
+                        <div class="value">~{{ userRewards[wave.waveId] }} QRE</div>
+                    </div>
+                    <div *ngIf="wave.waveCurrentStatus == 'COMPLETED'" class="reward-top -completed">
+                        <div class="title">
+                            {{ 'PROCESSING.YOUR_PROCESSING' | translate }}
+                        </div>
+                        <div class="value">
+                            <span *ngIf="wave.waveCurrentStatus != 'COMPLETED'">~</span>{{ userRewards[wave.waveId] }} QRE
+                        </div>
+                    </div>
+                    <div class="reward-bottom">
+                        <div class="title">
+                            {{ 'PROCESSING.TOTAL_CAPACITY' | translate }}
+                        </div>
+                        <div class="value">{{ wave.formatedRewardOre }} QRE</div>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="wave.waveCurrentStatus != 'COMPLETED'" class="button-wrapper">
+                <div class="go-to-link" (click)="openUpgrade(wave)">
+                    {{ 'PROCESSING.UPGRADE' | translate }}
+                </div>
+            </div>
+            <div *ngIf="wave.waveCurrentStatus == 'COMPLETED'" class="button-wrapper">
+                <div class="go-to-link -completed" (click)="openClaim(wave)">
+                    {{ 'PROCESSING.CLAIM' | translate }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="isLoading || !waves || !waves.length || waves.length == 0" class="empty-waves-list">
+        <div *ngIf="isLoading" class="grey-box empty-wave-card">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        </div>
+        <div *ngIf="!isLoading && (!waves || !waves.length || waves.length == 0)" class="grey-box empty-wave-card">
+            <div class="pic"></div>
+            <div class="info">{{ 'PROCESSING.EMPTY_WAVES' | translate }}</div>
+        </div>
+    </div>
+</div>
+
+<upgrade-wave-modal
+    [isOpen]="isOpenUpgradeWaveModal"
+    [wave]="currentWave"
+    [balances]="{eqnBalance, qenBalance}"
+    (openEvent)="onOpenUpgradeEvent($event)"
+    (onSucceedEvent)="onSucceed($event)"
+></upgrade-wave-modal>
+
+<claim-modal
+    [isOpen]="isOpenClaimModal"
+    [wave]="currentWave"
+    (openEvent)="onOpenClaimEvent($event)"
+    (onSucceedEvent)="onSucceed($event)"
+></claim-modal>

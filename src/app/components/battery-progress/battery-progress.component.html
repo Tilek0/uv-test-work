@@ -1,0 +1,32 @@
+<div class="BatteryProgress"
+     [ngClass]="'-' + status + ' -' + type">
+    <div class="plus"></div>
+    <div class="capacity">
+        <div
+            *ngIf="capacity < 100"
+            [ngClass]="{'-full': !expanded || expanded == 0}"
+            class="slot -locked"></div>
+        <div
+            *ngIf="capacity > 0"
+            [ngStyle]="{'min-height': capacity + '%'}"
+            [ngClass]="{'-full': expanded == total}"
+            class="slot -expanded"
+        ></div>
+
+        <div class="slot-inner-border">
+            <div
+                class="fill-progress"
+                [ngClass]="{'-full': progress == 100}"
+                [ngStyle]="{'height': progress + '%'}">
+            </div>
+            <div
+                *ngIf="readyMax && subprogress > 0"
+                class="expand-progress"
+                [ngClass]="{'-full': subprogress == 100}"
+                [ngStyle]="{'height': subprogress + '%'}">
+            </div>
+        </div>
+
+        <div class="icon"></div>
+    </div>
+</div>

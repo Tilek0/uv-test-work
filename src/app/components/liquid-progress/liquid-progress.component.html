@@ -1,0 +1,10 @@
+<div class="LiquidProgress">
+    <div class="wave">
+        <div *ngIf="progress < 100 && progress != 0" class="wave-dark" [ngStyle]="{'top': '-' + progress + '%'}"></div>
+        <div *ngIf="progress < 100 && progress != 0" class="wave-light" [ngStyle]="{'top': '-' + progress + '%'}"></div>
+        <div *ngIf="progress == 100" class="full-wave"></div>
+    </div>
+
+    <div class="outer-circle"></div>
+    <div class="inner-circle"></div>
+</div>

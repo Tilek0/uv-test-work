@@ -1,0 +1,45 @@
+.container-row {
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.description {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  color: #666666;
+
+  div {
+    white-space: nowrap;
+  }
+}
+
+.header {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+
+  color: #ffffff;
+}
+
+.avatar {
+  width: 56px;
+  height: 56px;
+
+  background: #666666;
+  border-radius: 70px;
+  margin-right: 16px;
+}
+
+.marging-24px {
+  margin-left: 24px !important;
+}
+
+.orbit-text {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  color: #ffffff;
+  margin: 8px 0;
+}

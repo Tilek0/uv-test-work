@@ -1,0 +1,50 @@
+<ng-template #confirmVestingTariff let-modal>
+  <div class="modal-header">
+    <fa-icon (click)="closeModal()" [icon]="faCircleXmark"></fa-icon>
+    <div class="modal-title">
+      {{ 'CONFIRM_MODAL.TITLE' | translate }}
+    </div>
+  </div>
+
+  <div class="modal-body" tabindex="0" ngbAutofocus>
+    <div class="info">
+      <div class="text">
+        {{ 'CONFIRM_MODAL.TARIFF_' + tariff + '_INFO' | translate }}
+      </div>
+      <div class="title">
+        {{ 'CONFIRM_MODAL.INFO' | translate }}
+      </div>
+
+      <div class="custom-control custom-checkbox custom-checkbox-green">
+        <input
+            type="checkbox"
+            class="custom-control-input custom-control-input-green"
+            [ngModel]="yesIamSure"
+            (change)="changeCheckbox($event)"
+            id="yesIamShure" />
+        <label class="custom-control-label" for="yesIamShure">
+            <span class="description">
+              {{ 'CONFIRM_MODAL.TARIFF_AGREEMENT' | translate }}
+            </span>
+        </label>
+      </div>
+      
+      <div class="subtitle">
+        {{ 'CONFIRM_MODAL.ARE_YOU_SURE' | translate }}
+      </div>
+      <div class="bottom">
+        <button type="button" class="btn-orange" [disabled]="isProcessing || !yesIamSure" (click)="confirm()">
+          <span
+            *ngIf="isProcessing"
+            class="spinner-border spinner-border-sm"
+            role="status"
+            aria-hidden="true"></span>
+            {{ 'CONFIRM_MODAL.YES' | translate }}
+        </button>
+        <button type="button" class="btn-orange -grey" [disabled]="isProcessing" (click)="closeModal()">
+          {{ 'CONFIRM_MODAL.NO' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>

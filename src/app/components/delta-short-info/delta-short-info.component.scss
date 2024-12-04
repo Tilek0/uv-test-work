@@ -1,0 +1,106 @@
+.delta-container {
+  width: 283px;
+  height: 100%;
+  @media (max-width: 760px) {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    min-width: 290px;
+    height: 367px;
+    padding-bottom: 0;
+  }
+  .medium-card {
+    width: 100%;
+    display: flex;
+    padding: 16px;
+    flex-direction: column;
+    gap: 16px;
+    align-self: stretch;
+    border-radius: 8px;
+    background: hsla(0, 0%, 10%, .8);
+    backdrop-filter: blur(20px);
+    @media (max-width: 760px) {
+      width: 100%;
+      height: auto;
+      gap: 16px;
+    }
+    @media (max-width: 576px) {
+      min-width: 290px;
+      height: 100%;
+    }
+    .notice {
+      color: hsla(0, 0%, 100%, .5);
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 16px;
+    }
+  }
+  .delta {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    @media (max-width: 760px) {
+      align-items: center;
+      height: auto;
+    }
+    @media (max-width: 576px) {
+      height: 100%;
+    }
+    .top {
+      width: 100%;
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+      justify-content: space-between;
+      .title,
+      .counter {
+        color: hsl(0, 0%, 100%);
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 20px;
+      }
+      .counter {
+        font-weight: 600;
+      }
+    }
+    .progress {
+      width: 250px;
+      height: 250px;
+      position: relative;
+      background-color: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: hsl(0, 0%, 100%);
+      font-size: 32px;
+      font-weight: 600;
+      line-height: 40px;
+      @media (max-width: 576px) {
+        width: 150px;
+        height: 150px;
+      }
+      .progress-title {
+        position: absolute;
+        top: 50%;
+        transform: translate(0, -50%);
+      }
+    }
+    .bottom {
+      width: 100%;
+      button {
+        width: 100%;
+        max-width: 100%;
+        background: hsla(0, 0%, 100%, 0.05);
+        color: hsla(0, 0%, 100%, 0.5) !important;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 16px;
+        @media (max-width: 576px) {
+          margin-top: 0;
+        }
+      }
+    }
+  }
+}

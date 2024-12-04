@@ -1,0 +1,9 @@
+version: '3.1'
+
+services: 
+  uv: 
+    build: ./
+    container_name: frontend-for-united-verse
+    restart: always 
+    ports: 
+      - "10101:80"

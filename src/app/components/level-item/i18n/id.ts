@@ -1,0 +1,26 @@
+﻿export const locale = {
+  lang: 'id',
+  data: {
+    LEVEL_ITEM: {
+      TIER: 'Tingkat',
+      SUSPENDED: 'Ditangguhkan',
+      ACTIVE_UNTIL: 'Waktu akses',
+      DAY: 'hari',
+      HOUS: 'jam',
+      MIN: 'menit',
+      ACTIVATION_PRICE: 'Harga aktivasi',
+      RENEWAL_PRICE: 'Harga pembaruan',
+      SHOW_LEVEL: 'Klik untuk menampilkan',
+      ACTIVATE: 'Aktifkan',
+      EXTAND: 'Perpanjang',
+      EXTENSION_TIME: 'Waktu perpanjangan',
+      EXTEND_TIME: 'Perpanjang waktu',
+      DELTA: 'Delta',
+      BADGE_READY: 'Siap',
+      BADGE_EXTENSION: 'Perpanjangan',
+      BADGE_ACTIVE: 'Aktif',
+      BADGE_NO_ACTIVE: 'Tidak aktif',
+      OR: 'atau',
+    },
+  },
+};

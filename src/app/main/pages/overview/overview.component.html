@@ -1,0 +1,199 @@
+<div class="Overview">
+    <div class="user-info">
+        <div class="background-layer"></div>
+        <div class="gradient-layer"></div>
+        <div class="game-help">
+            <div class="info-wrapper">
+                <div class="icon-wrapper">
+                    <div class="info-icon"></div>
+                </div>
+
+                <div class="info">
+                    <div class="info-title">
+                        {{ 'OVERVIEW.HELP_TITLE' | translate }}
+                    </div>
+                    <div class="info-description">
+                        {{ 'OVERVIEW.HELP_DESCRIPTION' | translate }}
+                    </div>
+                </div>
+            </div>
+            <button class="btn-orange" (click)="goToGameHelp()">
+                {{ 'OVERVIEW.HELP_BUTTON' | translate }}
+            </button>
+        </div>
+        <div class="balances-wrapper">
+            <div class="balances">
+                <div class="title">
+                    {{ 'OVERVIEW.MY_BALANCE' | translate }}
+                </div>
+                <div class="twin">
+                    <div class="grey-box wallet-balance">
+                        <div class="value">{{ +(+mfsBalance).toFixed(2) }}</div>
+                        <div class="short-name">HC</div>
+                    </div>
+                    <div class="grey-box wallet-balance">
+                        <div class="value">{{ +(+daiBalance).toFixed(2) }}</div>
+                        <div class="short-name">DAI</div>
+                    </div>
+                </div>
+
+                <div class="title">
+                    {{ 'OVERVIEW.MINING' | translate }}
+                </div>
+                <div class="twin">
+                    <div class="grey-box token-balance">
+                        <div class="pic-ore"></div>
+                        <div class="info">
+                            <div class="full-name">{{ 'OVERVIEW.QRE' | translate }}</div>
+                            <div class="val-wrapper">
+                                <div class="value">{{ qreBalance }}</div>
+                                <div class="short-name">QRE</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grey-box token-balance">
+                        <div class="pic-btf"></div>
+                        <div class="info">
+                            <div class="full-name">{{ 'OVERVIEW.BTF' | translate }}</div>
+                            <div class="val-wrapper">
+                                <div class="value">0</div>
+                                <div class="short-name">BFC</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="socials">
+                <div class="social">
+                    <div class="title">
+                        &nbsp;
+<!--                        {{ 'OVERVIEW.EQN' | translate }}-->
+                    </div>
+                    <div class="grey-box token-balance -eqn">
+                        <div class="value">{{ eqnBalance }}</div>
+                        <div class="short-name">EQN</div>
+                    </div>
+                </div>
+                <div class="social">
+                    <div class="title">
+                        &nbsp;
+<!--                        {{ 'OVERVIEW.QEN' | translate }}-->
+                    </div>
+                    <div class="grey-box token-balance -qen">
+                        <div class="info-wrapper">
+                            <div class="qen-balance-wrapper">
+                                <div class="value">{{ qenBalance }}</div>
+                                <div class="short-name">NTC</div>
+                            </div>
+                            <div class="timer">
+                                {{ timer.hours }}:{{ timer.minutes }}:{{ timer.seconds }}
+                            </div>
+                        </div>
+                        <button class="btn-orange" (click)="goToMiniGame()">
+                            {{ 'OVERVIEW.EARNING' | translate }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mining">
+        <div class="grey-box launch">
+            <div class="background-layer"></div>
+            <div class="gradient-layer"></div>
+            <div class="content-box">
+                <div class="title">
+                    {{ 'OVERVIEW.NEW_WAVE' | translate }}
+                </div>
+                <div class="machines">
+                    <span class="ready">{{ readyDevices }}</span>
+                    {{ 'OVERVIEW.OF' | translate }} {{ totalDevices }}
+                </div>
+                <div class="wave-progress">
+                    <div
+                        class="current-progress"
+                        [ngStyle]="{'width': (readyDevices / totalDevices) * 100  + '%'}"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grey-box tunnels">
+            <div class="title">
+                {{ 'OVERVIEW.MINING' | translate }}
+            </div>
+            <div class="info-wrapper">
+                <div class="space">
+                    <div class="tier-box -space" (click)="goToTiers()">
+                        <div class="name-wrapper">
+                            <div class="level">
+                                <div class="gas-pic"></div>
+                            </div>
+                            <div class="name">{{ 'OVERVIEW.SPACE' | translate }}</div>
+                        </div>
+                        <div class="icon">
+                            <div class="orange-pic"></div>
+                            <div class="dotted-pic"></div>
+                        </div>
+                        <div class="arrow"></div>
+                    </div>
+                </div>
+
+                <div class="tiers-list">
+                    <div *ngIf="isLoading" class="loader-wrapper">
+                        <span
+                            class="spinner-border spinner-border-md"
+                            role="status"
+                            aria-hidden="true"></span>
+                    </div>
+                    <ng-container *ngFor="let tier of lists; let i = index">
+                        <div
+                            class="tier-box"
+                            [ngClass]="{
+                                '-active': tier.isActive,
+                                '-noactive': !tier.isActive && tier.levelNumber !== lastActiveLevelNumber + 1,
+                                '-ready': tier.levelNumber == lastActiveLevelNumber + 1
+                            }"
+                            (click)="goToTiers(tier.levelNumber)"
+                        >
+                            <div class="name-wrapper">
+                                <div class="level">
+                                    {{ tier.levelNumber }}
+                                </div>
+                                <div class="name">{{ 'OVERVIEW.TIER' | translate }}</div>
+                                <div *ngIf="!tier.isActive && tier.levelNumber !== lastActiveLevelNumber + 1" class="name"> / {{ 'OVERVIEW.NO_ACTIVE' | translate }}</div>
+                                <div *ngIf="tier.levelNumber == lastActiveLevelNumber + 1" class="ready"> / {{ 'OVERVIEW.READY' | translate }}</div>
+                            </div>
+                            <div class="icon">
+                                <div class="tier-connector">
+                                    <div *ngFor="let n of numSequence(i); let idx = index" class="track"
+                                    [ngClass]="{'-active': idx + 1 <= lastActiveLevelNumber - i}"></div>
+                                </div>
+                            </div>
+                            <div class="arrow"></div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+            <button class="btn-orange" (click)="goToTiers()">
+                {{ 'OVERVIEW.ENTER' | translate }}
+            </button>
+        </div>
+    </div>
+</div>
+
+<mini-game-modal
+    [isOpen]="isOpenMiniGameModal"
+    (openEvent)="isOpenMiniGameModal = $event"
+></mini-game-modal>
+
+<game-help-modal
+    [isOpen]="isOpenGameHelpModal"
+    (openEvent)="isOpenGameHelpModal = $event"
+></game-help-modal>
+
+
+
+
+

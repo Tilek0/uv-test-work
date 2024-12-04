@@ -1,0 +1,26 @@
+﻿export const locale = {
+  lang: 'en',
+  data: {
+    OVERVIEW: {
+      MY_BALANCE: 'My Balance',
+      MINING: 'mining',
+      BTF: 'Bitforce',
+      EQN: 'Referral program',
+      QEN: 'Social activity',
+      STORAGE: 'Storage',
+      ALL_CHIPS: 'All chips',
+      NEW_WAVE: 'New Quantum wave launch',
+      OF: 'of',
+      ENTER: 'Enter Tiers',
+      SPACE: 'Quantum space',
+      TIER: 'Tier',
+      READY: 'Ready',
+      NO_ACTIVE: 'No Active',
+      QRE: 'Quantum ore',
+      EARNING: 'Earning',
+      HELP_TITLE: 'Uniteverse Guideline',
+      HELP_DESCRIPTION: 'A brief overview of how everything works',
+      HELP_BUTTON: 'Learn more',
+    },
+  },
+};

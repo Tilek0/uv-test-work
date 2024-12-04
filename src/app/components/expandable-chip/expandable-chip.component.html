@@ -1,0 +1,36 @@
+<div class="ExpandableChip">
+  <div class="grey-box">
+    <div class="chip-level">
+      <span class="name">{{ 'CHIP.CHIP_LEVEL' | translate }}</span>
+      <span class="number">{{ item.level }}</span>
+    </div>
+
+    <div class="pic-wrapper">
+      <div class="pic-box">
+        <div class="pic" [ngStyle]="{'background-image': 'url(https://cdn.meta-force.space/mocks/chips/' + item.level + '.webp)'}"></div>
+      </div>
+    </div>
+
+    <div class="balances-wrapper">
+      <div class="balance">
+        <span class="name">{{ 'CHIP.ALL_CHIPS' | translate }}</span>
+        <span class="value">{{ item.amount }}</span>
+      </div>
+      <div class="balance">
+        <span class="name">{{ 'CHIP.EXPAND_CHIPS' | translate }}</span>
+        <span class="value">{{ item.expandable }}</span>
+      </div>
+      <div class="balance">
+        <span class="name">{{ 'CHIP.FILLABLE_CHIPS' | translate }}</span>
+        <span class="value">{{ item.fillable }}</span>
+      </div>
+    </div>
+  </div>
+
+  <button
+      class="btn-orange"
+      (click)="clickChipUpgrade($event)"
+  >
+    {{ 'CHIP.UPGRADE' | translate }}
+  </button>
+</div>

@@ -1,0 +1,11 @@
+<div class="DashedProgress">
+    <div
+        *ngFor="let p of getDashess(); let i = index"
+        [ngClass]="{
+            '-active': i + 1 <= lastActiveDash,
+            '-last-active': i + 1 == lastActiveDash,
+            '-completed': isCompleted
+        }"
+        class="progress">
+    </div>
+</div>

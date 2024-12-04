@@ -1,0 +1,258 @@
+<!-- MENU -->
+<mat-drawer-container>
+  <mat-drawer
+    id="NavThird"
+    [opened]="isOpenSlideNavThird.isOpen"
+    (closedStart)="closedStart('isOpenSlideNavThird')"
+    [position]="'end'">
+    <app-side-nav-wallet-action
+      *ngIf="isOpenSlideNavThird.type === sideNavType.transfer">
+    </app-side-nav-wallet-action>
+    <app-side-nav-wallet-sell
+      *ngIf="isOpenSlideNavThird.type === sideNavType.sell">
+    </app-side-nav-wallet-sell>
+    <app-side-nav-wallet-buy
+      *ngIf="isOpenSlideNavThird.type === sideNavType.buy">
+    </app-side-nav-wallet-buy>
+    <app-side-nav-hold-mfs
+    *ngIf="isOpenSlideNavThird.type === sideNavType.holdMFS"
+    >
+    </app-side-nav-hold-mfs>
+    <app-side-nav-swap-hmfs-on-mfs
+    *ngIf="isOpenSlideNavThird.type === sideNavType.swaphMFSOnMFS">
+    </app-side-nav-swap-hmfs-on-mfs>
+    <app-side-nav-wallet-buyback
+      *ngIf="isOpenSlideNavThird.type === sideNavType.buyback"
+      (onSucceedEvent)="onBuybackSucceed($event)"
+    >
+    </app-side-nav-wallet-buyback>
+    <app-side-nav-wallet-buyback-offer-price
+      *ngIf="isOpenSlideNavThird.type === sideNavType.buybackOfferPrice">
+    </app-side-nav-wallet-buyback-offer-price>
+
+  </mat-drawer>
+  <mat-drawer-content>
+    <mat-drawer-container>
+      <mat-drawer
+        id="NavSecondary"
+        [opened]="isOpenSlideNavSecondary.isOpen"
+        (closedStart)="closedStart('isOpenSlideNavSecondary')"
+        [position]="'end'">
+        <app-side-nav-social
+          [childs]="isOpenSlideNavSecondary.childs"
+          *ngIf="isOpenSlideNavSecondary.type === sideNavType.social">
+        </app-side-nav-social>
+        <app-side-nav-wallet-history
+          *ngIf="isOpenSlideNavSecondary.type === sideNavType.walletHistory">
+        </app-side-nav-wallet-history>
+        <app-side-nav-wallet-vesting
+          *ngIf="isOpenSlideNavSecondary.type === sideNavType.walletVesting">
+        </app-side-nav-wallet-vesting>
+        <app-side-nav-hold-mfs-wallet
+        *ngIf="isOpenSlideNavSecondary.type === sideNavType.holdMFSWallet">
+
+        </app-side-nav-hold-mfs-wallet>
+      </mat-drawer>
+      <mat-drawer-content>
+        <mat-drawer-container>
+          <mat-drawer
+            id="NavMain"
+            mode="over"
+            [opened]="isOpenSlideNavMain.isOpen"
+            (closedStart)="closedStart('isOpenSlideNavMain')"
+            [position]="'end'">
+            <app-side-nav-services
+              class="d-block h-100"
+              *ngIf="isOpenSlideNavMain.type === sideNavType.services">
+            </app-side-nav-services>
+            <app-side-nav-menu
+              class="d-block"
+              *ngIf="isOpenSlideNavMain.type === sideNavType.menu">
+            </app-side-nav-menu>
+            <app-side-nav-wallet-value
+              *ngIf="isOpenSlideNavMain.type === sideNavType.wallet"
+              [refetchBalance]="refetchBalance"
+            >
+            </app-side-nav-wallet-value>
+            <app-side-nav-notification
+              *ngIf="isOpenSlideNavMain.type === sideNavType.notification">
+            </app-side-nav-notification>
+          </mat-drawer>
+
+          <ng-container *ngTemplateOutlet="menu"></ng-container>
+          <!--/ MENU -->
+
+          <!-- APP-CONTENT -->
+          <div
+            class="row m-0 main-header-container"
+            [ngClass]="{
+              'main-header-container-with-open-nuv-bar': !isCollapsed
+            }"
+            *ngIf="!coreConfig.layout.menu.hidden">
+            <div class="col-xxl-5 col-md-5 col-12 color-header">
+              <div class="row">
+                <a
+                  *ngIf="isCollapsed"
+                  class="button-open-nav-bar-collapsed"
+                  (click)="toggleSidebarCollapsible()">
+                  <img
+                    [src]="'/assets/menu icon/ColapsBtnCloseWhite.png'"
+                    alt="" />
+                </a>
+                <div class="col big-tree-route">
+                  <app-content-header
+                    *ngIf="!coreConfig.layout.menu.hidden"
+                    [contentHeader]="contentHeader"></app-content-header>
+                </div>
+                <!-- <div class="col-8 back-arrow"  (click)="backPage()">
+        <span class="material-icons">
+          arrow_back
+        </span>
+        {{ 'LAYOUT.BACK' | translate }}
+      </div> -->
+                <div class="col-12 small-tree-route">
+                  <div class="row align-items-center justify-content-between">
+                    <a class="navbar-brand" href="https://holiverse.ai/">
+                      <span class="brand-logo">
+                        <img
+                          src="{{ coreConfig.app.appLogoImage }}"
+                          alt="brand-logo" />
+                      </span>
+                      <h2 class="brand-text mb-0"></h2>
+                    </a>
+                    <app-content-header
+                      [contentHeader]="contentHeader"></app-content-header>
+                    <div class="bookmark-wrapper d-flex">
+                      <!-- Menu Toggler | Menu icon will be hidden in case of layout without menu -->
+                      <ul
+                        class="nav navbar-nav menu-small-size-window"
+                        *ngIf="!coreConfig.layout.menu.hidden">
+                        <li class="nav-item">
+                          <a
+                            class="nav-link menu-toggle button-open-nav-bar button-grey"
+                            (click)="openSlideNavMain()">
+                            <span
+                              [data-feather]="'menu'"
+                              [class]="'ficon'"></span>
+                          </a>
+                        </li>
+                      </ul>
+                      <!--/ Menu Toggler -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="col-xxl-7 col-md-7 col-0 p-0 d-flex justify-content-end color-header">
+              <div class="bookmark-wrapper bookmark-wrapper-deskctop d-flex">
+                <!-- Menu Toggler | Menu icon will be hidden in case of layout without menu -->
+                <ul
+                  class="nav navbar-nav menu-small-size-window"
+                  *ngIf="!coreConfig.layout.menu.hidden">
+                  <li class="nav-item">
+                    <a
+                      class="nav-link menu-toggle button-open-nav-bar button-grey"
+                      (click)="openSlideNavMain()">
+                      <span [data-feather]="'menu'" [class]="'ficon'"></span>
+                    </a>
+                  </li>
+                </ul>
+                <!--/ Menu Toggler -->
+              </div>
+              <div
+                class="navbar-container order-0 w-100 justify-content-start d-none"
+                *ngIf="!coreConfig.layout.menu.hidden">
+                <ul class="nav navbar-nav ml-auto container-function">
+                  <li class="value-currency pl-0">
+                    <img src="/assets/menu icon/holicoin-header.svg" alt="" />
+                    {{ (+mfsValue).toFixed(2) }} HC
+                  </li>
+                  <li class="value-currency">
+                    <img src="/assets/menu icon/dai-header.png" alt="" />
+                    {{ (+daiValue).toFixed(2) }} DAI
+                  </li>
+                  <li class="value-currency">
+                    <img src="/assets/menu icon/matic-header.png" alt="" />
+                    {{ (+maticValue).toFixed(2) }} POL
+                  </li>
+                  <app-navbar-wallets></app-navbar-wallets>
+                  <li
+                    ngbDropdown
+                    class="nav-item dropdown-notification"
+                    (click)="openSlideNav()">
+                    <a class="btn button-notification button-grey">
+                      <img [src]="'assets/icon/notification.svg'" />
+                    </a>
+                  </li>
+                  <li ngbDropdown class="nav-item dropdown dropdown-language">
+                    <!-- <img src="assets/icon/planet.png" /> -->
+                    <a
+                      class="nav-link dropdown-toggle"
+                      id="dropdown-flag"
+                      ngbDropdownToggle>
+                      <!-- <i class="flag-icon flag-icon-{{ languageOptions[_translateService.currentLang].flag }}"></i> -->
+                      <span class="selected-language">{{
+                        languageOptions[_translateService.currentLang].title
+                      }}</span></a
+                    >
+                    <div ngbDropdownMenu aria-labelledby="dropdown-flag">
+                      <a
+                        *ngFor="let lang of _translateService.getLangs()"
+                        class="dropdown-language-header-background"
+                        [ngClass]="{
+                          'select-language': lang === selectedLanguage
+                        }"
+                        ngbDropdownItem
+                        (click)="setLanguage(lang)">
+                        <!-- <i class="flag-icon flag-icon-{{ languageOptions[lang].flag }}"></i> -->
+                        {{ languageOptions[lang].title }}
+                      </a>
+                    </div>
+                  </li>
+                  <app-navbar-services></app-navbar-services>
+                </ul>
+              </div>
+
+              <!-- <app-navbar-notification></app-navbar-notification> -->
+            </div>
+          </div>
+          <div class="app-content content">
+            <div class="content-overlay"></div>
+
+            <!-- <div class="header-navbar-shadow" *ngIf="!coreConfig.layout.navbar.hidden"></div> -->
+            <!-- CONTENT -->
+            <div class="content-body">
+              <content></content>
+            </div>
+
+            <!--/ CONTENT -->
+          </div>
+          <!--/ APP-CONTENT -->
+        </mat-drawer-container>
+      </mat-drawer-content>
+    </mat-drawer-container>
+  </mat-drawer-content>
+</mat-drawer-container>
+<!-- PARTIALS ---------------------------------------------------------------------------------------- -->
+
+<!-- MENU -->
+<ng-template #menu>
+  <core-sidebar
+    name="menu"
+    [collapsed]="coreConfig.layout.menu.collapsed"
+    collapsibleSidebar="bs-gt-xl-plus-85"
+    *ngIf="!coreConfig.layout.menu.hidden"
+    class="main-menu menu-fixed menu-accordio menu-shadow"
+    overlayClass="sidenav-overlay"
+    [ngClass]="[
+      coreConfig.layout.skin === 'semi-dark' ||
+      coreConfig.layout.skin === 'dark'
+        ? 'menu-dark'
+        : 'menu-light',
+      coreConfig.layout.menu.collapsed ? '' : 'expanded'
+    ]">
+    <app-menu menuType="vertical-menu" class="vertical-menu"></app-menu>
+  </core-sidebar>
+</ng-template>
+<!--/ MENU -->

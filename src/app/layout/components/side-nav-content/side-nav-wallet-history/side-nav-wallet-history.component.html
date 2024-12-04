@@ -1,0 +1,153 @@
+<div class="row h-100 m-0">
+  <div
+    class="col-12 d-flex align-items-center justify-content-between header-menu">
+    <div
+      class="back-arrow-wallet d-flex align-items-center cursor-pointer"
+      (click)="closeSlideNav(false)">
+      <div class="icon"></div>
+      {{ 'SIDE_NAV_WALLET_HISTORY.BACK' | translate }}
+    </div>
+    <div class="header-title">
+      {{
+        item.sideNavType === sideNavType.inner
+          ? ('SIDE_NAV_WALLET_HISTORY.INNER_BALANCE' | translate)
+          : ('SIDE_NAV_WALLET_HISTORY.WALLET_BALANCE' | translate)
+      }}
+    </div>
+    <img
+      class="button-close cursor-pointer button-black"
+      (click)="closeALLSlideNav(false)"
+      src="/assets/icon/closeButton.svg"
+      alt="" />
+  </div>
+
+  <div class="col-12 height-container-menu">
+    <div class="row m-0">
+      <div class="col-12 container-total-balance d-flex justify-content-center">
+        <div>
+          {{ 'SIDE_NAV_WALLET_HISTORY.BALANCE' | translate }}
+          <span> {{ (item.name === 'MFS' || item.name === 'HC') ? 'HC' : item.name }} </span>
+        </div>
+        <div class="total-balance-container">
+          <span class="total-balance-value">
+            {{
+              +(
+                item.sideNavType === sideNavType.inner
+                  ? +item.valuePayment
+                  : +item.value
+              ).toFixed(2)
+            }}
+          </span>
+          <span class="conteiner-coning-soon">
+            <img
+              class="total-balance-plus disabled"
+              src="/assets/icon/plusOrange.png"
+              alt="" />
+            <div class="coning-soon coning-soon-right">
+              {{ 'SIDE_NAV_WALLET_HISTORY.CONING_SOON' | translate }}
+            </div>
+          </span>
+        </div>
+        <div>
+          $
+          {{
+            +(
+              +item.costCoin *
+              (item.sideNavType === sideNavType.inner
+                ? +item.valuePayment
+                : +item.value)
+            ).toFixed(1)
+          }}
+        </div>
+      </div>
+      <div class="col-12 p-0">
+        <div class="container-button row m-0">
+          <div class="conteiner-coning-soon col-4 p-0">
+            <div class="coning-soon coning-soon-top">
+              {{ 'SIDE_NAV_WALLET_HISTORY.CONING_SOON' | translate }}
+            </div>
+
+            <button disabled class="btn-orange">
+              <img
+                class="icon-btn-orange"
+                src="/assets/icon/sendIcon.png"
+                alt="" />
+              {{ 'SIDE_NAV_WALLET_HISTORY.SEND' | translate }}
+            </button>
+          </div>
+          <div class="conteiner-coning-soon col-4 p-0">
+            <div class="coning-soon coning-soon-top">
+              {{ 'SIDE_NAV_WALLET_HISTORY.CONING_SOON' | translate }}
+            </div>
+            <button disabled class="btn-orange">
+              <img
+                class="icon-btn-orange"
+                src="/assets/icon/depositIcon.png"
+                alt="" />
+              {{ 'SIDE_NAV_WALLET_HISTORY.DEPOSIT' | translate }}
+            </button>
+          </div>
+
+          <div class="conteiner-coning-soon col-4 p-0">
+            <div *ngIf=" (item.name != 'DAI' && item.name !== 'HC')" class="coning-soon coning-soon-top">
+              {{ 'SIDE_NAV_WALLET_HISTORY.CONING_SOON' | translate }}
+            </div>
+            <button 
+              [disabled]="item.name != 'DAI' && item.name !== 'HC'"
+              class="btn-orange"
+              (click)="openTransfer()">
+              <img
+                class="icon-btn-orange"
+                src="/assets/icon/transferIcon.png"
+                alt="" />
+              {{ 'SIDE_NAV_WALLET_HISTORY.TRANSFER' | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row m-0 scrollable-container media-list" [perfectScrollbar]>
+      <div class="col-12 p-0 inner-balace-container">
+        <div class="inner-balace-container-header">
+          <span>{{
+            'SIDE_NAV_WALLET_HISTORY.TRANSACTION_HISTORY' | translate
+          }}</span>
+        </div>
+        <div class="inner-balace-container-body coming-sone-history">
+          <div
+            class="d-flex flex-column h-100 justify-content-center align-items-center text-grey">
+            <img src="/assets/icon/clock-old-grey.png" />
+            <div>Coming soon</div>
+          </div>
+          <!-- <div class="row inner-balace-container-coin m-0" *ngFor="let coin of historyList; let i = index" [ngClass]="{'border-none': i === historyList.length-1}">
+                        <div class="col-8 p-0 d-flex align-items-center">
+                            <img  [src]="coin.type === 'wallet'?'/assets/icon/wallet-history-transfer.png' : '/assets/icon/inner-history-transfer.png'">
+                         
+                            <span class="w-100">
+                                <div class="inner-balace-coin-header">
+                                    {{coin.type === 'wallet'? ('SIDE_NAV_WALLET_HISTORY.TRANSFER_WALLET' | translate) :('SIDE_NAV_WALLET_HISTORY.TRANSFER_INNER_BALANCE' | translate) }}
+                                </div>
+                                <div class="inner-balace-coin-description text-grey"
+                                    >
+                                    {{moment(coin.data).format('DD.MM.YY')}}
+                                </div>
+                            </span>
+
+                        </div>
+                        <div class="col-4 p-0 text-right">
+                            <div class="inner-balace-coin-header text-white">
+                                {{+(+coin.value).toFixed(2)}} <span> {{item.name === 'MFS' ?  'MFS':item.name === 'DAI' ? 'DAI': 'RES'}} </span> 
+                            </div>
+                            <div class="inner-balace-coin-description text-grey"
+                             >
+                                ${{+( +coin.value).toFixed(2)}}
+                            </div>
+
+                        </div>
+
+                    </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+<div class="DoubleProgress">
+    <div
+        *ngFor="let slot of getSlots(); let slotId = index"
+        [ngClass]="'-' + type"
+        class="slot"
+    >
+        <div class="fill-progress" [ngStyle]="{'width': progress[slotId] + '%'}">
+        </div>
+        <div
+            *ngIf="readyMax && subprogress[slotId] > 0"
+            class="expand-progress"
+            [ngClass]="{'-full': subprogress[slotId] == 100}"
+            [ngStyle]="{'width': subprogress[slotId] + '%'}"></div>
+        <div class="title">x{{ slotId + 1 }}</div>
+    </div>
+</div>

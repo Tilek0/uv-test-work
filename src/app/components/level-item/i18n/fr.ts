@@ -1,0 +1,26 @@
+﻿export const locale = {
+  lang: 'fr',
+  data: {
+    LEVEL_ITEM: {
+      TIER: 'Tier',
+      SUSPENDED: 'Suspended',
+      ACTIVE_UNTIL: 'Access time',
+      DAY: 'day',
+      HOUS: 'hous',
+      MIN: 'min',
+      ACTIVATION_PRICE: 'Activation price',
+      RENEWAL_PRICE: 'Renewal price',
+      SHOW_LEVEL: 'Click to show',
+      ACTIVATE: 'Activate',
+      EXTAND: 'Extend',
+      EXTENSION_TIME: 'Extension time',
+      EXTEND_TIME: 'Extend time',
+      DELTA: 'Delta',
+      BADGE_READY: 'Ready',
+      BADGE_EXTENSION: 'Extension',
+      BADGE_ACTIVE: 'Active',
+      BADGE_NO_ACTIVE: 'No active',
+      OR: 'or',
+    },
+  },
+};

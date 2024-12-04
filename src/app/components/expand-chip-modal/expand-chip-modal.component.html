@@ -1,0 +1,98 @@
+<ng-template #expandChip let-modal>
+  <div class="modal-header">
+    <fa-icon (click)="closeModal()" [icon]="faCircleXmark"></fa-icon>
+    <div *ngIf="operationType === 'expand'" class="modal-title">
+      {{ 'EXPAND_CHIP_MODAL.EXPAND' | translate }}
+    </div>
+    <div *ngIf="operationType === 'fill'" class="modal-title">
+      {{ 'EXPAND_CHIP_MODAL.FILL' | translate }}
+    </div>
+  </div>
+
+  <div class="modal-body" tabindex="0" ngbAutofocus>
+      <div *ngIf="operationType === 'expand'" class="info-wrapper">
+          <div class="info">
+              {{ 'EXPAND_CHIP_MODAL.YOU_HAVE' | translate }} <span class="value">44</span> NTC
+          </div>
+          <div class="info">
+              {{ 'EXPAND_CHIP_MODAL.YOU_NEED_TO_EXPAND' | translate }} <span class="value">2344</span> NTC
+          </div>
+      </div>
+
+      <div *ngIf="operationType === 'fill'" class="info-wrapper">
+          <div class="info">
+              {{ 'EXPAND_CHIP_MODAL.YOU_HAVE' | translate }} <span class="value">2525</span>&nbsp;NTC
+          </div>
+          <div class="info">
+              {{ 'EXPAND_CHIP_MODAL.YOU_NEED_TO_FILL' | translate }} <span class="value">3254</span>&nbsp;NTC
+          </div>
+      </div>
+    <div class="info-wrapper">
+        <div *ngIf="operationType === 'expand'" class="energy-wrapper">
+            <div class="info">
+                {{ 'EXPAND_CHIP_MODAL.EXPAND_INFO' | translate }}
+            </div>
+            <div class="qen"></div>
+
+            <div class="amount-wrapper">
+                <app-count-controller
+                    [bundleSize]="bundleSize"
+                    (changeBundle)="onChangebundleSize($event)"
+                ></app-count-controller>
+                <div class="set-max" (click)="setMax()">{{ 'EXPAND_CHIP_MODAL.SET_MAX' | translate }}</div>
+            </div>
+        </div>
+
+        <div *ngIf="operationType === 'fill'" class="energy-wrapper">
+            <div class="info">
+                {{ 'EXPAND_CHIP_MODAL.FILL_INFO' | translate }}
+            </div>
+
+            <div class="amount-wrapper">
+                <div class="count-controller">
+                    <div class="minus" (click)="changeBundleSize('minus')">
+                        <fa-icon [icon]="faMinus"></fa-icon>
+                    </div>
+                    <div class="count">{{ bundleSize }}</div>
+                    <div class="plus" (click)="changeBundleSize('plus')">
+                        <fa-icon [icon]="faPlus"></fa-icon>
+                    </div>
+                </div>
+                <div class="set-max" (click)="setMax()">{{ 'EXPAND_CHIP_MODAL.SET_MAX' | translate }}</div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="operationType === 'expand'" class="info-wrapper">
+      <div class="info">
+          {{ 'EXPAND_CHIP_MODAL.EXPAND_NEXT_INFO' | translate }}
+      </div>
+    </div>
+
+    <div class="bottom">
+        <div *ngIf="operationType === 'fill'" class="info-wrapper">
+            <div class="info">
+                {{ 'EXPAND_CHIP_MODAL.PROFIT_INFO' | translate }}
+                <span class="value">{{ 32 * bundleSize }}</span>
+                {{ 'EXPAND_CHIP_MODAL.Q_ORE' | translate }}
+            </div>
+        </div>
+
+        <button
+        class="btn-orange"
+        (click)="clickConfirm(modal)">
+          <span
+            *ngIf="isProcessing"
+            class="spinner-border spinner-border-sm"
+            role="status"
+            aria-hidden="true"></span>
+          <span *ngIf="operationType === 'expand'">
+            {{ 'EXPAND_CHIP_MODAL.EXPAND' | translate }}
+          </span>
+          <span *ngIf="operationType === 'fill'">
+            {{ 'EXPAND_CHIP_MODAL.FILL' | translate }}
+          </span>
+      </button>
+    </div>
+  </div>
+</ng-template>

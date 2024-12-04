@@ -1,0 +1,110 @@
+<ng-template #extendChooseTypePack let-modal>
+  <div class="modal-header">
+    <div class="row m-0 w-100 container-header">
+      <button
+        type="button"
+        class="button-close"
+        (click)="closeModal(modal)"
+        aria-label="Close">
+        <!-- <span aria-hidden="true">&larr;</span> -->
+        <img src="assets/icon/arrowLeft.png" alt="" />
+        {{ 'EXTEND_CHOOSE_TYPE_MODAL.BUTTON_BACK' | translate }}
+      </button>
+      <div class="title col">
+        {{ 'EXTEND_CHOOSE_TYPE_MODAL.EXTAND_TIER' | translate }}
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-body" tabindex="0" ngbAutofocus>
+    <div class="row">
+      <div class="col-12 justify-content-center d-flex title-body">
+        {{
+          'EXTEND_CHOOSE_TYPE_MODAL.TWO_TYPES_EXTENSIONS_AVAILABLE' | translate
+        }}
+      </div>
+    </div>
+    <div class="row level-container">
+      <div class="col-12 p-0 body-text">
+        <span class="dots"></span
+        >{{ 'EXTEND_CHOOSE_TYPE_MODAL.EXTEND_TIME_IN' | translate }} HC:
+        {{ +(item.costInMFS / 5).toFixed(2) }} HC ({{
+          item.costInDAI / 5
+        }}
+        DAI)
+        <div class="body-text-description">
+          {{ 'EXTEND_CHOOSE_TYPE_MODAL.PRICE_REDUCED_BY' | translate }} 80%
+        </div>
+      </div>
+
+      <div class="col-12 p-0 body-text">
+        <span class="dots"></span
+        >{{ 'EXTEND_CHOOSE_TYPE_MODAL.EXTEND_TIME_IN' | translate }} DAI:
+        {{ item.costInDAI }} DAI
+      </div>
+
+      <div class="col-12 col-sm-6 p-0">
+        <div class="row m-0">
+          <div class="col-12 label-input">
+            {{ 'EXTEND_CHOOSE_TYPE_MODAL.YOUR_BALANCE' | translate }} HC
+          </div>
+          <div class="col-12 p-0">
+            <input
+              class="input-info"
+              [ngClass]="isExtendMfsButton && 'color-error-red'"
+              type="text"
+              [value]="MFSBalanceView + ' HC'"
+              disabled="true" />
+          </div>
+          <div *ngIf="isExtendMfsButton" class="col-12 error-test">
+            {{ 'EXTEND_CHOOSE_TYPE_MODAL.INSUFFICIENT_FUNDS' | translate }} DAI
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 p-0">
+        <div class="row m-0">
+          <div class="col-12 margin-left-30px label-input">
+            {{ 'EXTEND_CHOOSE_TYPE_MODAL.YOUR_BALANCE' | translate }} DAI
+          </div>
+          <div class="col-12 p-0 d-flex justify-content-end">
+            <input
+              class="input-info"
+              [ngClass]="isExtendDaiButton && 'color-error-red'"
+              type="text"
+              [value]="DAIBalanceView + ' DAI'"
+              disabled="true" />
+          </div>
+          <div
+            *ngIf="isExtendDaiButton"
+            class="col-12 margin-left-30px error-test">
+            {{ 'EXTEND_CHOOSE_TYPE_MODAL.INSUFFICIENT_FUNDS' | translate }} DAI
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="row m-0 w-100">
+      <div class="col-12 col-sm-6 d-flex p-0">
+        <button
+          [disabled]="isExtendMfsButton"
+          type="button"
+          class="btn btn-custom"
+          (click)="clickPackExtand(modal)"
+          rippleEffect>
+          {{ 'EXTEND_CHOOSE_TYPE_MODAL.EXTEND' | translate }} HC
+        </button>
+      </div>
+      <div class="col-12 col-sm-6 d-flex justify-content-end p-0">
+        <button
+          [disabled]="isExtendDaiButton"
+          type="button"
+          class="btn btn-custom"
+          (click)="clickPackActivate(modal)"
+          rippleEffect>
+          {{ 'EXTEND_CHOOSE_TYPE_MODAL.EXTEND' | translate }} DAI
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>

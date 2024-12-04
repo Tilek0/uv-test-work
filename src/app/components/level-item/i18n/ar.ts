@@ -1,0 +1,26 @@
+export const locale = {
+  lang: 'ar',
+  data: {
+    LEVEL_ITEM: {
+      TIER: 'الطبقة',
+      SUSPENDED: 'معلقة',
+      ACTIVE_UNTIL: 'وقت الوصول',
+      DAY: 'يوم',
+      HOUS: 'ساعة',
+      MIN: 'دقيقة',
+      ACTIVATION_PRICE: 'سعر التفعيل',
+      RENEWAL_PRICE: 'سعر التجديد',
+      SHOW_LEVEL: 'انقر للعرض',
+      ACTIVATE: 'تفعيل',
+      EXTAND: 'تمديد',
+      EXTENSION_TIME: 'وقت التمديد',
+      EXTEND_TIME: 'تمديد الوقت',
+      DELTA: 'الفارق',
+      BADGE_READY: 'جاهز',
+      BADGE_EXTENSION: 'تمديد',
+      BADGE_ACTIVE: 'نشطة',
+      BADGE_NO_ACTIVE: 'غير نشطة',
+      OR: 'أو',
+    },
+  },
+};

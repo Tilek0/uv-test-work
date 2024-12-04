@@ -1,0 +1,26 @@
+export const locale = {
+  lang: 'zh',
+  data: {
+    LEVEL_ITEM: {
+      TIER: '等级',
+      SUSPENDED: '已暂停',
+      ACTIVE_UNTIL: '访问时间',
+      DAY: '天',
+      HOUS: '小时',
+      MIN: '分钟',
+      ACTIVATION_PRICE: '激活价格',
+      RENEWAL_PRICE: '续费价格',
+      SHOW_LEVEL: '点击查看',
+      ACTIVATE: '激活',
+      EXTAND: '延长',
+      EXTENSION_TIME: '延长时间',
+      EXTEND_TIME: '延长时间',
+      DELTA: '增量',
+      BADGE_READY: '已准备',
+      BADGE_EXTENSION: '延长',
+      BADGE_ACTIVE: '活跃',
+      BADGE_NO_ACTIVE: '未激活',
+      OR: '或',
+    },
+  },
+};

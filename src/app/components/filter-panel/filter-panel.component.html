@@ -1,0 +1,17 @@
+<div class="FilterPanel">
+    <div class="filters" (click)="openFilter($event)">
+        {{ 'FILTERS_PANEL.FILTER' | translate }}
+        <div *ngIf="isShown" class="selectable-panel">
+            <div *ngFor="let filter of filterAsArray"  class="select-item">
+                <span>{{ 'FILTERS_PANEL.' + filter.name | translate }}</span>
+                <span class="count">{{ filter.items }}</span>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="selected" class="current-filters">
+        <div *ngFor="let filter of selected" class="current-filter">
+            {{ 'FILTERS_PANEL.' + filter.name | translate }}
+            {{ filter.items }}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,19 @@
+<div class="Tabs">
+  <div class="tabs-wrapper">
+    <div
+        *ngFor="let item of items; let i = index"
+        class="tab"
+        [ngClass]="{
+            '-isActive': currentTab === item.value,
+            '-first': i === 0 || (items[i - 1] && items[i - 1].value === currentTab),
+            '-last': i === items.length - 1 || (items[i + 1] && items[i + 1].value === currentTab),
+            'disabled': item.disabled
+        }"
+        (click)="onClickTab(item)"
+    >
+        <div class="text">
+          {{ 'TABS.' + item.title.toUpperCase() | translate }}
+        </div>
+    </div>
+  </div>
+</div>

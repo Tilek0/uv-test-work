@@ -1,0 +1,59 @@
+<ng-template #selectChip let-modal>
+  <div class="modal-header">
+    <div class="close-wrapper"><fa-icon (click)="closeModal()" [icon]="faCircleXmark"></fa-icon></div>
+
+    <div class="pic-wrapper">
+      <div class="pic-box">
+        <div class="pic" [ngStyle]="{'background-image': 'url(https://cdn.meta-force.space/mocks/chips/' + level + '.webp)'}"></div>
+      </div>
+    </div>
+
+    <div class="modal-title">
+      {{ 'SELECT_CHIP_MODAL.TITLE' | translate }}
+    </div>
+    <div class="modal-subtitle">
+      {{ 'SELECT_CHIP_MODAL.LEVEL' | translate }} {{ level }}
+    </div>
+  </div>
+
+  <div class="modal-body" tabindex="0" ngbAutofocus>
+    <div class="chip-wrapper">
+      <div class="info">
+        <span class="name">{{ 'SELECT_CHIP_MODAL.INFO' | translate }}</span>
+        <span class="separator"></span>
+        <span class="number">{{ chipsAmount }}</span>
+      </div>
+
+      <app-count-controller
+          [bundleSize]="bundleSize"
+          [max]="chipsAmount"
+          (changeBundle)="onChangebundleSize($event)"
+      ></app-count-controller>
+
+      <div *ngIf="bundleSize > chipsAmount" class="err-msg">
+        {{ 'SELECT_CHIP_MODAL.ERROR' | translate }}
+      </div>
+      <div *ngIf="isError" class="err-msg">
+        <span *ngIf="errorMsg">
+          {{ errorMsg }}
+        </span>
+        <span *ngIf="!errorMsg">
+          {{ 'SELECT_CHIP_MODAL.CHIPS_NOT_FOUND' | translate }}
+        </span>
+      </div>
+    </div>
+
+    <div class="bottom">
+      <button type="button" class="btn-orange" (click)="confirm()" [disabled]="bundleSize > chipsAmount || isProcessing">
+        <span
+            *ngIf="isProcessing"
+            class="spinner-border spinner-border-sm"
+            role="status"
+            aria-hidden="true"></span>
+        <span *ngIf="!isProcessing">
+          {{ 'SELECT_CHIP_MODAL.TITLE' | translate }}
+        </span>
+      </button>
+    </div>
+  </div>
+</ng-template>

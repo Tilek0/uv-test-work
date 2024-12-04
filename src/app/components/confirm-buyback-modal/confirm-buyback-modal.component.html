@@ -1,0 +1,41 @@
+<ng-template #confirmBuyback let-modal>
+  <div class="modal-header">
+    <fa-icon (click)="closeModal()" [icon]="faCircleXmark"></fa-icon>
+    <div class="modal-title">
+      {{ 'CONFIRM_BUYBACK_MODAL.TITLE' | translate }}
+    </div>
+  </div>
+
+  <div class="modal-body" tabindex="0" ngbAutofocus>
+    <div class="info">
+      <div class="title" [translate]="'CONFIRM_BUYBACK_MODAL.INFO'" [translateParams]="{price}"></div>
+      <div class="custom-control custom-checkbox custom-checkbox-green">
+        <input
+            type="checkbox"
+            class="custom-control-input custom-control-input-green"
+            [ngModel]="yesIamSure"
+            (change)="changeCheckbox($event)"
+            id="yesIamShure" />
+        <label class="custom-control-label" for="yesIamShure">
+            <span class="description">
+              {{ 'CONFIRM_BUYBACK_MODAL.AGREEMENT' | translate }}
+            </span>
+        </label>
+      </div>
+
+      <div class="bottom">
+        <button type="button" class="btn-orange" [disabled]="isProcessing || !yesIamSure" (click)="confirm()">
+          <span
+            *ngIf="isProcessing"
+            class="spinner-border spinner-border-sm"
+            role="status"
+            aria-hidden="true"></span>
+            {{ 'CONFIRM_BUYBACK_MODAL.YES' | translate }}
+        </button>
+        <button type="button" class="btn-orange -grey" [disabled]="isProcessing" (click)="closeModal()">
+          {{ 'CONFIRM_BUYBACK_MODAL.NO' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>

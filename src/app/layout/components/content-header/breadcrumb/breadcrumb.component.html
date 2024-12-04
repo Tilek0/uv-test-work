@@ -1,0 +1,53 @@
+<!-- app-breadcrumb start -->
+<div
+  class="breadcrumb-wrapper d-flex"
+  [ngClass]="{
+    'justify-content-center': breadcrumb.alignment == 'center',
+    'justify-content-end': breadcrumb.alignment == 'right'
+  }">
+  <ol
+    class="breadcrumb"
+    [ngClass]="{
+      'breadcrumb-slash': breadcrumb.type == 'slash',
+      'breadcrumb-dots': breadcrumb.type == 'dots',
+      'breadcrumb-dashes': breadcrumb.type == 'dashes',
+      'breadcrumb-pipes': breadcrumb.type == 'pipes',
+      'breadcrumb-chevron': breadcrumb.type == 'chevron',
+      'mr-1': breadcrumb.alignment == 'right'
+    }">
+    <li
+      class="breadcrumb-item links-style"
+      *ngFor="let link of breadcrumb.links">
+      <a *ngIf="link.isLink && !link.isUrl" routerLink="{{ link.link }}">
+        {{ 'BREADCRUMB.' + link.name | translate }}
+      </a>
+      <a *ngIf="link.isLink && link.isUrl" href="{{ link.link }}">
+        {{ 'BREADCRUMB.' + link.name | translate }}
+      </a>
+      <span *ngIf="!link.isLink">
+        {{ 'BREADCRUMB.' + link.name | translate }}
+      </span>
+    </li>
+  </ol>
+
+  <ol class="breadcrumb-small">
+    <li class="breadcrumb-item links-style">
+      <a *ngIf="back && back.isLink && !back.isUrl"
+        routerLink="{{ breadcrumb.links[breadcrumb.links.length - 1].link }}"
+      >
+        <span>
+          {{ 'BREADCRUMB.BACK' | translate }}
+        </span>
+      </a>
+      <a *ngIf="back && back.isLink && back.isUrl" href="{{ back.link }}">
+        <span>
+          {{ 'BREADCRUMB.BACK' | translate }}
+        </span>
+      </a>
+      <span *ngIf="!back || !back.isLink">
+        {{ 'BREADCRUMB.' + breadcrumb.links[breadcrumb.links.length - 1].name | translate }}
+      </span>
+    </li>
+  </ol>
+</div>
+<!-- app-breadcrumb end -->

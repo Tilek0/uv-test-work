@@ -1,0 +1,153 @@
+<div class="row h-100 m-0">
+  <div class="col-12 d-flex align-items-center justify-content-between header-menu">
+    <div class="back-arrow-wallet d-flex align-items-center cursor-pointer" (click)="backSlideNav()">
+      <div class="icon"></div>
+      {{ 'SIDE_NAV_WALLET_BUYBACK.BACK' | translate }}
+    </div>
+    <img
+      class="button-close cursor-pointer button-black"
+      (click)="closeALLSlideNav(false)"
+      src="/assets/icon/closeButton.svg"
+      alt="" />
+  </div>
+
+  <div class="sell-body">
+    <h1>{{ 'SIDE_NAV_WALLET_BUYBACK.TITLE' | translate }}</h1>
+
+    <div class="ImportantlyPanel">
+      <div class="header" (click)="toggleImportant()">
+        <div class="title">
+          {{ 'SIDE_NAV_WALLET_BUYBACK.IMPORTANTLY' | translate }}
+        </div>
+        <div class="arrow" [ngClass]="isImportantOpened ? '-up' : '-down'"></div>
+      </div>
+      <div *ngIf="isImportantOpened" class="body">
+        {{ ('SIDE_NAV_WALLET_BUYBACK.INFO1' | translate).replace('${price}', mfsPrice) }}
+        <br><br>
+        {{ 'SIDE_NAV_WALLET_BUYBACK.INFO2' | translate }}
+      </div>
+    </div>
+
+    <div class="more-info" [innerHTML]="'SIDE_NAV_WALLET_BUYBACK.INFO3' | translate">
+    </div>
+    
+    <div class="more-info center">
+      <span class="link" (click)="openBuyBackOfferPrice()">
+        {{ 'SIDE_NAV_WALLET_BUYBACK.OFFER_YOUR_PRICE' | translate }}
+      </span>
+    </div>
+    
+    <div *ngIf="isBuybackOrderRequestSucceed" class="succeed-block">
+      <div class="line"></div>
+      <div class="text">
+        {{ 'SIDE_NAV_WALLET_BUYBACK.BUYBACK_OFFER_REQUEST_YOUR_PRICE' | translate }}
+      </div>
+    </div>
+
+    <div class="SellForm">
+      <div class="line"></div>
+        <div *ngIf="daiAvailable" class="dai-available" [ngClass]="!!daiAvailable && daiAvailable > 0 && daiAvailable < daiValue ? '-no-available' : ''">
+          {{ daiAvailable }} DAI {{ 'SIDE_NAV_WALLET_BUYBACK.AVAILABLE' | translate }}
+        </div>
+      <div *ngIf="!daiAvailable || daiAvailable == 0" class="dai-available -no-available">
+        {{ 'SIDE_NAV_WALLET_BUYBACK.NOT_AVAILABLE' | translate }}
+      </div>
+      <div class="line"></div>
+
+      <div class="RatePanel">
+        <div class="line"></div>
+        <div class="currency-value">
+          1 HC: {{ mfsPrice.toLocaleString() }} DAI
+        </div>
+        <div class="line"></div>
+      </div>
+
+      <div class="sell-form" [ngClass]="isProcessing || !daiAvailable || daiAvailable == 0 ? 'disabled' : ''">
+        <div class="info-wrapper">
+          <div class="token-name">
+            <div class="token-logo -fc"></div>
+            <div class="token">
+              <div class="title">
+                {{ 'SIDE_NAV_WALLET_BUYBACK.YOU_GIVE' | translate }}
+              </div>
+              <div class="name">HC</div>
+            </div>
+          </div>
+          <div class="available">
+            <div class="value">
+              <div class="title">
+                {{ 'SIDE_NAV_WALLET_BUYBACK.AVAILABLE' | translate }}
+              </div>
+              <div class="name">{{ mfsBalance.toLocaleString() }}</div>
+            </div>
+            <div class="set-max" (click)="setMaxMFS()">
+              {{ 'SIDE_NAV_WALLET_BUYBACK.MAX' | translate }}
+            </div>
+          </div>
+        </div>
+        <input
+                class="set-sell"
+                type="text"
+                inputmode="numeric"
+                name="inputMFS"
+                (keydown)="keyPressInput($event)"
+                (keyup)="keyUpInput($event)"
+                [(ngModel)]="mfsValue"
+                (ngModelChange)="onMFSValueChange($event)" />
+      </div>
+
+      <div class="sell-form" [ngClass]="isProcessing || !daiAvailable || daiAvailable == 0 ? 'disabled' : ''">
+        <div class="info-wrapper">
+          <div class="token-name">
+            <div class="token-logo -dai"></div>
+            <div class="token">
+              <div class="title">
+                {{ 'SIDE_NAV_WALLET_BUYBACK.YOU_RECEIVE' | translate }}
+              </div>
+              <div class="name">DAI</div>
+            </div>
+          </div>
+          <div class="available">
+            <div class="value">
+              <div class="title">
+                {{ 'SIDE_NAV_WALLET_BUYBACK.AVAILABLE' | translate }}
+              </div>
+              <div class="name">{{ daiBalance.toLocaleString() }}</div>
+            </div>
+          </div>
+        </div>
+        <input
+                class="set-sell"
+                [ngClass]="!!daiAvailable && daiAvailable > 0 && daiAvailable < daiValue ? '-no-available' : ''"
+                type="text"
+                name="inputDAI"
+                inputmode="numeric"
+                (keydown)="keyPressInput($event)"
+                (keyup)="keyUpInput($event)"
+                [(ngModel)]="daiValue"
+                (ngModelChange)="onDAIValueChange(+$event)" />
+      </div>
+
+      <button
+              class="btn-orange"
+              [disabled]="isSellDisabled || isProcessing || !daiAvailable || daiAvailable == 0 || daiAvailable < daiValue"
+              (click)="openConfirmModal()">
+        <span
+                *ngIf="isProcessing"
+                class="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"></span>
+        {{ 'SIDE_NAV_WALLET_BUYBACK.SELL' | translate }}
+      </button>
+    </div>
+
+    <recent-operations [refetch]="refetchRecentOperations" [type]="recentOperationsType" [mfsPrice]="mfsPrice"></recent-operations>
+  </div>
+</div>
+
+<confirm-buyback-modal
+    [isOpen]="isModalOpen"
+    [price]="mfsPrice.toLocaleString()"
+    (openEvent)="isModalOpen = $event"
+    (onSucceedEvent)="onSucceed($event)"
+></confirm-buyback-modal>

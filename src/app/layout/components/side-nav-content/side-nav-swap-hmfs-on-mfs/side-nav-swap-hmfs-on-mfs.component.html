@@ -1,0 +1,93 @@
+<div class="row h-100 m-0">
+    <div
+      class="col-12 d-flex align-items-center justify-content-between header-menu">
+      <div
+        class="back-arrow-wallet d-flex align-items-center cursor-pointer"
+        (click)="closeSlideNavAction()">
+        <div class="icon"></div>
+        {{ 'SIDE_NAV_SWAP_HMFS_ON_MFS.BACK' | translate }}
+      </div>
+      <div class="header-title">
+        {{ 'SIDE_NAV_SWAP_HMFS_ON_MFS.SWAP_HMFS_MFS' | translate }}
+      </div>
+      <img
+        class="button-close cursor-pointer button-black"
+        (click)="closeALLSlideNav(false)"
+        src="/assets/icon/closeButton.svg"
+        alt="" />
+    </div>
+    <div class="col-12 height-container-menu">
+      <div class="row m-0">
+        <div class="col-12 number-container">
+          <div class="row m-0">
+            <div class="col-5 p-0">
+        
+              <input
+                type="number"
+                class="text-white text-number-size margin-bottom-8 w-100"
+                [ngModel]="amountTransaction"
+                aria-label="Amount"
+                placeholder="0"
+                (ngModelChange)="changeTotal($event)" />
+              <div class="small-text">
+                <span class="text-grey">
+                  {{ 'SIDE_NAV_SWAP_HMFS_ON_MFS.BALANCE' | translate }}:</span
+                >
+                <span class="text-grey">
+                  {{ +selectedhMFS.value 
+                    
+                  }}
+                </span>
+              </div>
+            </div>
+            <div class="col-7 p-0 d-flex justify-content-end align-items-center">
+              <button class="button-grey button-max" (click)="setMax()">
+                {{ 'SIDE_NAV_SWAP_HMFS_ON_MFS.MAX' | translate }}
+              </button>
+              <!-- <span class=" conteiner-coning-soon">
+                          
+                              <div class="coning-soon coning-soon-top">
+                                  {{ 'SIDE_NAV_WALLET_VALUE.CONING_SOON' | translate }}
+                              </div> -->
+  
+              <a class="select-coin d-flex align-items-center text-white w-100">
+                <div class="margin-right-8px">
+                  <app-crypto-tokens
+                    [width]="32"
+                    [height]="32"
+                    [imgName]="'hh'">
+                  </app-crypto-tokens>
+                </div>
+                <select 
+                  style="min-width: 104px;"
+                  [ngModel]="selectedhMFS.index"
+                  (ngModelChange)="changehMFS(+$event)"
+                  class="form-control  w-100"
+                  id="routeSelect"
+                >
+                  <option *ngFor="let item of hMFSBalance; let i = index" [value]="i">
+                    {{ item.newName }}
+                  </option>
+                </select>
+              </a>
+              <!-- </span> -->
+            </div>
+          </div>
+        </div>
+        <div class="col-12 p-0">
+          <button 
+            [disabled]="isLoading"
+            class="btn-orange w-100"
+            (click)="convertHMFSToMFS()">
+            <span
+              *ngIf="isLoading"
+              class="spinner-border spinner-border-sm"
+              role="status"
+              aria-hidden="true"></span>
+            {{ 'SIDE_NAV_SWAP_HMFS_ON_MFS.SWAP' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

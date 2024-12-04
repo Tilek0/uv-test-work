@@ -1,0 +1,97 @@
+.ChipsProgress {
+  width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 12px;
+  .box-row {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .name {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+    text-transform: uppercase;
+  }
+  .number {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16px;
+    color: hsl(0, 0%, 100%);
+    .-grey {
+      color: hsla(0, 0%, 100%, .5);
+    }
+    .-orange {
+      color: hsla(28, 97%, 47%, 1);
+    }
+  }
+  .box-row.-in-tunnel {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: flex-start;
+    gap: 8px;
+    .number {
+      font-size: 32px;
+      font-weight: 600;
+      line-height: 40px;
+    }
+  }
+  .machine-progress {
+    width: 100%;
+    height: 4px;
+    border-radius: 7px;
+    background: hsla(0, 0%, 100%, .05);
+    overflow: hidden;
+
+    .progress {
+      background: hsl(28, 97%, 47%);
+      border-radius: 7px;
+      height: 4px;
+    }
+  }
+
+  .machine-slots {
+    height: auto;
+    width: 100%;
+    display: grid;
+    grid-gap: 2px;
+    grid-template-columns: repeat(auto-fill, minmax(25px, 25px));
+    padding: 2px;
+    .slot {
+      width: 100%;
+      height: 25px;
+      overflow: hidden;
+      background: hsla(0, 0%, 100%, .05);
+      border: 1px solid hsl(0, 0%, 20%, .2);
+      &.-active {
+        background-color: hsl(28, 97%, 47%);
+      }
+    }
+    &.-fill-8 {
+      grid-template-columns: repeat(auto-fill, minmax(8px, 8px));
+      .slot {
+        height: 8px;
+      }
+    }
+    &.-fill-13 {
+      grid-template-columns: repeat(auto-fill, minmax(13px, 13px));
+      .slot {
+        height: 13px;
+      }
+    }
+    &.-fill-18 {
+      grid-template-columns: repeat(auto-fill, minmax(18px, 18px));
+      .slot {
+        height: 18px;
+      }
+    }
+    &.-fill-23 {
+      grid-template-columns: repeat(auto-fill, minmax(23px, 23px));
+      .slot {
+        height: 23px;
+      }
+    }
+  }
+}

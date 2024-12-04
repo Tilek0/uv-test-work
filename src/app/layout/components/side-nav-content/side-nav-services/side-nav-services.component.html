@@ -1,0 +1,97 @@
+<div class="row h-100 m-0">
+  <div
+    class="col-12 d-flex align-items-center justify-content-between header-menu">
+    <div class="header-title">
+      {{ 'SIDE_NAV_SERVICES.ALL_SERVICES' | translate }}
+    </div>
+    <img
+      class="button-close button-black cursor-pointer"
+      (click)="closeSlideNavMain(false)"
+      src="/assets/icon/closeButton.svg"
+      alt="" />
+  </div>
+
+  <div class="col-12 d-flex height-container-services">
+    <div class="row m-0 justify-content-between align-content-start">
+      <div
+        class="col-12 item-nav-services"
+        [ngClass]="{ 'cursor-pointer': item.url.length > 0 }"
+        *ngFor="let item of serviceList">
+        <a
+          class="w-100 d-flex align-items-center"
+          [href]="item.url"
+          *ngIf="item.url.length > 0">
+          <!--                [target]="'_blank' "-->
+          <img class="img-color-white img-icon" [src]="item.img" />
+          <div class="row w-100 m-0 justify-content-between align-items-center">
+            <div
+              class="name-nav-services"
+              [ngClass]="{ 'color-grey': item.url.length === 0 }">
+              {{ 'SIDE_NAV_SERVICES.' + item.name | translate }}
+            </div>
+            <div class="arrow-active">
+              <img src="/assets/serveces icon/arrow-active.png" alt="" />
+            </div>
+          </div>
+        </a>
+        <a
+          class="w-100 d-flex align-items-center"
+          style="cursor: default"
+          *ngIf="item.url.length === 0">
+          <img class="img-icon" [src]="item.img" />
+          <div class="row w-100 m-0 justify-content-between align-items-center">
+            <div
+              class="name-nav-services"
+              [ngClass]="{ 'color-grey': item.url.length === 0 }">
+              {{ 'SIDE_NAV_SERVICES.' + item.name | translate }}
+            </div>
+            <div class="description-nav-services">
+              {{ 'SIDE_NAV_SERVICES.' + item.description | translate }}
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-12 other-title-text">
+        {{ 'SIDE_NAV_SERVICES.OTHER' | translate }}
+      </div>
+      <div
+        class="col-12 item-nav-services"
+        [ngClass]="{ 'cursor-pointer': item.url.length > 0 }"
+        *ngFor="let item of otherServiceList">
+        <a
+          class="w-100 d-flex align-items-center"
+          [href]="item.url"
+          *ngIf="item.url.length > 0">
+          <!--                [target]="'_blank' "-->
+          <img class="img-color-white img-icon" [src]="item.img" />
+          <div class="w-100 row m-0 justify-content-between align-items-center">
+            <div
+              class="name-nav-services"
+              [ngClass]="{ 'color-grey': item.url.length === 0 }">
+              {{ 'SIDE_NAV_SERVICES.' + item.name | translate }}
+            </div>
+            <div class="arrow-active">
+              <img src="/assets/serveces icon/arrow-active.png" alt="" />
+            </div>
+          </div>
+        </a>
+        <a
+          class="w-100 d-flex align-items-center"
+          style="cursor: default"
+          *ngIf="item.url.length === 0">
+          <img class="img-icon" [src]="item.img" />
+          <div class="w-100 row m-0 justify-content-between align-items-center">
+            <div
+              class="name-nav-services"
+              [ngClass]="{ 'color-grey': item.url.length === 0 }">
+              {{ 'SIDE_NAV_SERVICES.' + item.name | translate }}
+            </div>
+            <div class="description-nav-services">
+              {{ 'SIDE_NAV_SERVICES.' + item.description | translate }}
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

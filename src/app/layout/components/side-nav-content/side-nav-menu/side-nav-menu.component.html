@@ -1,0 +1,227 @@
+<div class="row h-100 m-0">
+  <div
+    class="col-12 d-flex align-items-center justify-content-between header-menu">
+    <a href="https://holiverse.ai/">
+      <span class="brand-logo">
+        <img src="assets/images/logo/hv-logo-mini.svg" alt="brand-logo" />
+      </span>
+      <h2 class="brand-text mb-0"></h2>
+    </a>
+    <img
+      class="button-close button-black"
+      (click)="closeSlideNavMain(false)"
+      src="/assets/icon/closeButton.svg"
+      alt="" />
+  </div>
+  <div class="col-12 d-flex justify-content-center height-container-menu">
+    <div class="row m-0">
+      <div class="background" *ngIf="isOpen"></div>
+      <div class="col-12 p-0 d-flex justify-content-between">
+        <div class="value-currency pl-0">
+          <img src="/assets/menu icon/holicoin-header.svg" alt="" />
+          {{ +mfsValue.toFixed(1) }} HC
+        </div>
+        <div class="value-currency">
+          <img src="/assets/menu icon/dai-header.png" alt="" />
+          {{ +daiValue.toFixed(1) }} DAI
+        </div>
+        <div class="value-currency">
+          <img src="/assets/menu icon/matic-header.png" alt="" />
+          {{ maticValue }} POL
+        </div>
+      </div>
+      <div class="col-12 p-0 margin-bottom-24px">
+        <ul class="p-0 margin-bottom-24px">
+          <app-navbar-wallets [isSmallMenu]="true"></app-navbar-wallets>
+        </ul>
+        <ul class="p-0 m-0">
+          <li
+            ngbDropdown
+            class="nav-item dropdown-notification small-menu button-grey"
+            (click)="openSlideNav()">
+            <a class="btn button-wallet">
+              <img [src]="'assets/icon/notification.svg'" />
+              <span>{{ 'SIDE_NAV_MENU.NOTIFICATION' | translate }}</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-6 p-0 item-menu-container" *ngFor="let item of menu">
+        <a
+          class="d-flex"
+          *ngIf="item.url && item.externalUrl"
+          [href]="item.url"
+          [target]="item.openInNewTab ? '_blank' : '_self'"
+          (click)="closeSlideNavMain(false)">
+          <span class="item-menu" [translate]="item.translate"></span>
+          <span
+            class="status-badge"
+            *ngIf="item.status"
+            [translate]="item.status.translate"
+            [ngClass]="item.status.classes">
+            {{ item.status.title }}
+          </span>
+        </a>
+        <a
+          class="d-flex"
+          *ngIf="item.url && !item.externalUrl"
+          [routerLink]="[item.url]"
+          routerLinkActive="active-link"
+          [target]="item.openInNewTab ? '_blank' : '_self'"
+          (click)="closeSlideNavMain(false)">
+          <span class="item-menu" [translate]="item.translate"></span>
+          <span
+            class="status-badge"
+            *ngIf="item.status"
+            [translate]="item.status.translate"
+            [ngClass]="item.status.classes">
+            {{ item.status.title }}
+          </span>
+        </a>
+
+        <span
+          *ngIf="item.id === 'SocialMetaForce'"
+          class="item-menu"
+          [translate]="item.translate"
+          (click)="openSlideNavSecondary(item.children)"></span>
+      </div>
+      <div
+        class="col-12 margin-bottom-12px margin-top-24px p-0 all-service-header">
+        <img [src]="'assets/icon/services.svg'" style="opacity: 0.4" />
+        <span>{{ 'SIDE_NAV_MENU.ALL_SERVICES' | translate }}</span>
+      </div>
+      <div
+        class="col-6 p-0 item-menu-container"
+        *ngFor="let item of serviceList">
+        <a
+          class="item-menu-services"
+          [href]="item.url"
+          *ngIf="item.url.length > 0"
+          [target]="'_blank'">
+          <img
+            [ngClass]="{ 'opacity-02': item.url.length === 0 }"
+            [src]="item.img"
+            alt="" />
+          <div class="name" [ngClass]="{ 'color-grey': item.url.length === 0 }">
+            {{ 'SIDE_NAV_MENU.' + item.name | translate }}
+          </div>
+        </a>
+        <a class="item-menu-services" *ngIf="item.url.length === 0">
+          <img
+            [ngClass]="{ 'opacity-02': item.url.length === 0 }"
+            [src]="item.img"
+            alt="" />
+          <div class="name" [ngClass]="{ 'color-grey': item.url.length === 0 }">
+            {{ 'SIDE_NAV_MENU.' + item.name | translate }}
+          </div>
+        </a>
+      </div>
+      <div
+        class="col-6 p-0 item-menu-container"
+        *ngFor="let item of otherserviceList">
+        <a
+          class="item-menu-services"
+          [href]="item.url"
+          *ngIf="item.url.length > 0"
+          [target]="'_blank'"
+          (click)="closeSlideNavMain(false)">
+          <img
+            [ngClass]="{ 'opacity-02': item.url.length === 0 }"
+            [src]="item.img"
+            alt="" />
+          <div class="name" [ngClass]="{ 'color-grey': item.url.length === 0 }">
+            {{ 'SIDE_NAV_MENU.' + item.name | translate }}
+          </div>
+        </a>
+        <a class="item-menu-services" *ngIf="item.url.length === 0">
+          <img
+            [ngClass]="{ 'opacity-02': item.url.length === 0 }"
+            [src]="item.img"
+            alt="" />
+          <div class="name" [ngClass]="{ 'color-grey': item.url.length === 0 }">
+            {{ 'SIDE_NAV_MENU.' + item.name | translate }}
+          </div>
+        </a>
+      </div>
+
+      <div class="col-12 margin-top-24px margin-bottom-24px p-0">
+        <span
+          class="text-white text-copied mr-1 badge badge-secondary"
+          *ngIf="isCopy"
+          >{{ 'SIDE_NAV_MENU.COPIED' | translate }} !</span
+        >
+        <a class="copy-link w-100" (click)="copyReferalLink()">
+          <div class="row m-0">
+            <img class="icon-copy-link" src="/assets/menu icon/copyLink.png" />
+            <div class="text-copy-button">
+              {{ 'SIDE_NAV_MENU.COPY_LINK' | translate }}
+            </div>
+          </div>
+
+          <img
+            class="icon-copy-button"
+            src="/assets/menu icon/copyIcon.png"
+            alt="" />
+        </a>
+      </div>
+      <div class="col-12 p-0 margin-bottom-24px">
+        <a class="force-id-button w-100">
+          <div class="row m-0">
+            <div class="col-9 p-0 d-flex align-items-center">
+              <img
+                class="img-avatar"
+                [src]="
+                  myInfo.users &&
+                  myInfo.users.avatar &&
+                  myInfo.users.avatar !== null
+                    ? myInfo.users.avatar
+                    : 'assets/images/User.png'
+                "
+                alt="" />
+              <span class="id-value">
+                {{
+                  myInfo.users && myInfo.users.name
+                    ? myInfo.users.name
+                    : ('SIDE_NAV_MENU.FORCE_ID' | translate)
+                }}
+              </span>
+              <span
+                class="text-white text-copied-forceId mr-1 badge badge-secondary"
+                *ngIf="isCopyForceId"
+                >{{ 'SIDE_NAV_MENU.COPIED' | translate }} !</span
+              >
+              <div class="container-icon-copy-grey" (click)="copyForceId()">
+                <img
+                  class="icon-copy-button"
+                  src="/assets/menu icon/copyIcon-grey.png"
+                  alt="" />
+              </div>
+            </div>
+            <div
+              class="col-3 p-0 d-flex align-items-center container-forse-icon">
+              <span class="icon">
+                <!-- chevron_right -->
+              </span>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div
+        class="col-12 d-flex margin-bottom-12px align-items-center p-0 all-service-header">
+        <img src="/assets/menu icon/social.svg" alt="" />
+        {{ 'SIDE_NAV_MENU.LANGUAGES' | translate }}
+      </div>
+      <div
+        class="col-6 item-menu-container"
+        *ngFor="let item of translate.getLangs()">
+        <span
+          class="item-menu-languages"
+          [ngClass]="{ 'select-language': item === selectedLanguage }"
+          (click)="setLanguage(item)">
+          {{ languageOptions[item].title }}
+        </span>
+      </div>
+      <div class="col-12 p-2"></div>
+    </div>
+  </div>
+</div>

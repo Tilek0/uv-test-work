@@ -1,0 +1,199 @@
+.modal-header {
+  width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 32px;
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  background-image: url('/assets/images/game/overview/mini-game-bg.png');
+  .header-wrapper {
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .info-icon {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDIwLjMyODFDMTAuOTExNSAyMC4zMjgxIDkuODg1NDIgMjAuMTE5OCA4LjkyMTg4IDE5LjcwMzFDNy45NjM1NCAxOS4yODY1IDcuMTE3MTkgMTguNzEwOSA2LjM4MjgxIDE3Ljk3NjZDNS42NDg0NCAxNy4yNDIyIDUuMDcyOTIgMTYuMzk1OCA0LjY1NjI1IDE1LjQzNzVDNC4yMzk1OCAxNC40NzQgNC4wMzEyNSAxMy40NDc5IDQuMDMxMjUgMTIuMzU5NEM0LjAzMTI1IDExLjI3MDggNC4yMzk1OCAxMC4yNDc0IDQuNjU2MjUgOS4yODkwNkM1LjA3MjkyIDguMzI1NTIgNS42NDU4MyA3LjQ3NjU2IDYuMzc1IDYuNzQyMTlDNy4xMDkzOCA2LjAwNzgxIDcuOTU1NzMgNS40MzIyOSA4LjkxNDA2IDUuMDE1NjJDOS44Nzc2IDQuNTk4OTYgMTAuOTAzNiA0LjM5MDYyIDExLjk5MjIgNC4zOTA2MkMxMy4wODA3IDQuMzkwNjIgMTQuMTA2OCA0LjU5ODk2IDE1LjA3MDMgNS4wMTU2MkMxNi4wMzM5IDUuNDMyMjkgMTYuODgyOCA2LjAwNzgxIDE3LjYxNzIgNi43NDIxOUMxOC4zNTE2IDcuNDc2NTYgMTguOTI3MSA4LjMyNTUyIDE5LjM0MzggOS4yODkwNkMxOS43NjA0IDEwLjI0NzQgMTkuOTY4OCAxMS4yNzA4IDE5Ljk2ODggMTIuMzU5NEMxOS45Njg4IDEzLjQ0NzkgMTkuNzYwNCAxNC40NzQgMTkuMzQzOCAxNS40Mzc1QzE4LjkyNzEgMTYuMzk1OCAxOC4zNTE2IDE3LjI0MjIgMTcuNjE3MiAxNy45NzY2QzE2Ljg4MjggMTguNzEwOSAxNi4wMzM5IDE5LjI4NjUgMTUuMDcwMyAxOS43MDMxQzE0LjExMiAyMC4xMTk4IDEzLjA4ODUgMjAuMzI4MSAxMiAyMC4zMjgxWk0xMiAxOUMxMi45MjE5IDE5IDEzLjc4MzkgMTguODI4MSAxNC41ODU5IDE4LjQ4NDRDMTUuMzg4IDE4LjE0MDYgMTYuMDkzOCAxNy42NjY3IDE2LjcwMzEgMTcuMDYyNUMxNy4zMTI1IDE2LjQ1MzEgMTcuNzg2NSAxNS43NDc0IDE4LjEyNSAxNC45NDUzQzE4LjQ2ODggMTQuMTQzMiAxOC42NDA2IDEzLjI4MTIgMTguNjQwNiAxMi4zNTk0QzE4LjY0MDYgMTEuNDM3NSAxOC40Njg4IDEwLjU3NTUgMTguMTI1IDkuNzczNDRDMTcuNzgxMiA4Ljk3MTM1IDE3LjMwNDcgOC4yNjU2MiAxNi42OTUzIDcuNjU2MjVDMTYuMDkxMSA3LjA0Njg4IDE1LjM4NTQgNi41NzI5MiAxNC41NzgxIDYuMjM0MzhDMTMuNzc2IDUuODkwNjIgMTIuOTE0MSA1LjcxODc1IDExLjk5MjIgNS43MTg3NUMxMS4wNzAzIDUuNzE4NzUgMTAuMjA4MyA1Ljg5MDYyIDkuNDA2MjUgNi4yMzQzOEM4LjYwNDE3IDYuNTcyOTIgNy45MDEwNCA3LjA0Njg4IDcuMjk2ODggNy42NTYyNUM2LjY5MjcxIDguMjY1NjIgNi4yMTg3NSA4Ljk3MTM1IDUuODc1IDkuNzczNDRDNS41MzY0NiAxMC41NzU1IDUuMzY3MTkgMTEuNDM3NSA1LjM2NzE5IDEyLjM1OTRDNS4zNjcxOSAxMy4yODEyIDUuNTM2NDYgMTQuMTQzMiA1Ljg3NSAxNC45NDUzQzYuMjE4NzUgMTUuNzQ3NCA2LjY5MjcxIDE2LjQ1MzEgNy4yOTY4OCAxNy4wNjI1QzcuOTA2MjUgMTcuNjY2NyA4LjYxMTk4IDE4LjE0MDYgOS40MTQwNiAxOC40ODQ0QzEwLjIxNjEgMTguODI4MSAxMS4wNzgxIDE5IDEyIDE5Wk0xMC42MzI4IDE2LjcyNjZDMTAuNDcxNCAxNi43MjY2IDEwLjMzNTkgMTYuNjc0NSAxMC4yMjY2IDE2LjU3MDNDMTAuMTE3MiAxNi40NjYxIDEwLjA2MjUgMTYuMzM1OSAxMC4wNjI1IDE2LjE3OTdDMTAuMDYyNSAxNi4wMjM0IDEwLjExNzIgMTUuODkzMiAxMC4yMjY2IDE1Ljc4OTFDMTAuMzM1OSAxNS42ODQ5IDEwLjQ3MTQgMTUuNjMyOCAxMC42MzI4IDE1LjYzMjhIMTEuNjAxNlYxMi4wNDY5SDEwLjc2NTZDMTAuNjA0MiAxMi4wNDY5IDEwLjQ2ODggMTEuOTk0OCAxMC4zNTk0IDExLjg5MDZDMTAuMjUgMTEuNzg2NSAxMC4xOTUzIDExLjY1NjIgMTAuMTk1MyAxMS41QzEwLjE5NTMgMTEuMzQzOCAxMC4yNSAxMS4yMTM1IDEwLjM1OTQgMTEuMTA5NEMxMC40Njg4IDExLjAwNTIgMTAuNjA0MiAxMC45NTMxIDEwLjc2NTYgMTAuOTUzMUgxMi4yMzQ0QzEyLjQzMjMgMTAuOTUzMSAxMi41ODMzIDExLjAxODIgMTIuNjg3NSAxMS4xNDg0QzEyLjc5MTcgMTEuMjczNCAxMi44NDM4IDExLjQ0MjcgMTIuODQzOCAxMS42NTYyVjE1LjYzMjhIMTMuODEyNUMxMy45NzQgMTUuNjMyOCAxNC4xMDk0IDE1LjY4NDkgMTQuMjE4OCAxNS43ODkxQzE0LjMyODEgMTUuODkzMiAxNC4zODI4IDE2LjAyMzQgMTQuMzgyOCAxNi4xNzk3QzE0LjM4MjggMTYuMzM1OSAxNC4zMjgxIDE2LjQ2NjEgMTQuMjE4OCAxNi41NzAzQzE0LjEwOTQgMTYuNjc0NSAxMy45NzQgMTYuNzI2NiAxMy44MTI1IDE2LjcyNjZIMTAuNjMyOFpNMTEuOTI5NyA5LjY0ODQ0QzExLjY0ODQgOS42NDg0NCAxMS40MDg5IDkuNTQ5NDggMTEuMjEwOSA5LjM1MTU2QzExLjAxMyA5LjE1MzY1IDEwLjkxNDEgOC45MTQwNiAxMC45MTQxIDguNjMyODFDMTAuOTE0MSA4LjM0NjM1IDExLjAxMyA4LjEwNDE3IDExLjIxMDkgNy45MDYyNUMxMS40MDg5IDcuNzA4MzMgMTEuNjQ4NCA3LjYwOTM4IDExLjkyOTcgNy42MDkzOEMxMi4yMTYxIDcuNjA5MzggMTIuNDU1NyA3LjcwODMzIDEyLjY0ODQgNy45MDYyNUMxMi44NDY0IDguMTA0MTcgMTIuOTQ1MyA4LjM0NjM1IDEyLjk0NTMgOC42MzI4MUMxMi45NDUzIDguOTE0MDYgMTIuODQ2NCA5LjE1MzY1IDEyLjY0ODQgOS4zNTE1NkMxMi40NTU3IDkuNTQ5NDggMTIuMjE2MSA5LjY0ODQ0IDExLjkyOTcgOS42NDg0NFoiIGZpbGw9IndoaXRlIiBmaWxsLW9wYWNpdHk9IjAuNzUiLz4KPC9zdmc+Cg==');
+  }
+  fa-icon {
+    color: hsla(0, 0%, 100%, .5);
+    cursor: pointer;
+    .fa-circle-xmark {
+      width: 20px;
+      height: 20px;
+    }
+  }
+  .modal-title {
+    color: hsl(0, 0%, 100%);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 20px;
+  }
+  .modal-subtitle {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+    color: hsla(0, 0%, 100%, .75);
+    text-transform: uppercase;
+  }
+
+  .body-wrapper {
+    width: 100%;
+    border: 2px solid hsla(0, 0%, 100%, .2);
+    padding: 16px;
+    border-radius: 8px;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    gap: 54px;
+    .decorated-row {
+      width: 100%;
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      .mini-circle {
+        min-width: 88px;
+        min-height: 88px;
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-color: transparent;
+        background-image: url('/assets/images/game/overview/circle.png');
+        @media (max-width: 650px) {
+          display: none;
+        }
+      }
+    }
+    .balance-block {
+      width: 100%;
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: center;
+      gap: 8px;
+      .balance {
+        width: 100%;
+        padding: 16px;
+        border-radius: 8px;
+        background: hsla(0, 0%, 0%, .1);
+        border: 1px solid hsla(0, 0%, 0%, .1);
+        font-size: 20px;
+        font-weight: 600;
+        line-height: 24px;
+        text-align: center;
+        color: hsl(0, 0%, 100%);
+      }
+    }
+
+    .timer-block {
+      width: 100%;
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: center;
+      gap: 8px;
+      .timer {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        .number {
+          min-width: 50px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 16px;
+          border-radius: 8px;
+          border: 1px solid hsla(0, 0%, 100%, .05);
+          background: hsla(0, 0%, 100%, .05);
+          font-size: 20px;
+          font-weight: 600;
+          line-height: 24px;
+          text-align: center;
+          color: hsl(0, 0%, 100%);
+          @media (max-width: 650px) {
+            padding: 8px;
+            font-size: 16px;
+            min-width: 40px;
+          }
+        }
+        .separator {
+          font-size: 20px;
+          font-weight: 600;
+          line-height: 24px;
+          text-align: center;
+          color: hsl(0, 0%, 100%);
+        }
+      }
+    }
+
+    .profits-block {
+      position: relative;
+      width: 100%;
+      height: 288px;
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: center;
+      justify-content: center;
+      .profit-wrapper {
+        position: absolute;
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        z-index: 5;
+        .profit {
+          font-size: 32px;
+          font-weight: 600;
+          line-height: 40px;
+          text-align: center;
+          color: hsl(0, 0%, 100%);
+        }
+        .spinner-border {
+          width: 3rem;
+          height: 3rem;
+          color: hsla(0, 0%, 100%, .6);
+        }
+      }
+    }
+  }
+}
+
+.bottom {
+  width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+
+  .err-msg, .wait-info {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16px;
+    color: hsla(4, 82%, 48%);
+    margin-bottom: 16px;
+  }
+  .wait-info {
+    color: hsl(0, 0%, 100%);
+  }
+  button {
+    width: 180px;
+  }
+}

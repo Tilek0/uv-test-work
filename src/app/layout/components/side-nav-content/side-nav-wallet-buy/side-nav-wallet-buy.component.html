@@ -1,0 +1,113 @@
+<div class="row h-100 m-0">
+  <div
+    class="col-12 d-flex align-items-center justify-content-between header-menu">
+    <div
+      class="back-arrow-wallet d-flex align-items-center cursor-pointer"
+      (click)="closeSlideNavAction(false)">
+      <div class="icon"></div>
+      {{ 'SIDE_NAV_WALLET_BUY.BACK' | translate }}
+    </div>
+    <img
+      class="button-close cursor-pointer button-black"
+      (click)="closeALLSlideNav(false)"
+      src="/assets/icon/closeButton.svg"
+      alt="" />
+  </div>
+
+  <div class="buy-body">
+    <h1>{{ 'SIDE_NAV_WALLET_BUY.BUY_MFC' | translate }}</h1>
+
+    <div class="ImportantlyPanel">
+      <div class="header" (click)="toggleImportant()">
+        <div class="title">
+          {{ 'SIDE_NAV_WALLET_BUY.IMPORTANTLY' | translate }}
+        </div>
+        <div
+          class="arrow"
+          [ngClass]="isImportantOpened ? '-up' : '-down'"></div>
+      </div>
+      <div *ngIf="isImportantOpened" class="body">
+        {{ 'SIDE_NAV_WALLET_BUY.INFO' | translate }}
+      </div>
+    </div>
+
+    <div class="BuyForm">
+      <div class="RatePanel">
+        <div class="line"></div>
+        <div class="currency-value">
+          1 HC: {{ mfsPrice.toLocaleString() }} DAI
+        </div>
+        <div class="line"></div>
+      </div>
+
+      <div class="buy-form">
+        <div class="info-wrapper">
+          <div class="token-name">
+            <div class="token-logo -dai"></div>
+            <div class="token">
+              <div class="title">
+                {{ 'SIDE_NAV_WALLET_BUY.YOU_GIVE' | translate }}
+              </div>
+              <div class="name">DAI</div>
+            </div>
+          </div>
+          <div class="available">
+            <div class="value">
+              <div class="title">
+                {{ 'SIDE_NAV_WALLET_BUY.AVAILABLE' | translate }}
+              </div>
+              <div class="name" [ngClass]="daiValue > daiBalance && '-error'">
+                {{ daiBalance.toLocaleString() }}
+              </div>
+            </div>
+            <div class="set-max" (click)="setMaxDAI()">
+              {{ 'SIDE_NAV_WALLET_BUY.MAX' | translate }}
+            </div>
+          </div>
+        </div>
+        <input
+          class="set-buy"
+          type="text"
+          inputmode="numeric"
+          (keypress)="keyPressInput($event)"
+          [(ngModel)]="daiValue"
+          (ngModelChange)="onDAIValueChange($event)" />
+      </div>
+
+      <div class="buy-form">
+        <div class="info-wrapper">
+          <div class="token-name">
+            <div class="token-logo -fc"></div>
+            <div class="token">
+              <div class="title">
+                {{ 'SIDE_NAV_WALLET_BUY.YOU_RECEIVE' | translate }}
+              </div>
+              <div class="name">HC</div>
+            </div>
+          </div>
+        </div>
+        <input
+          class="set-buy"
+          type="text"
+          inputmode="numeric"
+          (keypress)="keyPressInput($event)"
+          [(ngModel)]="mfsValue"
+          (ngModelChange)="onMFSValueChange($event)" />
+      </div>
+
+      <button
+        class="btn-orange"
+        [disabled]="isBuyDisabled || isProcessing"
+        (click)="onBuyClicked()">
+        <span
+          *ngIf="isProcessing"
+          class="spinner-border spinner-border-sm"
+          role="status"
+          aria-hidden="true"></span>
+        {{ 'SIDE_NAV_WALLET_BUY.BUY' | translate }}
+      </button>
+    </div>
+
+    <recent-operations [refetch]="refetchRecentOperations" [type]="recentOperationsType" [mfsPrice]="mfsPrice"></recent-operations>
+  </div>
+</div>

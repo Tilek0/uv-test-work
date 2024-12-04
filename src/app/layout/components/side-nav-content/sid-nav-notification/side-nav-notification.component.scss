@@ -1,0 +1,50 @@
+.button-close {
+  width: 40px;
+  height: 40px;
+}
+.not-found {
+  display: flex;
+  align-items: center;
+  padding-left: 50px;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.button-grey {
+  height: 30px !important;
+  margin-right: 8px;
+}
+.header-menu {
+  padding: 16px 24px;
+  background: #111111;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: -0.004em;
+  text-align: center;
+
+  .back-arrow-wallet {
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  .header-title {
+    color: rgba(255, 255, 255, 1);
+  }
+}
+
+.height-container-services {
+  height: calc(100vh - 72px);
+  background: #1a1a1a;
+
+  padding: 24px;
+  overflow: hidden;
+  overflow-y: auto;
+}
+
+.header-nav-services {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 32px;
+  letter-spacing: -0.004em;
+  text-align: left;
+  margin-bottom: 32px;
+}

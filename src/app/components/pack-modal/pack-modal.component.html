@@ -1,0 +1,227 @@
+<ng-template #modalPack let-modal>
+  <div class="modal-header">
+    <div class="row m-0 w-100 container-header">
+      <button
+        type="button"
+        class="button-close"
+        (click)="closeModal(modal)"
+        aria-label="Close">
+        <!-- <span aria-hidden="true">&larr;</span> -->
+        <img src="assets/icon/arrowLeft.png" alt="" />
+        {{ 'PACK_MODAL.BUTTON_BACK' | translate }}
+      </button>
+      <div class="title col">
+        {{
+          !isExtand
+            ? ('PACK_MODAL.ACTIVATION_TIER' | translate)
+            : isActivated
+              ? ('PACK_MODAL.EXTAND_IN_DAI_TIER' | translate)
+              : ('PACK_MODAL.EXTAND_IN_MFS_TIER' | translate)
+        }}
+        {{ item.levelNumber }}
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-body" tabindex="0" ngbAutofocus>
+    <div class="row level-container">
+      <div class="special-price" *ngIf="!isChangeMFS">
+        {{ 'PACK_MODAL.SPECIAL_PRICE' | translate }}
+      </div>
+      <div class="col-12 p-0 header-level">
+        {{ 'PACK_MODAL.YOU_GET' | translate }}
+      </div>
+      <div class="col-12 p-0 body-level">
+        <span *ngIf="isActivated">
+          {{
+            !isChangeMFS
+              ? ('PACK_MODAL.FULL_TIER' | translate)
+              : ('PACK_MODAL.ACTIVATE' | translate)
+          }}
+        </span>
+        <span *ngIf="!isActivated">
+          {{
+            !isChangeMFS
+              ? ('PACK_MODAL.FULL_TIER' | translate)
+              : ('PACK_MODAL.EXTAND' | translate)
+          }}
+        </span>
+      </div>
+      <div class="col-12 p-0 footer-level">
+        <div class="price-container">
+          <span
+            >{{ 'PACK_MODAL.TIER' | translate }} {{ item.levelNumber }} - 30
+            {{ 'PACK_MODAL.DAYS' | translate }}</span
+          >
+          <span>{{
+            isActivated
+              ? item.costInDAI + ' DAI'
+              : (item.costInMFS / 5).toFixed(2) + 'HC'
+          }}</span>
+        </div>
+        <div class="MFS-buy-count">
+          <span
+            >{{ 'PACK_MODAL.COINSET' | translate }} -
+            {{ +(+countMfs).toFixed(2) }} HC</span
+          >
+          <span>{{ countDAI }} DAI</span>
+        </div>
+        <div class="mfs-max-count">
+          {{ 'PACK_MODAL.COINSET' | translate }} =
+          {{ 'PACK_MODAL.MAX' | translate }}
+          {{ +(+this.countMFSMax).toFixed(2) }} HC
+        </div>
+      </div>
+    </div>
+    <div class="row mfs-container">
+      <div class="col-12">
+        <app-switch-button
+          [nameLabel]="'COINSET'"
+          (changeValue)="changeMFS($event)"></app-switch-button>
+        <!-- <div class="custom-control custom-checkbox custom-checkbox-green">
+            <input type="checkbox" class="custom-control-input custom-control-input-green" (change)="changeMFS($event)"  id="customCheck1">
+            <label class="custom-control-label" for="customCheck1">
+              <span class=" description-mfs">{{'PACK_MODAL.COINSET' | translate}}</span></label>
+          </div> -->
+      </div>
+      <div class="col-12 mt-1" *ngIf="isChangeMFS">
+        <div class="input-group input-mfs">
+          <span class="input-group-text">
+            <button (click)="changeTotal(countDAI - 50)">
+              <span> - </span>
+            </button>
+          </span>
+          <input
+            type="number"
+            [disabled]="true"
+            class="form-control input-dai"
+            [ngModel]="countDAI"
+            (ngModelChange)="changeTotal(+$event)"
+            placeholder="{{ 'PACK_MODAL.AMOUNT' | translate }}"
+            aria-label="Amount" />
+          <span class="d-flex align-items-center input-info"
+            >DAI = {{ +(+countMfs).toFixed(2) }} HC</span
+          >
+          <span class="input-group-text">
+            <button (click)="changeTotal(countDAI + 50)">
+              <span> + </span>
+            </button>
+          </span>
+        </div>
+        <mat-slider
+          class="example-margin w-100"
+          [max]="countDAIMax"
+          [min]="0"
+          [step]="step"
+          [ngModel]="countDAI"
+          (ngModelChange)="changeTotal(+$event)">
+          <input matSliderThumb />
+        </mat-slider>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="row w-100">
+      <div class="col-12 total-name p-0">
+        {{ 'PACK_MODAL.TOTAL' | translate }}
+      </div>
+      <div class="col-12 total-result p-0">
+        {{ isActivated ? total : countDAI }} DAI
+        <div *ngIf="!isActivated">
+          {{ +(item.costInMFS / 5).toFixed(2) }} HC
+        </div>
+      </div>
+      <div class="col-12 total-description p-0">
+        <div class="info-description">
+          {{
+            isActivated
+              ? ('PACK_MODAL.BY_TIER_LEVEL_IS_INFO' | translate)
+              : ('PACK_MODAL.TIER_RENEWAL_MADE_ONLY_MFS' | translate)
+          }}
+        </div>
+
+        {{
+          isActivated
+            ? ('PACK_MODAL.BY_TIER_LEVEL_I_CONFIRM' | translate)
+            : ('PACK_MODAL.BY_EXTENSION_TIER_I_CONFIRM' | translate)
+        }}
+      </div>
+      <div class="col-12 d-flex justify-content-end p-0">
+        <button
+          [disabled]="isLoadingModal || isLoadingValue"
+          type="button"
+          class="btn btn-warning w-100"
+          (click)="apply(modal)"
+          rippleEffect>
+          <span
+            *ngIf="isLoadingModal || isLoadingValue"
+            class="spinner-border spinner-border-sm"
+            role="status"
+            aria-hidden="true"></span>
+          {{ 'PACK_MODAL.BUTTON_APPLY' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="row container-status">
+    <div
+      class="col-12"
+      [ngClass]="
+        applyStatus.checkNetwork === undefined
+          ? 'not-check'
+          : !applyStatus.checkNetwork
+            ? 'danger'
+            : 'apply'
+      ">
+      {{ 'PACK_MODAL.CONNECTION_CHECK' | translate }} ({{
+        this.chainId === chainIdList.polygonTestnet ? 'AMOY' : 'POLYGON'
+      }})
+      <img
+        *ngIf="applyStatus.checkNetwork !== undefined"
+        [src]="
+          !applyStatus.checkNetwork
+            ? 'assets/icon/danger.svg'
+            : 'assets/icon/smile.svg'
+        " />
+    </div>
+    <div
+      class="col-12"
+      [ngClass]="
+        applyStatus.balanceOperation === undefined
+          ? 'not-check'
+          : !applyStatus.balanceOperation
+            ? 'danger'
+            : 'apply'
+      ">
+      {{ 'PACK_MODAL.BALANCE_CHECK' | translate }} ({{
+        isActivated ? +(+total).toFixed(2) : +(item.costInMFS / 5).toFixed(2)
+      }}
+      {{ isActivated ? 'DAI' : 'HC' }})
+      <img
+        *ngIf="applyStatus.balanceOperation !== undefined"
+        [src]="
+          !applyStatus.balanceOperation
+            ? 'assets/icon/danger.svg'
+            : 'assets/icon/smile.svg'
+        " />
+    </div>
+    <div
+      class="col-12"
+      [ngClass]="
+        applyStatus.balanceMatic === undefined
+          ? 'not-check'
+          : !applyStatus.balanceMatic
+            ? 'danger'
+            : 'apply'
+      ">
+      {{ 'PACK_MODAL.BALANCE_CHECK' | translate }} (POL)
+      <img
+        *ngIf="applyStatus.balanceMatic !== undefined"
+        [src]="
+          !applyStatus.balanceMatic
+            ? 'assets/icon/danger.svg'
+            : 'assets/icon/smile.svg'
+        " />
+    </div>
+  </div>
+</ng-template>

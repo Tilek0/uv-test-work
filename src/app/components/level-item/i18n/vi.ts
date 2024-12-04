@@ -1,0 +1,26 @@
+export const locale = {
+  lang: 'vi',
+  data: {
+    LEVEL_ITEM: {
+      TIER: 'Cấp độ',
+      SUSPENDED: 'Bị tạm dừng',
+      ACTIVE_UNTIL: 'Thời gian truy cập',
+      DAY: 'ngày',
+      HOUS: 'giờ',
+      MIN: 'phút',
+      ACTIVATION_PRICE: 'Giá kích hoạt',
+      RENEWAL_PRICE: 'Giá gia hạn',
+      SHOW_LEVEL: 'Nhấp để hiển thị',
+      ACTIVATE: 'Kích hoạt',
+      EXTAND: 'Mở rộng',
+      EXTENSION_TIME: 'Thời gian gia hạn',
+      EXTEND_TIME: 'Gia hạn thời gian',
+      DELTA: 'Delta',
+      BADGE_READY: 'Sẵn sàng',
+      BADGE_EXTENSION: 'Gia hạn',
+      BADGE_ACTIVE: 'Hoạt động',
+      BADGE_NO_ACTIVE: 'Không hoạt động',
+      OR: 'hoặc',
+    },
+  },
+};

@@ -1,0 +1,8 @@
+<div class="container-progress-bar">
+  
+    <div class="progress-segment">
+      <div class="item " *ngFor=" let item of arraySegment; let i = index" [ngClass]="{'white-common':segmentedIntervalSelect === i,'orange-common': segmentedIntervalSelect-1 >= i}"></div>
+      
+      
+    </div>
+  </div>

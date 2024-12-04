@@ -1,0 +1,23 @@
+<div class="card">
+  <h4 class="card-title">
+    {{ 'RECENT_ACTIVITY_DETAILS.HEADER_TITLE' | translate }}
+  </h4>
+  <div class="card-body p-0">
+    <app-table [displayedColumns]="displayedColumns" [data]="data"></app-table>
+  </div>
+</div>
+<div class="d-flex justify-content-center">
+  <button
+    type="button"
+    class="btn btn-warning size-button"
+    rippleEffect
+    (click)="more()"
+    [disabled]="isLoading || isFinalListRecentActivity">
+    <span
+      *ngIf="isLoading"
+      class="spinner-border spinner-border-sm"
+      role="status"
+      aria-hidden="true"></span>
+    {{ 'RECENT_ACTIVITY_DETAILS.MORE' | translate }}
+  </button>
+</div>

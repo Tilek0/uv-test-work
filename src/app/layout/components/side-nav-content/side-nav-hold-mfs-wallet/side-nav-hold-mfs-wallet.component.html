@@ -1,0 +1,257 @@
+<div class="row h-100 m-0">
+    <div class="col-12 d-flex align-items-center justify-content-between header-menu">
+      <div
+        class="back-arrow-wallet d-flex align-items-center cursor-pointer"
+        (click)="closeSlideNavSecondary(false)"
+      >
+        <div class="icon"></div>
+        {{ 'SIDE_NAV_HOLD_MFS_WALLET.BACK' | translate }}
+      </div>
+      <div class="header-title">
+        {{ 'SIDE_NAV_HOLD_MFS_WALLET.HOLD_MFS' | translate }}
+      </div>
+      <img
+        class="button-close cursor-pointer button-black"
+        (click)="closeALLSlideNav(false)"
+        src="/assets/icon/closeButton.svg"
+        alt="" />
+    </div>
+
+   
+    <div class="col-12 height-container-menu">
+      <div class="loader-container" *ngIf="isLoading">
+        <div class="loader"></div>
+      </div>
+
+      <div class="row m-0">
+        <div class="container-button col-12">
+          <div class="row m-0 p-0">
+            <div class="conteiner-coning-soon col-6 ">
+              <button class="btn button-grey -br8" (click)="openHoldMFS(false)">
+                <img
+                  class="icon-btn-secondary"
+                  src="/assets/icon/sellIcon.png"
+                  alt="" />
+                {{ 'SIDE_NAV_HOLD_MFS_WALLET.HOLD_MFS' | translate }}
+              </button>
+            </div>
+            <div class="conteiner-coning-soon col-6 padding-right-5px pl-0">
+              <button class="btn button-grey -br8" [disabled]="iNothMFS " (click)="openHoldMFS(true)">
+                <img
+                  class="icon-btn-secondary"
+                  src="/assets/icon/sellIcon.png"
+                  alt="" />
+                {{ 'SIDE_NAV_HOLD_MFS_WALLET.HOLD_HMFS' | translate }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scrollable-container media-list" [perfectScrollbar]>
+        <div class="row m-0">
+          <div class="col-12 p-0 inner-balace-container margin-bottom-8px">
+            <div class="inner-balace-container-header d-flex justify-content-between">
+                <span>hHC</span>
+                <span>{{ 'SIDE_NAV_HOLD_MFS_WALLET.INNER_BALANCE' | translate }}</span>
+            </div>
+
+            <div class="inner-balace-container-body">
+              <ng-container *ngFor="let coin of hMFSBalance; let i = index">
+                <div
+                  *ngIf="(i === 0 && lastIndexNotZerohMfsBalance === 0) || +coin.value > 0"
+                  class="row inner-balace-container-coin m-0"
+                >
+                  <div class="col-6 p-0 d-flex  align-items-center new-container-coin">
+                    <app-crypto-tokens
+                      class="margin-right-16px margin-top-16px"
+                      [imgName]="coin.img">
+                    </app-crypto-tokens>
+                    <span
+                      class="w-100 border-bottom-custom border-bottom-1px height-76px d-flex align-items-center"
+                      [ngClass]="{'border-none': i === lastIndexNotZerohMfsBalance}"
+                    >
+                      <div class="inner-balace-coin-header">
+                        <span class="text-grey"> {{ coin.newName }}</span>
+                      </div>
+                    </span>
+                  </div>
+
+                  <div
+                    class="col-6 p-0 text-right border-bottom-custom d-flex align-items-center justify-content-end   border-bottom-1px"
+                    [ngClass]="{ 'border-none': i === lastIndexNotZerohMfsBalance}"
+                  >
+                    <div
+                      class="inner-balace-coin-header text-grey"
+                      [ngClass]="{ 'border-none': i === lastIndexNotZerohMfsBalance }"
+                    >
+                      <span>{{ +coin.value }}</span>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+
+        <div class="col-12 p-0 inner-balace-container margin-bottom-8px" *ngIf="holdMFSList.length > 0">
+            <div class="inner-balace-container-header d-flex justify-content-between">
+              <span>HC</span>
+              <span>{{ 'SIDE_NAV_HOLD_MFS_WALLET.HOLD' | translate }}</span>
+          </div>
+          <div class="inner-balace-container-body">
+            <!-- <div
+              class="row inner-balace-container-coin m-0 " 
+              *ngFor="let coin of holdMFSList; let i = index"
+              >
+              <div
+                class="col-9 d-flex p-0  align-items-center new-container-coin"
+              >
+                <app-crypto-tokens
+                  class="margin-right-16px margin-top-16px"
+                  [imgName]="coin.img">
+                </app-crypto-tokens>
+                <span
+                  class="w-100 border-bottom-custom border-bottom-1px height-76px d-flex align-items-center "
+                  [ngClass]="{
+              
+                    'border-none': i === holdMFSList.length -1 
+                  }">
+                  <div class=" d-flex align-items-center margin-right-6px" *ngIf="coin.currentEntryLevel < 8">
+                    <img class="img-Clock margin-right-6px" src="assets/icon/icon-clock.svg" alt="">
+                    <span class="text-grey-small">  {{ coin.timeForClock }} {{ 'SIDE_NAV_HOLD_MFS_WALLET.DAY' | translate }}</span>
+                  </div>
+                  <button class="btn button-grey-custome cursor-pointer -br8 margin-right-4px" [disabled]="+coin.currentEntryLevel === +coin.entryLevel" (click)="getHMFS(coin.depositId)">
+                    {{ 'SIDE_NAV_HOLD_MFS_WALLET.GET' | translate }} {{ coin.name }}
+                  </button>
+                  <button *ngIf="coin.currentEntryLevel <= 1" class="btn button-grey-custome cursor-pointer -br8" (click)="takeMFS(coin.depositId,coin.amount)">
+                    {{ 'SIDE_NAV_HOLD_MFS_WALLET.TAKE_MFS' | translate }}
+                  </button>
+                </span>
+           
+              </div>
+              <div 
+                class="col-3 p-0 text-right border-bottom-custom d-flex align-items-center justify-content-end   border-bottom-1px"
+                [ngClass]="{
+
+                  'border-none': i === holdMFSList.length -1
+                }">
+              
+                <div class="inner-balace-coin-header text-big-grey  p-0">
+                  {{ +coin.amount }}
+                </div>
+            
+              </div>
+            </div> -->
+            <div class="row inner-balace-container-coin m-0 " *ngFor="let coin of holdMFSList; let i = index">
+              <div class="col-12 p-0 d-flex align-items-center new-container-coin">
+                <app-crypto-tokens
+                  class="margin-right-16px margin-top-16px"
+                  [imgName]="coin.img">
+                </app-crypto-tokens>
+                <div class="row m-0 w-100 height-76px border-bottom-custom"
+                     [ngClass]="{ 'border-none': i === holdMFSList.length -1 }"
+                >
+                  <div class="col-8 col-sm-9 d-flex p-0  padding-bottom-8px align-items-end new-container-coin">
+                    <span class="w-100  d-flex align-items-center">
+                      <div class=" d-flex align-items-center margin-right-6px" *ngIf="coin.currentEntryLevel < 8">
+                        <img class="img-Clock margin-right-6px" src="assets/icon/icon-clock.svg" alt="">
+                        <span class="text-grey-small">  {{ coin.timeForClock }} {{ 'SIDE_NAV_HOLD_MFS_WALLET.DAY' | translate }}</span>
+                      </div>
+                      <div class="d-flex">
+                        <button
+                          class="btn button-grey-custome cursor-pointer -br8 margin-right-4px"
+                          (click)="openHoldMFS(coin.currentEntryLevel !== 0, coin, false)"
+                        >
+                          {{ 'SIDE_NAV_HOLD_MFS_WALLET.GET' | translate }} {{ coin.currentEntryLevel === 0 ? 'HC' : coin.newName || coin.name }}
+                        </button>
+                        <button
+                           class="btn button-grey-custome cursor-pointer -br8"
+                           (click)="openModal(coin)"
+                        >
+                          {{ coin.currentEntryLevel===0 ?('SIDE_NAV_HOLD_MFS_WALLET.TAKE_MFS' | translate) : ('SIDE_NAV_HOLD_MFS_WALLET.TAKE_HMFS' | translate) }}
+                        </button>
+                      </div>
+                    </span>
+                  </div>
+                  <div
+                    class="col-4 col-sm-3 p-0 text-right d-flex align-items-center justify-content-end align-items-sm-end padding-bottom-8px padding-bottom-sm-0"
+                  >
+                    <div class="inner-balace-coin-header text-big-grey  p-0">
+                      {{ +coin.amount }}
+                    </div>
+                  </div>
+                  <div class="col-12 p-0">
+                    <app-segmented-progress-bar [segmentedIntervalSelect]="+coin.currentEntryLevel-1"></app-segmented-progress-bar>
+                  </div>
+                </div>
+            </div>
+          </div>
+          </div>
+        </div>
+        <div class="col-12 p-0 inner-balace-container" *ngIf="holdhMFSList.length > 0">
+          <div class="inner-balace-container-header d-flex justify-content-between">
+            <span>hHC</span>
+            <span>{{ 'SIDE_NAV_HOLD_MFS_WALLET.HOLD' | translate }}</span>
+          </div>
+          <div class="inner-balace-container-body">
+            <div
+              class="row inner-balace-container-coin m-0"
+              *ngFor="let coin of holdhMFSList; let i = index"
+            >
+            <div class="col-12 p-0 d-flex align-items-center new-container-coin">
+            <app-crypto-tokens
+              class="margin-right-16px margin-top-16px"
+              [imgName]="coin.img">
+            </app-crypto-tokens>
+            <div
+              class="row m-0 w-100 height-76px border-bottom-custom border-bottom-1px"
+              [ngClass]="{ 'border-none': i === holdhMFSList.length -1 }"
+            >
+              <div class="col-9 d-flex p-0  padding-bottom-8px align-items-end new-container-coin">
+                <span
+                class="w-100  d-flex align-items-center "
+              >
+                <div class=" d-flex align-items-center margin-right-6px" *ngIf="coin.currentEntryLevel < 8">
+                  <img class="img-Clock margin-right-6px" src="assets/icon/icon-clock.svg" alt="">
+                  <span class="text-grey-small">  {{ coin.timeForClock }} {{ 'SIDE_NAV_HOLD_MFS_WALLET.DAY' | translate }}</span>
+                </div>
+                <button class="btn button-grey-custome cursor-pointer -br8 margin-right-4px"   (click)="openHoldMFS( true,coin, false)">
+                  {{ 'SIDE_NAV_HOLD_MFS_WALLET.GET' | translate }} {{ coin.newName || coin.name }}
+                </button>
+                <button class="btn button-grey-custome cursor-pointer -br8" (click)="openModal(coin)">
+                  {{ 'SIDE_NAV_HOLD_MFS_WALLET.TAKE_HMFS' | translate }}
+                </button>
+              </span>
+              </div>
+              <div 
+              class="col-3 p-0 text-right  d-flex align-items-end justify-content-end   border-bottom-1px padding-bottom-8px"
+             >
+            
+              <div class="inner-balace-coin-header text-big-grey  p-0">
+                {{ +coin.amount }}
+              </div>
+          
+            </div>
+            <div  class="col-12 p-0">
+              <app-segmented-progress-bar [segmentedIntervalSelect]="+coin.currentEntryLevel-1"></app-segmented-progress-bar>
+            </div>
+            </div>
+             
+             
+            </div>
+          
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    </div>
+    
+  </div>
+  
+<app-get-hmfs-confim-modal
+  [isOpen]="isModalOpen"
+  [coin]="getCurrenthMFS"
+  (openEvent)="isModalOpen = $event"
+  (onSucceedEvent)="onSucceed($event)"
+></app-get-hmfs-confim-modal>

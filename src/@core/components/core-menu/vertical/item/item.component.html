@@ -1,0 +1,65 @@
+<ng-container *ngIf="!item.hidden">
+  <!-- item with router url -->
+  <a
+    class="d-flex align-items-center"
+    [ngClass]="item.classes"
+    *ngIf="item.url && !item.externalUrl"
+    [routerLink]="[item.url]"
+    [target]="item.openInNewTab ? '_blank' : '_self'">
+    <ng-container *ngTemplateOutlet="itemContent"></ng-container>
+  </a>
+
+  <!-- item with external url -->
+  <a
+    class="d-flex align-items-center"
+    [ngClass]="item.classes"
+    *ngIf="item.url && item.externalUrl"
+    [href]="item.url"
+    [target]="item.openInNewTab ? '_blank' : '_self'">
+    <ng-container *ngTemplateOutlet="itemContent"></ng-container>
+  </a>
+
+  <ng-template #itemContent>
+    <span [data-feather]="item.icon" *ngIf="item.icon"></span>
+    <img
+      class="img-size-for-menu-item"
+      [ngClass]="{
+        'opacity-04': item.id === 'Uniteverse',
+        'img-size-for-menu-item-Academy': item.id === 'Academy'
+      }"
+      *ngIf="item.img && item.id !== 'Forcecoin'"
+      [src]="item.img"
+      alt="icon" />
+    <svg
+      *ngIf="item.img && item.id === 'Forcecoin'"
+      class="img-size-for-menu-item-svg opacity-04"
+      ng
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none">
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M12.0014 5.31455C8.30915 5.31455 5.31602 8.30769 5.31602 11.9999C5.31602 15.6921 8.30915 18.6853 12.0014 18.6853C15.6936 18.6853 18.6867 15.6921 18.6867 11.9999C18.6867 8.30769 15.6936 5.31455 12.0014 5.31455ZM3.91602 11.9999C3.91602 7.53449 7.53595 3.91455 12.0014 3.91455C16.4668 3.91455 20.0867 7.53449 20.0867 11.9999C20.0867 16.4653 16.4668 20.0853 12.0014 20.0853C7.53595 20.0853 3.91602 16.4653 3.91602 11.9999ZM9.51478 10.9307H10.154H14.9545C15.3411 10.9307 15.6545 11.2441 15.6545 11.6307C15.6545 12.0173 15.3411 12.3307 14.9545 12.3307H10.7933L10.4819 15.756C10.4469 16.141 10.1064 16.4248 9.72139 16.3898C9.33638 16.3548 9.05264 16.0143 9.08764 15.6293L9.45691 11.5673L9.51478 10.9307ZM9.78476 8.34578C9.39816 8.34578 9.08476 8.65918 9.08476 9.04578C9.08476 9.43238 9.39816 9.74578 9.78476 9.74578H14.9545C15.3411 9.74578 15.6545 9.43238 15.6545 9.04578C15.6545 8.65918 15.3411 8.34578 14.9545 8.34578H9.78476Z"
+        fill="white"
+        fill-opacity="1" />
+    </svg>
+    <span class="menu-title text-truncate" [translate]="item.translate">{{
+      item.title
+    }}</span>
+    <span
+      class="status-badge"
+      *ngIf="item.status"
+      [translate]="item.status.translate"
+      [ngClass]="item.status.classes">
+      {{ item.status.title }}
+    </span>
+    <span
+      class="badge ml-auto mr-1"
+      *ngIf="item.badge"
+      [translate]="item.badge.translate"
+      [ngClass]="item.badge.classes">
+      {{ item.badge.title }}
+    </span>
+  </ng-template>
+</ng-container>

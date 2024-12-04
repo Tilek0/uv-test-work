@@ -1,0 +1,46 @@
+<div class="RecentOperations">
+    <div class="title">{{ 'RECENT_OPERATIONS.RECENT_TRANSACTIONS' | translate }}</div>
+    <div *ngIf="rows.length > 0" class="order-list">
+        <div *ngFor="let item of rows" class="order">
+            <div class="line">
+                <div class="status" [ngClass]="'-'+item.status">{{ item.status }}</div>
+                <div class="title">{{ item.date.toLocaleString() }}</div>
+            </div>
+            <div class="line">
+                <div class="info">
+                    <div class="title" *ngIf="item.id">Order ID</div>
+                    <div class="order-id" *ngIf="item.id">#{{ item.id }}</div>
+                </div>
+                <div class="info">
+                    <div class="mfs" *ngIf="item.mfsAmount">
+                        {{ formatEther(item.mfsAmount) | currency: '' : '' : '1.0-2' }} HC
+                    </div>
+                    <div class="title" *ngIf="item.mfsAmount">
+                        {{ formatEtherDAI(item.mfsAmount) | currency: '' : '' : '1.0-2' }} DAI
+                    </div>
+                </div>
+            </div>
+            <div class="line">
+                <div class="title">
+                    {{ 'RECENT_OPERATIONS.TX_HASH' | translate }}
+                </div>
+                <div class="tx-id">
+                    <a [href]="item.blockExplorerUrl + 'tx/' + item.txHash" target="_blank">
+                        {{ shortAccount(item.txHash, 6, 6) }}
+                    </a>
+                    <img
+                        (click)="copyReferalLink(item.txHash)"
+                        class="icon-copy-button"
+                        src="/assets/menu icon/copyIcon-grey.png"
+                        alt="" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="rows.length === 0" class="empty-order-list">
+        <div class="doc-icon"></div>
+        <div class="title">
+            {{ 'RECENT_OPERATIONS.NO_OPERATIONS' | translate }}
+        </div>
+    </div>
+</div>

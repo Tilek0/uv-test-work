@@ -1,0 +1,9 @@
+<div class="DraggableCountController">
+    <div
+        class="current-progress"
+        #currentProgress
+        [ngStyle]="{'width': width + '%'}"
+    >
+        <div class="circle" (mousedown)="startDrag($event)" (touchstart)="startDrag($event)"></div>
+    </div>
+</div>

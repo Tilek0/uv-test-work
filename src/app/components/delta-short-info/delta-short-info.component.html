@@ -1,0 +1,33 @@
+<div class="delta-container">
+  <div class="medium-card delta">
+    <div class="top">
+      <div class="title">{{ 'DELTA.TITLE' | translate }}</div>
+      <div class="counter">{{ day }}d : {{ hours }}h : {{ minutes }}m</div>
+    </div>
+    <div class="progress">
+        <div class="progress-title">{{progressPercent}}%</div>
+        <svg class="progress-radial" width="250px" height="250px" viewBox="0 0 250 250"
+        shape-rendering="geometricPrecision">
+            <defs>
+                <mask id="circle_mask" x="0" y="0" width="250" height="250" maskUnits="userSpaceOnUse">
+                    <circle cx="125" cy="125" r="125" fill="red" stroke-width="0" opacity="1" />
+                    <circle id="bar" cx="125" cy="125" r="125" fill="transparent" 
+                        stroke-dasharray="3" stroke-dashoffset="1000" stroke="white" stroke-width="50"></circle>
+                    <circle class="progress-radial-mask-inner" 
+                            cx="125" cy="125" r="100" stroke-width="0" fill="black" opacity="1"/>
+                </mask>
+            </defs>
+            <g mask="url(#circle_mask)">
+                <circle class="progress-radial-track" cx="125" cy="125" r="125" opacity="1" fill="#2c2f2a" />
+                <path class="progress-radial-bar" transform="translate(126, 125)" 
+                    [attr.d]="progressPath"  d="M 0 0" fill="#019b51">
+                </path>
+            </g>
+        </svg> 
+    </div>
+    <div class="bottom">
+      <button class="btn button-grey -br8" (click)="showTier(item.levelNumber)">
+        {{ 'LEVEL_LISTS.SHOW_LEVEL' | translate }}
+      </button>
+    </div>
+</div>

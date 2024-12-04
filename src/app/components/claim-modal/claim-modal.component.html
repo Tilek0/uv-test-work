@@ -1,0 +1,38 @@
+<ng-template #claim let-modal>
+  <div class="modal-header">
+    <div class="close-wrapper"><fa-icon (click)="closeModal()" [icon]="faCircleXmark"></fa-icon></div>
+
+    <div class="modal-title">
+      <div class="title">
+        {{ 'CLAIM_MODAL.TITLE' | translate }}
+      </div>
+      <div class="subtitle">
+        {{ 'CLAIM_MODAL.SUBTITLE' | translate }}
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-body" tabindex="0" ngbAutofocus>
+    <div class="reward">
+      <div class="name">{{ 'CLAIM_MODAL.REWARD' | translate }}</div>
+      <div class="value">{{ userReward }}</div>
+    </div>
+
+    <div *ngIf="errorMsg" class="err-msg">
+      {{ errorMsg }}
+    </div>
+
+    <div class="bottom">
+      <button type="button" class="btn-orange" [disabled]="isProcessing || userReward == 0" (click)="onClaim()">
+        <span
+          *ngIf="isProcessing"
+          class="spinner-border spinner-border-sm"
+          role="status"
+          aria-hidden="true"></span>
+        <span *ngIf="!isProcessing">
+          {{ 'CLAIM_MODAL.CLAIM' | translate }}
+        </span>
+      </button>
+    </div>
+  </div>
+</ng-template>

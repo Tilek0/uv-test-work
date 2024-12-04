@@ -1,0 +1,17 @@
+<div class="LevelItemChip">
+  <div class="top">
+    <div class="name">Chips</div>
+    <div class="amount">
+      <span class="name">{{ 'LEVEL_ITEM.AMOUNT' | translate }}:</span>
+      <span class="value">{{ item.amount }}</span>
+    </div>
+  </div>
+
+  <button class="btn button-grey -br8">{{ item.name }}</button>
+
+  <div class="pic-wrapper">
+    <div class="pic-box">
+      <div class="pic" [ngStyle]="{'background-image': 'url(' + item.image + ')'}"></div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,440 @@
+<div class="row m-0">
+  <div class="row mx-0 mb-1 card-custome w-100 main-card">
+    <div class="col-12 card-body-custom">
+      <div class="row m-0">
+        <div class="col-md-8 p-0">
+          <h1 class="title align-middle m-0">Holichain</h1>
+          <div class="mfs-span align-middle">HC</div>
+
+          <div class="row mx-0 mt-0 mb-2">
+            <div class="subtitle col-12 col-sm-6 p-0">
+              1 HC: {{ +(+price.toFixed(4)) }} DAI <span>(USD)</span>
+            </div>
+            <div class="subtitle col-12 col-sm-6 p-0">
+              1 DAI <span>(USD)</span> = {{ +(+mfs_per_usd.toFixed(2)) }} HC
+            </div>
+          </div>
+          <!-- Supply progress bar -->
+          <!-- <div class="row mx-0 my-3">
+            <supply-progress-bar
+              class="w-100"
+              [current]="current_supply"
+              [price]="price"
+              [total]="total_supply"></supply-progress-bar>
+          </div> -->
+          <div class="row my-2">
+            <div class="col-md-4 mb-2">
+              <div class="value-col-title">
+                {{ 'FORCE_COIN.HOLDERS' | translate }}
+              </div>
+              <div class="value-col-value">{{ holders | number }}</div>
+            </div>
+            <!-- <div class="col-md-4 mb-2">
+              <div class="value-col-title">
+                {{ 'FORCE_COIN.CURRENT_SUPPLY' | translate }}
+              </div>
+              <div class="value-col-value">{{ current_supply | number }}</div>
+            </div> -->
+            <div class="col-md-4 mb-2">
+              <div class="value-col-title">
+                {{ 'FORCE_COIN.FULL_SUPPLY' | translate }}
+              </div>
+              <div class="value-col-value">{{ total_supply | number }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mr-0 pr-0">
+          <!-- <h1>Graph</h1> -->
+          <div class="container-chart">
+            <apx-chart
+              [series]="chartData"
+              [chart]="{
+                height: 300,
+
+                type: 'area',
+                toolbar: {
+                  show: false
+                },
+                sparkline: {
+                  enabled: false
+                }
+              }"
+              [stroke]="gainedChartoptions.stroke"
+              [fill]="gainedChartoptions.fill"
+              [tooltip]="gainedChartoptions.tooltip"
+              [colors]="gainedChartoptions.colors"
+              [dataLabels]="gainedChartoptions.dataLabels"
+              [xaxis]="gainedChartoptions.xaxis"
+              [yaxis]="gainedChartoptions.yaxis"
+              [grid]="gainedChartoptions.grid"
+              [legend]="gainedChartoptions.legend"></apx-chart>
+          </div>
+        </div>
+      </div>
+      <div class="row m-0">
+        <div class="vesting-info">
+          <span class="buyback">
+            {{ 'FORCE_COIN.YOU_CAN_SELL_VESTING_MFS' | translate }}
+            <span class="buyback-link" (click)="openBuybackMFC()">
+                {{ 'FORCE_COIN.THIS_LINK' | translate }}
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<vesting-tariffs *ngIf="+vestingBalance > 1;"></vesting-tariffs>
+
+<ng-template #banner>
+  <div class="card-custome container-stub">
+    <img class="h-100 w-100 img-stub" [src]="imgStub" alt="">
+    <div class="coming-soon-stub">
+      <img src="assets/icon-stub.png" alt="">
+      <div class="text">
+        {{ "FORCE_COIN.METAFORCE_DEX_COMING" | translate }}
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!--<div class="card-custome container-stub">-->
+  <!-- <div class="col-12 h-100 padding-right-8px p-0 card-custome"> -->
+   
+<!--      <img class="h-100 w-100 img-stub" [src]="imgStub" alt="">-->
+<!--    <div class="coming-soon-stub">-->
+<!--      <img src="assets/icon-stub.png" alt="">-->
+<!--      <div class="text">-->
+<!--        {{ "FORCE_COIN.METAFORCE_DEX_COMING" | translate }}-->
+<!--     -->
+<!--      </div>-->
+<!--    </div>-->
+    
+    <!-- <div class="row m-0">
+      <div class="col-12 p-0 margin-bottom-8px order-1 order-sm-0">
+        <div class="row m-0 card-custome">
+          <div class="col-12 card-titel-custom">
+            <div class="titel-custom">
+              {{ 'FORCE_COIN.TIER_PURCHASE_COINS' | translate }}
+            </div>
+            <div class="description-custom">
+              {{ 'FORCE_COIN.TIER_PURCHASE_COINS_DESCRIPTION' | translate }}
+            </div>
+          </div>
+          <div class="col-12 card-body-custom">
+            <div *ngIf="!isHaveOffer" class="row m-0">
+              {{ 'FORCE_COIN.NOT_AVAILABLE_YOU_YET' | translate }}
+            </div>
+            <div *ngIf="isHaveOffer" class="row m-0">
+              <div class="col-6">
+                <div class="row m-0">
+                  <div class="col-12 p-0 mfs-title">
+                    {{ 'FORCE_COIN.MFS_AVAILABLE_YOU' | translate }}
+                  </div>
+                  <div class="col-12 p-0 mfs-value">
+                    {{ math.trunc(mfsBuyValue)
+                    }}<span
+                      class="mfs-value-grey"
+                      *ngIf="mfsBuyValue - math.trunc(mfsBuyValue) > 0"
+                      >.{{
+                        (mfsBuyValue - math.trunc(mfsBuyValue))
+                          .toString()
+                          .slice(2, 4)
+                      }}</span
+                    >
+                  </div>
+                </div>
+              </div>
+              <div
+                class="col-6 d-flex justify-content-center left-item align-items-center h-100">
+                <div class="row">
+                  <div class="col-12 time-limit">
+                    {{ 'FORCE_COIN.TIME_LIMITED' | translate }}
+                  </div>
+                  <div class="col-12 time-number">
+                    {{ day }} : {{ hours }} : {{ minutes }}
+                  </div>
+                  <div class="col-12 time-text">
+                    <span class="padding-right-18">{{
+                      'FORCE_COIN.DAY' | translate
+                    }}</span>
+                    <span class="padding-right-18">{{
+                      'FORCE_COIN.HOURS' | translate
+                    }}</span
+                    ><span>{{ 'FORCE_COIN.MIN' | translate }}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 time-info">
+                {{ 'FORCE_COIN.THIS_TIMER_INDICATES_INFO' | translate }}
+              </div>
+              <div class="col-12">
+                <div class="row">
+                  <div class="col-sm-5 col-12 margin-sm-bottom-8px">
+                    <div class="input-group input-dai">
+                      <span class="input-group-text">
+                        <button (click)="changeBuyMFS(countMFS - 50)">-</button>
+                      </span>
+                      <input
+                        type="text"
+                        class="form-control"
+                        [value]="countMFS"
+                        (input)="changeBuyMFS(+$event.target.value)" />
+                      <span class="name-value">HC</span>
+                      <span class="input-group-text">
+                        <button (click)="changeBuyMFS(countMFS + 50)">+</button>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-sm-5 col-12 margin-sm-bottom-8px">
+                    <div class="input-group mfs-amount">
+                      <span class="container-mfs">
+                        <span class="value-text">{{ totalDAI }}</span>
+                        <span class="currency-text">DAI</span>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-sm-2 col-12 margin-sm-bottom-8px">
+                    <button
+                      type="button"
+                      [disabled]="isBuyMFS"
+                      class="btn btn-warning btn-buy buy-create-request"
+                      rippleEffect
+                      (click)="buyMFS()">
+                      <span
+                        *ngIf="isBuyMFS"
+                        class="spinner-border spinner-border-sm"
+                        role="status"
+                        aria-hidden="true"></span>
+                      {{ 'FORCE_COIN.BUY' | translate }}
+                    </button>
+                  </div>
+                </div>
+              </div> -->
+<!--            
+            </div>
+          </div>
+        </div>
+      </div> -->
+      <!-- <div class="col-12 p-0 order-0 margin-bottom-8px order-sm-1">
+        <div class="row m-0 card-custome">
+          <div class="col-12 card-titel-custom titel-custom">
+            {{ 'FORCE_COIN.FORCECOIN_MFS_TITLE' | translate }}
+          </div>
+          <div class="col-12 card-body-custom mfs-description">
+            <div class="row m-0">
+              <div class="col-7 col-sm-8 p-0">
+                {{ 'FORCE_COIN.FORCECOIN_MFS_DESCRIPTION' | translate }}
+              </div>
+              <div class="col-5 col-sm-4 p-0 d-flex justify-content-center">
+                <img src="assets/images/coinWithBackground.png" alt="" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 col-sm-6 p-0 card-custome">
+    <div class="row m-0">
+      <div class="col-12 card-titel-custom">
+        <div class="titel-custom">
+          {{ 'FORCE_COIN.ADDITIONAL_PURCHASE_COINS_TITEL' | translate }}
+        </div>
+        <div class="description-custom">
+          {{ 'FORCE_COIN.ADDITIONAL_PURCHASE_COINS_DESCRIPTION' | translate }}
+        </div>
+      </div>
+      <div class="col-12 card-body-custom">
+        <div class="row">
+          <div
+            class="col-12"
+            *ngIf="userInfoDate === undefined || userInfoDate.level === 0">
+            <div class="error-buy-mfs-level-0">
+              <div class="dot"></div>
+              {{
+                'FORCE_COIN.BUY_FORCECOIN_PURCHASE_UNITEVERSE_TIER' | translate
+              }}
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="row">
+              <div class="col-sm-5 col-12 margin-sm-bottom-8px">
+                <div class="amount-dai-text">
+                  {{ 'FORCE_COIN.AMOUNT_DAI' | translate }}
+                </div>
+                <div class="input-group input-dai">
+                  <span class="input-group-text">
+                    <button (click)="changeTotal(countDAI - 50)">-</button>
+                  </span>
+                  <input
+                    type="text"
+                    class="form-control"
+                    [value]="countDAI"
+                    disabled="true"
+                    (input)="changeTotal(+$event.target.value)" />
+                  <span class="name-value">DAI</span>
+                  <span class="input-group-text">
+                    <button (click)="changeTotal(countDAI + 50)">+</button>
+                  </span>
+                </div>
+              </div>
+              <div class="col-sm-5 col-12 margin-sm-bottom-8px">
+                <div class="amount-dai-text">
+                  {{ 'FORCE_COIN.YOU_GET' | translate }}
+                </div>
+                <div class="input-group mfs-amount">
+                  <span class="container-mfs">
+                    <span class="value-text">{{ getValueInWallet }}</span>
+                    <span class="currency-text">HC</span>
+                  </span>
+                </div>
+              </div>
+              <div class="col-sm-2 col-12 margin-sm-bottom-8px"> -->
+                <!-- <button
+                  type="button"
+                  [disabled]="
+                    creatLoading ||
+                    userInfoDate === undefined || userInfoDate.level === 0
+                  "
+                  class="btn btn-warning btn-buy buy-create-request margin-top-26"
+                  rippleEffect
+                  (click)="createRequestBuyMFS()">
+                  <span
+                    *ngIf="creatLoading"
+                    class="spinner-border spinner-border-sm"
+                    role="status"
+                    aria-hidden="true"></span>
+                  {{ 'FORCE_COIN.BUY' | translate }}
+                </button> -->
+                <!-- <button
+                type="button"
+                [disabled]="true"
+                class="btn btn-warning btn-buy buy-create-request margin-top-26"
+                rippleEffect
+                (click)="createRequestBuyMFS()">
+                <span
+                  *ngIf="creatLoading"
+                  class="spinner-border spinner-border-sm"
+                  role="status"
+                  aria-hidden="true"></span>
+                {{ 'FORCE_COIN.BUY' | translate }}
+              </button>
+              </div>
+            </div>
+          </div> -->
+
+          <!--          <div class="col-12 margin-top-12px" *ngIf="userInfoDate !== undefined && userInfoDate.level > 0">-->
+          <!--           -->
+          <!--            <div class="row m-0 tier-info-container ">-->
+          <!--              <div class="col-7 p-0 " >-->
+          <!--                <span class="tier-level">{{userInfoDate.level}}{{ "FORCE_COIN.TIER" | translate }} </span> -->
+          <!--                <span class="tier-level-description" >  {{ tierDistributionList[userInfoDate.level-1].getPersentInWallet }}{{ "FORCE_COIN.PERCENT_YOU_GET" | translate }}  {{' | '}} {{ tierDistributionList[userInfoDate.level-1].AirdropPool }}{{ "FORCE_COIN.PERCENT_AIRDROP" | translate }}</span>-->
+          <!--              </div>-->
+          <!--              <div class="col-5 p-0 tier-level-lern-more d-flex justify-content-end align-items-center">-->
+          <!--                <span mat-raised-button-->
+          <!--                        [matTooltip]="'FORCE_COIN.LEARN_MORE_INFO' | translate "-->
+          <!--                        [matTooltipPosition]="'below'"-->
+          <!--                        matTooltipClass="tier-level-test"-->
+          <!--                        #tooltip="matTooltip" (click)="tooltip.toggle()"-->
+          <!--                        >-->
+          <!--                        {{ "FORCE_COIN.LEARN_MORE" | translate }}-->
+          <!--              </span>-->
+          <!--                -->
+          <!--              </div>-->
+          <!--            </div>-->
+          <!--          </div>-->
+          <!--          <div class="col-12 margin-top-12px" *ngIf="userInfoDate !== undefined && userInfoDate.level > 0">-->
+          <!--            <div class="row m-0 tier-info-container">-->
+          <!--              <div class="col-12 p-0 tier-level-description">-->
+          <!--                {{ getValueInWallet }}{{ "FORCE_COIN.MFS_YOU_WILL_GET" | translate }}-->
+          <!--              </div>-->
+          <!--              <div class="col-12 p-0 tier-level-description margin-top-8px">-->
+          <!--                {{ getValueAirdropPool }}{{ "FORCE_COIN.MFS_AIRDROP_POOL" | translate }}-->
+          <!--              </div>-->
+          <!--              <div class="col-12 p-0 tier-level-description margin-top-8px">-->
+          <!--                {{ total }} {{ "FORCE_COIN.MFS_TOTAL" | translate }}-->
+          <!--              </div>-->
+          <!--            </div>-->
+          <!--          </div>-->
+          <!-- <div class="col-12 amount-dai-text amount-dai-description-text">
+            {{ 'FORCE_COIN.AMOUNT_DAI_DESCRIPTION' | translate }}
+          </div>
+          <div class="col-12 order-tabel">
+            <div class="row m-0">
+              <div class="col-12 titel">
+                {{ 'FORCE_COIN.ORDERS' | translate }}
+              </div>
+              <div class="col-12 container-list p-0">
+                <table>
+                  <tr class="header">
+                    <th class="min-with-id">ID</th>
+                    <th class="min-with-amount">
+                      {{ 'FORCE_COIN.AMOUNT' | translate }}
+                    </th>
+                    <th class="min-with-status">
+                      {{ 'FORCE_COIN.STATUS' | translate }}
+                    </th>
+                    <th class="min-with-mfs container-status">
+                      {{ 'FORCE_COIN.BUYED_MFS' | translate }}
+                    </th>
+                  </tr>
+                  <tr *ngIf="requestList.length === 0">
+                    <th colspan="4" class="m-0 text-center not-orders">
+                      {{ 'FORCE_COIN.NOT_AVAILABLE_YOU_YET' | translate }}
+                    </th>
+                  </tr>
+
+                  <tr class="container-value" *ngFor="let item of requestList">
+                    <th class="min-with-id value-text color-white p-0">
+                      {{ item.id }}
+                    </th>
+                    <th class="min-with-amount value-text p-0">
+                      <span class="color-white">{{ item.startUSDAmount }}</span
+                      ><span class="color-grey">DAI</span> (<span
+                        class="color-white"
+                        >≈{{ item.mfsCost }}</span
+                      >
+                      <span class="color-grey">HC</span>)
+                    </th>
+                    <th class="min-with-status">
+                      <container-element [ngSwitch]="item.status">
+                        <some-element *ngSwitchCase="StatusRequest.Approved">
+                          <div class="status status-grey">
+                            {{ 'FORCE_COIN.APPROVED' | translate }}
+                          </div>
+                        </some-element>
+                        <some-element *ngSwitchCase="StatusRequest.Declined">
+                          <div class="status status-danger">
+                            {{ item.spentUSD + '/' + item.startUSDAmount }}
+                            {{ 'FORCE_COIN.DECLINED' | translate }}
+                          </div>
+                        </some-element>
+                        <some-element *ngSwitchCase="StatusRequest.Pending">
+                          <div class="row m-0 align-items-center">
+                            <div class="status status-sucssesfull">
+                              {{ item.spentUSD + '/' + item.startUSDAmount }}
+                              {{ 'FORCE_COIN.PENDING' | translate }}
+                            </div>
+                            <i
+                              class="feather icon-x icon-size cursor-pointer"
+                              (click)="requestDelete(item.id)"></i>
+                          </div>
+                        </some-element>
+                      </container-element>
+                    </th>
+                    <th class="min-with-mfs p-0 container-status">
+                      {{ item.buyedMFS }}
+                    </th>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+  <!-- </div> -->
+<!--</div>-->

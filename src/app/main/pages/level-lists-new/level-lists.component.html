@@ -1,0 +1,156 @@
+<div
+  class="loader-container"
+  [ngClass]="{ 'with-close-nuv-bar': isCollapsed }"
+  *ngIf="isLoader">
+  <div class="loader"></div>
+</div>
+
+<div class="LevelLists">
+  <div
+  class="row info m-0"
+  *ngIf="isInfo"
+  [ngClass]="isCollapsed ? 'info-collapsed' : ''">
+  <div class="col-8 col-sm-9 p-0">
+    {{ 'LEVEL_LISTS.YOU' | translate }}
+    <span class="select-text"
+      >{{ 'LEVEL_LISTS.LOST' | translate }} {{ +lostValue.toFixed(2) }} HC</span
+    >
+    {{ 'LEVEL_LISTS.TOTAL' | translate }}
+  </div>
+  <div class="col-4 col-sm-3 container-right p-0">
+    <a
+      [routerLink]="['/pages/recent-activity-details']"
+      href=""
+      target="_blank"
+      class="select-text margin-right-32">
+      {{ 'LEVEL_LISTS.LEARN_MORE' | translate }}
+    </a>
+    <span class="material-icons close" (click)="closeInfo()"> close </span>
+  </div>
+</div>
+  <div class="info-container">
+    <div class="bg-container"></div>
+    <div class="data-container">
+      <links-panel class="-hide-desktop"></links-panel>
+
+      <delta-short-info
+        *ngIf="lists.length > 0"
+        [item]="lists[0]"
+        [isLoader]="isLoader"
+        class="delta-container"></delta-short-info>
+
+      <div class="param-container">
+        <div class="medium-card summary">
+          <div class="title">{{ 'LEVEL_LISTS.SUMMARY' | translate }}</div>
+          <div class="small-cards">
+            <div class="small-card">
+              <div class="name">
+                {{ 'LEVEL_LISTS.TOTAL_MEMBERS' | translate }}
+              </div>
+              <div class="value">{{ (+membersValue).toLocaleString() }}</div>
+            </div>
+            <div class="small-card">
+              <div class="name">
+                {{ 'LEVEL_LISTS.PARTICIPANTS_INCOME' | translate }}
+              </div>
+              <div class="value">
+                {{ numberWithComma(+membersIncomeValue) }} DAI
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="medium-card lease-devices">
+          <div class="twin">
+            <div class="title">
+              {{ 'LEVEL_LISTS.LEASE_DEVICES' | translate }}
+            </div>
+            <div class="num-of">
+              <span class="position">0</span>&nbsp;/&nbsp;<span class="total"
+                >88</span
+              >
+            </div>
+          </div>
+          <ng-lottie
+            class="progress-animate"
+            [options]="animationProgressOptions"
+            (complete)="complete($event)"
+            (animationCreated)="animationCreated($event)"></ng-lottie>
+          <div class="notice">{{ 'LEVEL_LISTS.LEASE_SOON' | translate }}</div>
+        </div>
+        <div class="medium-card quantum-wave">
+          <div class="twin">
+            <div class="title">
+              {{ 'LEVEL_LISTS.QUANTUM_WAVE' | translate }}
+            </div>
+            <div class="timer">00:00:00</div>
+          </div>
+          <ng-lottie
+            class="waves"
+            [options]="animationOptions"
+            (complete)="complete($event)"
+            (animationCreated)="animationCreated($event)"></ng-lottie>
+          <div class="notice">{{ 'LEVEL_LISTS.QUANTUM_SOON' | translate }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <links-panel class="-hide-mobile"></links-panel>
+
+  <div class="levels-container">
+    <div class="tabs">
+      <div
+        class="tab"
+        [ngClass]="{ '-isActive': currentTab === 'tiers' }"
+        (click)="selectTab('tiers')">
+        {{ 'LEVEL_LISTS.TAB_TIERS' | translate }}
+      </div>
+      <div
+        class="tab"
+        [ngClass]="{ '-isActive': currentTab === 'storage' }"
+        (click)="selectTab('storage')">
+        {{ 'LEVEL_LISTS.TAB_STORAGE' | translate }}
+      </div>
+    </div>
+
+    <div class="levels-list">
+      <div *ngIf="currentTab === 'tiers'" class="list-wrapper">
+        <app-level-item-new
+          *ngFor="let item of lists.slice(1)"
+          [item]="item"
+          [lastActiveLevelNumber]="lastActiveLevelNumber"
+          [isLoader]="isLoader"
+          [isUserDataLoaded]="isUserDataLoaded"
+         
+          (changePack)="openChooseModal($event)">
+        </app-level-item-new>
+      </div>
+      <div *ngIf="currentTab === 'storage' && chips && chips.length > 0" class="list-wrapper">
+        <app-level-item-chip
+          *ngFor="let item of chips"
+          [item]="item"
+        ></app-level-item-chip>
+      </div>
+      <div *ngIf="currentTab === 'storage' && (!chips || chips.length === 0)" class="list-wrapper-empty">
+        <div class="pic"></div>
+        <div class="info">
+          {{ 'LEVEL_LISTS.NO_CHIPS' | translate }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-extend-choose-type-modal-new
+  [isOpen]="isOpenExtendChooseModal"
+  [item]="currenItem"
+  
+  [isUpdatePrice]="isUpdatePrice"
+  [operationType]="operationType"
+  [lastActiveLevelNumber]="lastActiveLevelNumber"
+  [updatePriceWithCheckMethod]="updatePriceWithCheck"
+  [updatePriceMethod]="updatePrice"
+  (openEvent)="isOpenExtendChooseModal = $event"
+  (onSucceedEvent)="onSucceed($event)"
+  (openModalEvent)="openPackModal($event)">
+</app-extend-choose-type-modal-new>

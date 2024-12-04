@@ -1,0 +1,153 @@
+<ng-template #upgradeWave let-modal>
+  <div class="modal-header">
+    <div class="close-wrapper"><fa-icon (click)="closeModal()" [icon]="faCircleXmark"></fa-icon></div>
+
+    <div class="modal-title">
+      {{ 'UPGRADE_WAVE_MODAL.UPGRADE' | translate }}
+    </div>
+  </div>
+
+  <div class="modal-body" tabindex="0" ngbAutofocus>
+    <div class="body-wrapper">
+      <div class="info-wrapper">
+        <div class="title -white">
+          {{ 'UPGRADE_WAVE_MODAL.FILL' | translate }}
+        </div>
+        <div class="info">
+          {{ 'UPGRADE_WAVE_MODAL.FILL_INFO' | translate }}
+        </div>
+<!--        <div class="learn-more">-->
+<!--          {{ 'UPGRADE_WAVE_MODAL.LEARN_MORE' | translate }}-->
+<!--        </div>-->
+      </div>
+
+      <div class="balance-row">
+        <div class="name">{{ 'UPGRADE_WAVE_MODAL.YOU_HAVE' | translate }} NTC</div>
+        <span class="separator"></span>
+        <div class="number">{{ roundDown(balances.qenBalance.toString(), 2) }}</div>
+      </div>
+<!--      <div class="balance-row">-->
+<!--        <div class="name">{{ 'UPGRADE_WAVE_MODAL.YOU_HAVE' | translate }} EQN</div>-->
+<!--        <span class="separator"></span>-->
+<!--        <div class="number">{{ roundDown(balances.eqnBalance.toString(), 2) }}</div>-->
+<!--      </div>-->
+
+      <div class="battery-block">
+        <div class="battery-list">
+          <div *ngFor="let battery of wave.batteries; let bi = index"
+             class="battery"
+             [ngClass]="'-' + battery.status"
+          >
+<!--            <div class="name-wrapper">-->
+<!--              <div *ngIf="battery.status == 'partial'" class="name">-->
+<!--                <span class="white">X0.2</span> / X{{ bi + 1 }}-->
+<!--              </div>-->
+<!--              <div *ngIf="battery.status != 'partial'" class="name">X{{ bi + 1 }}</div>-->
+<!--              <div class="name">-->
+<!--                <span class="orange">-->
+<!--                  {{ battery.ready * 10 }}-->
+<!--                </span>-->
+<!--                <span class="white-grey">-->
+<!--                  {{ 'UPGRADE_WAVE_MODAL.OF' | translate }} {{ battery.total * QEN_TO_FILL }}-->
+<!--                </span>-->
+<!--              </div>-->
+<!--            </div>-->
+            <battery-progress
+              [ready]="battery.ready"
+              [readyMax]="battery.ready + bundleSize"
+              [readyTotal]="battery.readyTotal"
+              [total]="battery.total"
+              [expanded]="battery.extended"
+              [status]="battery.status"
+              [type]="'upgrade'"
+            ></battery-progress>
+            <div *ngIf="battery.status == 'on-charge'" class="under-name">
+              {{ 'UPGRADE_WAVE_MODAL.AVAILABLE' | translate }}
+            </div>
+<!--            <div *ngIf="battery.status == 'partial'" class="under-name">-->
+<!--              80 EQN-->
+<!--            </div>-->
+<!--            <div *ngIf="battery.status == 'locked' || battery.status == 'lock-active'" class="under-name">-->
+<!--              100 EQN-->
+<!--            </div>-->
+
+            <button *ngIf="battery.status == 'lock-active'" type="button" class="button-grey" [disabled]="isProcessing" (click)="onExpand()">
+              <span
+                  *ngIf="isProcessing"
+                  class="spinner-border spinner-border-sm"
+                  role="status"
+                  aria-hidden="true"></span>
+                <span *ngIf="!isProcessing">
+                {{ 'UPGRADE_WAVE_MODAL.BUY' | translate }}
+              </span>
+            </button>
+            <button *ngIf="battery.status == 'partial'" type="button" class="button-grey" [disabled]="isProcessing" (click)="onExpand()">
+              <span
+                  *ngIf="isProcessing"
+                  class="spinner-border spinner-border-sm"
+                  role="status"
+                  aria-hidden="true"></span>
+              <span *ngIf="!isProcessing">
+                {{ 'UPGRADE_WAVE_MODAL.UPGRADE_BUTTON' | translate }}
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <app-count-controller
+          [ngClass]="{'-disabled': wave.filledCapacity == 10 }"
+          [bundleSize]="bundleSize"
+          [max]="QEN_TO_FILL - wave.filledCapacity"
+          [name]="'NTC'"
+          (changeBundle)="onChangebundleSize($event)"
+      ></app-count-controller>
+
+      <draggable-count-controller
+        [ngClass]="{'-disabled': wave.filledCapacity == 10 }"
+        [current]="bundleSize"
+        [max]="QEN_TO_FILL - wave.filledCapacity"
+        (changeBundle)="onChangebundleSize($event)"
+      ></draggable-count-controller>
+
+      <div *ngIf="bundleSize > balances.qenBalance" class="err-msg">
+        {{ 'UPGRADE_WAVE_MODAL.ERROR' | translate }}
+      </div>
+
+      <div class="balance-row">
+        <div class="name">{{ 'UPGRADE_WAVE_MODAL.YOU_GET' | translate }}</div>
+        <span class="separator"></span>
+        <div class="number">
+          <span
+            *ngIf="isCalculating"
+            class="spinner-border spinner-border-sm"
+            role="status"
+            aria-hidden="true"></span>
+          <span *ngIf="!isCalculating">+{{ calculatedReward }} QRE</span>
+        </div>
+      </div>
+
+      <div *ngIf="errorMsg" class="err-msg">
+        {{ errorMsg }}
+      </div>
+    </div>
+
+    <div class="bottom">
+      <button
+        type="button"
+        class="btn-orange"
+        [disabled]="isProcessing || bundleSize > balances.qenBalance || bundleSize == 0 || wave.filledCapacity == 10"
+        (click)="onFill()"
+      >
+        <span
+            *ngIf="isProcessing"
+            class="spinner-border spinner-border-sm"
+            role="status"
+            aria-hidden="true"></span>
+        <span *ngIf="!isProcessing">
+          {{ 'UPGRADE_WAVE_MODAL.FILL' | translate }}
+        </span>
+      </button>
+    </div>
+  </div>
+</ng-template>

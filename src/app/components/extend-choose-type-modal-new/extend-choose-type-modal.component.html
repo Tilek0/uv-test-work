@@ -1,0 +1,317 @@
+<ng-template #extendChooseTypePack let-modal>
+  <div class="modal-header">
+    <fa-icon [ngClass]="{'disabled': isProcessing}" (click)="closeModal(modal)" [icon]="faCircleXmark"></fa-icon>
+    <div *ngIf="operationType === 'activate'" class="modal-title">
+      {{ 'EXTEND_CHOOSE_TYPE_MODAL.TIER' | translate }} {{
+      item.levelNumber }} {{
+      'EXTEND_CHOOSE_TYPE_MODAL.ACTIVATION' | translate }}
+    </div>
+    <div *ngIf="operationType === 'extend'" class="modal-title">
+      {{ 'EXTEND_CHOOSE_TYPE_MODAL.TIER' | translate }} {{
+      item.levelNumber }} {{
+      'EXTEND_CHOOSE_TYPE_MODAL.EXTEND_TIME' | translate }}
+    </div>
+  </div>
+
+  <div class="modal-body" tabindex="0" ngbAutofocus>
+    <div *ngIf="chipsQueue > 0" class="info" [ngClass]="{ isProcessing }">
+      <div class="title">{{ 'EXTEND_CHOOSE_TYPE_MODAL.YOU_HAVE_LEFT' | translate }}</div>
+      <div class="cart">
+        <div class="buy-item -queue">
+          <div class="info-wrapper">
+            <div class="info">
+              <div class="name">
+                {{ 'EXTEND_CHOOSE_TYPE_MODAL.ACTIVATE_CHIP' | translate }}
+              </div>
+              <div class="amount">
+                <div class="title">
+                  {{ 'EXTEND_CHOOSE_TYPE_MODAL.CHIPS_LEFT' | translate }}
+                </div>
+                <div class="value">{{ chipsQueue }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info" [ngClass]="{ isProcessing }">
+      <div class="title">{{ 'EXTEND_CHOOSE_TYPE_MODAL.YOU_WILL_GET' | translate }}
+      </div>
+      <div class="cart">
+        <div class="buy-item">
+          <div class="pic-wrapper">
+            <div class="pic -chip"></div>
+          </div>
+          <div class="info-wrapper -chip">
+            <div class="info">
+              <div class="name">
+                {{ 'EXTEND_CHOOSE_TYPE_MODAL.ACTIVATE_CHIP' | translate }}
+              </div>
+              <div class="description">
+                {{ 'EXTEND_CHOOSE_TYPE_MODAL.CHIP_DESCRIPTION' | translate }}
+              </div>
+            </div>
+            <div class="amount">
+              <div class="title">
+                {{ 'EXTEND_CHOOSE_TYPE_MODAL.AMOUNT_CHIPS' | translate }}
+              </div>
+              <div class="value">{{ bundleSize }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="buy-item">
+          <div class="pic-wrapper">
+            <div class="pic -tier" [ngClass]="'-level-' + item.levelNumber"></div>
+          </div>
+          <div class="info-wrapper">
+            <div class="info">
+              <div class="name">
+                {{ 'EXTEND_CHOOSE_TYPE_MODAL.ACCESS_KEY' | translate }}
+              </div>
+              <div *ngIf="operationType === 'activate'" class="description">
+                {{ 'EXTEND_CHOOSE_TYPE_MODAL.KEY_DESCRIPTION_ACTIVATION' | translate }}
+              </div>
+              <div *ngIf="operationType !== 'activate'" class="description">
+                {{ 'EXTEND_CHOOSE_TYPE_MODAL.KEY_DESCRIPTION' | translate }}
+              </div>
+            </div>
+            <div class="amount">
+              <div class="title">
+                {{ 'EXTEND_CHOOSE_TYPE_MODAL.AMOUNT_DAYS' | translate }}
+              </div>
+              <div class="value">{{ bundleSize * 30 }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bundle ">
+       
+        <div class="bundle-box" *ngIf="payMethod !== 'mfs-vesting' && payMethod !== 'hMFS-1'">
+          <div class="title">{{ 'EXTEND_CHOOSE_TYPE_MODAL.BUNDLE_SIZE' | translate }}</div>
+          <div class="count-controller">
+            <div class="minus " (click)="changeBundleSize('minus')">
+              <fa-icon [icon]="faMinus"></fa-icon>
+            </div>
+            <div class="count">{{ bundleSize }}</div>
+            <div class="plus" (click)="changeBundleSize('plus')">
+              <fa-icon [icon]="faPlus"></fa-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="select-payment">
+      <div class="title">
+        {{ (operationType === 'extend'?'EXTEND_CHOOSE_TYPE_MODAL.RENEWAL_FULL_PRICE':'EXTEND_CHOOSE_TYPE_MODAL.SELECT_PAYMENT' ) | translate }}
+      </div>
+      <div class="level-extended" *ngIf="operationType === 'extend' "
+        >
+        <div class="block-info-extended">
+         <div class="text-uppercase">{{'EXTEND_CHOOSE_TYPE_MODAL.COMPLETED_EXTENDED' | translate}}:</div>  <span> {{item.countRenewal}} </span>
+         <div class="text-uppercase margin-left-8px" *ngIf="item.countRenewal >= 7">{{'EXTEND_CHOOSE_TYPE_MODAL.OR_MORE_TIMES' | translate}}</div>
+        </div>
+       
+       <div class="block-info-extended">
+        <div class="text-uppercase">{{'EXTEND_CHOOSE_TYPE_MODAL.FOR_THE_NEXT_EXTENDED_YOU_NEED' | translate}}</div> <span>{{isMinimumhHCName(item.countRenewal)}}</span>
+       </div>
+    </div>
+      <div class="pay-method" *ngIf="operationType === 'activate'" 
+      [ngClass]="{
+          '-unselectable': !item.costInDAI || !item.costInMFS,
+          'disabled': isProcessing
+        }" (click)="setPayMethod('mfs')">
+        <div class="pay-form">
+          <div class="checkbox" *ngIf="!!item.costInDAI && !!item.costInMFS"
+            [ngClass]="{'-checked': payMethod === 'mfs'}"></div>
+          <div class="card-wrapper">
+            <div class="info">
+              <div class="name">
+                <div class="logo -mfs"></div>
+                <div class="value">HC <span class="font-size-12">+ vesting HC</span></div>
+              </div>
+              <div class="balance">
+                <span class="title">
+                  {{ 'EXTEND_CHOOSE_TYPE_MODAL.BALANCE' | translate }}:
+                </span>
+                <span class="value" [ngClass]="{'-error': isExtendMfsButton}">
+                  {{ +MFSBalanceView.toFixed(2) }} HC
+                </span>
+              </div>
+              <div class="balance" >
+                <span class="title">
+                  {{ 'EXTEND_CHOOSE_TYPE_MODAL.SLIPPAGE_TOLERANCE' | translate }} {{slippageTolerance}}%
+                </span>
+              </div>
+            </div>
+            <div class="price">
+              <div class="name">
+                <span >{{ 'EXTEND_CHOOSE_TYPE_MODAL.PRICE' | translate }}</span>
+                <!-- <span *ngIf="operationType === 'extend' &&  promotionTime > 0" class="discount">{{ 'EXTEND_CHOOSE_TYPE_MODAL.SPECIAL_PRICE' |
+                  translate }}</span> -->
+              </div>
+              <div class="value">
+                <span >~ </span> {{ actualCostInMFS }} HC
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="isExtendMfsButton" class="error-msg -error">
+          {{ 'EXTEND_CHOOSE_TYPE_MODAL.ERROR_MSG' | translate }}
+        </div>
+      </div>
+
+      <div class="pay-method" 
+      [ngClass]="{
+        '-unselectable': !item.costInDAI || !item.costInMFS,
+        'disabled': isProcessing
+      }" (click)="setPayMethod('dai')">
+      <div class="pay-form">
+        <div class="checkbox" *ngIf="!!item.costInDAI && !!item.costInMFS"
+          [ngClass]="{'-checked': payMethod === 'dai'}"></div>
+        <div class="card-wrapper">
+          <div class="info">
+            <div class="name">
+              <div class="logo -mfs" ></div>
+              <div class="logo -dai"></div>
+              <div class="value">{{ 'EXTEND_CHOOSE_TYPE_MODAL.MFS_BY_DAI_exchange' |
+                translate }}</div>
+            </div>
+            <div class="info">{{ 'EXTEND_CHOOSE_TYPE_MODAL.SUPPORTED' | translate }}</div>
+            <div class="balance">
+              <span class="title">
+                {{ 'EXTEND_CHOOSE_TYPE_MODAL.BALANCE' | translate }}:
+              </span>
+              <span class="value" [ngClass]="{'-error': isExtendDaiButton}">
+                {{ +DAIBalanceView.toFixed(2) }} DAI
+              </span>
+            </div>
+           
+          </div>
+     
+          <div class="price">
+            <div class="name">
+              <span>{{ 'EXTEND_CHOOSE_TYPE_MODAL.PRICE' | translate }}</span>
+              <!-- <span *ngIf="operationType === 'extend'" class="discount">{{ 'EXTEND_CHOOSE_TYPE_MODAL.SPECIAL_PRICE' | translate }}</span> -->
+            </div>
+           
+            <div class="value">
+               <span >{{ actualCostInDAI  }} DAI</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="isExtendDaiButton" class="error-msg -error">
+        {{ 'EXTEND_CHOOSE_TYPE_MODAL.ERROR_MSG' | translate }}
+      </div>
+    </div>
+ 
+      <div class="title mt-1 " *ngIf="operationType === 'extend'">
+        {{ 'EXTEND_CHOOSE_TYPE_MODAL.RENEWAL_DISCOUNTED_PRICE' | translate }}
+      </div>
+        <div class="pay-method" *ngIf="operationType === 'extend' " [ngClass]="{
+          
+          'disabled': isProcessing
+        }" (click)="setPayMethod('hMFS')">
+          <div class="pay-form  ">
+            <div class="checkbox " *ngIf="!!item.costInDAI && !!item.costInMFS"
+              [ngClass]="{'-checked': payMethod === 'hMFS'}"></div>
+            <div class="row m-0 w-100">
+              <div class="col-12 p-0  hMFS-container" [ngClass]="{'d-none':!hMFS.isView}" *ngFor=" let hMFS of hMFSArray; let i = index">
+                <div class="pay-method " *ngIf="hMFS.isView">
+                  <div class="pay-form padding-4px">
+                    <div class="card-wrapper">
+                      <div class="info">
+                        <div class="name">
+                          <app-crypto-tokens
+                            [width]="24"
+                            [height]="24"
+                            [imgName]="hMFS.img">
+                          </app-crypto-tokens>
+
+                          <div class="value">{{ hMFS.newName }}</div>
+                        </div>
+
+                        <div class="balance">
+                          <span class="title">
+                            {{ 'EXTEND_CHOOSE_TYPE_MODAL.BALANCE' | translate }}:
+                          </span>
+                          <span class="value"
+                            [ngClass]="{'-error': hMFS.value < (actualCostInhMFS )}">
+                            {{hMFS.value}}
+                          </span>
+                        </div>
+                      
+                      </div>
+
+                      <div class="price">
+                        <div class="name">
+                          <span>{{ 'EXTEND_CHOOSE_TYPE_MODAL.PRICE' | translate }}</span>
+
+                        </div>
+
+                        <div class="value">
+                          ~ {{ math.ceil(( actualCostInhMFS  * hMFS.countExtend)* 100)/ 100  }} hHC
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="balance" >
+                <span class="title">
+                  {{ 'EXTEND_CHOOSE_TYPE_MODAL.SLIPPAGE_TOLERANCE' | translate }} {{slippageTolerance}}%
+                </span>
+              </div>
+            </div>
+            
+          </div>
+          <div *ngIf="this.isExtendButtonArray[isExtendButton.hMFS] " class="error-msg -error">
+            {{ 'EXTEND_CHOOSE_TYPE_MODAL.YOU_DONT_HAVE_RIGHT_TYPE_HMFS' | translate }}
+          </div>
+        </div>
+
+      
+    </div>
+
+    <div class="error-global-msg text-center" *ngIf="processingError">
+      {{ processingError }}
+    </div>
+
+    <div class="bottom">
+      <div class="stock-info">
+        {{ 'EXTEND_CHOOSE_TYPE_MODAL.STOCK_INFO1' | translate }}
+        <br>
+        {{ 'EXTEND_CHOOSE_TYPE_MODAL.STOCK_INFO2' | translate }}
+      </div>
+
+      <div class="total-wrapper">
+      <div class="total">
+        <div class="name">{{ 'EXTEND_CHOOSE_TYPE_MODAL.TOTAL' | translate }}:</div>
+        <div class="value"  >
+          <span *ngIf="payMethod !== 'dai'">~ </span>{{ (totalCost * bundleSize).toLocaleString() }}
+          {{payMethod === 'dai' ?'DAI':payMethod.includes('hMFS')?'hHC':'HC'}}</div>
+       
+      </div>
+
+      <button *ngIf="operationType === 'activate'"
+        [disabled]="isProcessing || (payMethod === 'dai' && isExtendDaiButton) || (payMethod === 'mfs' && isExtendMfsButton)"
+        type="button" class="btn-orange" (click)="clickPackActivate(modal)">
+        <span *ngIf="isProcessing" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        {{ 'EXTEND_CHOOSE_TYPE_MODAL.ACTIVATE' | translate }}
+      </button>
+      <button *ngIf="operationType === 'extend'" [disabled]="processingError || isProcessing 
+        || (payMethod ==='hMFS' && isExtendButtonArray[isExtendButton.hMFS]) 
+        || (payMethod === 'mfs-vesting' && isExtendButtonArray[isExtendButton.mfsVesting]) 
+        || (payMethod === 'mfs-holding'  && this.isExtendButtonArray[isExtendButton.mfsHolding]) 
+        || (payMethod === 'mfs' && isExtendMfsButton)" type="button" class="btn-orange"
+        (click)="clickPackExtand(modal)">
+        <span *ngIf="isProcessing" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        {{ 'EXTEND_CHOOSE_TYPE_MODAL.EXTEND_TIME' | translate }}
+      </button>
+    </div>
+    </div>
+  </div>
+</ng-template>

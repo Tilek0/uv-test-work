@@ -1,0 +1,97 @@
+.expectation-background {
+  width: 100%;
+  position: absolute;
+  height: 100vh;
+  left: 0;
+  top: 0;
+  background: rgba(0, 0, 0, 0.5);
+  box-shadow: 1px 1px 1px #1f1f1f;
+  z-index: 1051;
+}
+.expectation-modal-sm {
+  height: 230px !important;
+}
+
+.expectation-modal {
+  position: absolute;
+
+  max-width: 475px;
+  min-height: 358px;
+  left: calc(50% - 225px);
+  top: calc(50% - 358px / 2);
+
+  background: #1f1f1f;
+  border-radius: 8px;
+}
+
+img {
+  width: 90px;
+  height: 90px;
+}
+
+.expectation-badge-container {
+  height: 38px;
+}
+
+.expectation-badge {
+  margin: 8px 8px 0;
+  padding: 2px 8px;
+  height: fit-content;
+  width: fit-content;
+  text-align: center;
+
+  color: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.titel-text {
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 32px;
+
+  letter-spacing: -0.01em;
+
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.margin-top-min-38 {
+  margin-top: -38px;
+}
+
+.margin-top-min-8 {
+  margin-top: -8px;
+}
+
+.margin-top-min-28 {
+  margin-top: -28px;
+}
+
+.titel-description {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.body-text {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 18px;
+
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.progress-bar-container {
+  width: 100%;
+  position: absolute;
+  bottom: 0px;
+}
+
+@media (max-width: 576px) {
+  .expectation-modal {
+    width: 90% !important;
+    left: calc(50% - 152px) !important;
+  }
+}
