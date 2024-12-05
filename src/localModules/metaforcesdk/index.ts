@@ -60,7 +60,7 @@ import {
 } from "./constants";
 
 import {
-  // ButtonApp__factory,
+  ButtonApp__factory,
   Core__factory,
   Energy__factory,
   Erc20__factory,
@@ -71,7 +71,7 @@ import {
   MetaForce__factory,
   MetaPayment__factory,
   Mfs__factory,
-  // QuantumWave__factory,
+  QuantumWave__factory,
   Registry__factory,
   Request__factory
 } from "./contracts/types";
@@ -205,14 +205,14 @@ export class ForceDeltaClient {
         ENERGY_ADDRESSES[chainId],
         this.signerOrProvider
       ),
-      // buttonApp: ButtonApp__factory.connect(
-      //   BUTTON_APP_ADDRESSES[chainId],
-      //   this.signerOrProvider
-      // ),
-      // quantumWave: QuantumWave__factory.connect(
-      //   QW_ADDRESSES[chainId],
-      //   this.signerOrProvider
-      // ),
+      buttonApp: ButtonApp__factory.connect(
+        BUTTON_APP_ADDRESSES[chainId],
+        this.signerOrProvider
+      ),
+      quantumWave: QuantumWave__factory.connect(
+        QW_ADDRESSES[chainId],
+        this.signerOrProvider
+      ),
       eqn: Erc20__factory.connect(
         EQN_ADDRESSES[chainId],
         this.signerOrProvider
@@ -951,14 +951,14 @@ export class ForceDeltaClient {
   }
 
   public async getUserActivityFactor(): Promise<any> {
-    // const { quantumWave } = await this.getContracts();
+    const { quantumWave } = await this.getContracts();
 
     const eqnAmountToExtendOneShare = ethers.utils.formatUnits(
-      // await quantumWave.eqnAmountToExtendOneShare(),
+      await quantumWave.eqnAmountToExtendOneShare(),
       DECIMALS
     );
     const qenAmountToFillOneShare = ethers.utils.formatUnits(
-      // await quantumWave.eqnAmountToExtendOneShare(),
+      await quantumWave.eqnAmountToExtendOneShare(),
       DECIMALS
     );
 
@@ -1138,12 +1138,11 @@ export class ForceDeltaClient {
   ): Promise<boolean> {
     const { metaCore, metaForce } = await this.getContracts();
     const userId = idUser || (await this.getUserID());
-    // const flag = await metaForce.checkStatusRenewedPackForVestingMFS(
-    //   userId,
-    //   level
-    // );
-    // return flag;
-    return false
+    const flag = await metaForce.checkStatusRenewedPackForVestingMFS(
+      userId,
+      level
+    );
+    return flag;
   }
 
   public async activationPack(
@@ -1392,14 +1391,14 @@ export class ForceDeltaClient {
   public async renewPackForVestingMFS(level: number): Promise<void> {
     const { metaForce } = await this.getContracts();
     try {
-      // const estimation = await metaForce.estimateGas.renewalPackForVestingMFS(
-      //   level
-      // );
-      // const tx = await metaForce.renewalPackForVestingMFS(level, {
-      //   gasLimit: estimation.mul(3),
-      // });
+      const estimation = await metaForce.estimateGas.renewalPackForVestingMFS(
+        level
+      );
+      const tx = await metaForce.renewalPackForVestingMFS(level, {
+        gasLimit: estimation.mul(3),
+      });
       // this.callbackFn(true);
-      // await tx.wait();
+      await tx.wait();
     } catch (e: any) {
       throw e.reason ?? e.message ?? e;
     }
@@ -1504,8 +1503,8 @@ export class ForceDeltaClient {
     const { holding } = await this.getContracts();
     let tx;
     try {
-      // const { amount } = await holding.getDeposit(depositId);
-      // tx = await holding.withdraw(depositId, amount);
+      const { amount } = await holding.getDeposit(depositId);
+      tx = await holding.withdraw(depositId, amount);
     } catch (e: any) {
       // this.callbackFn(false);
       throw e.reason;
@@ -1520,7 +1519,7 @@ export class ForceDeltaClient {
     try {
       tx = await holding.withdraw(
         depositId,
-        // ethers.utils.parseUnits(amount, DECIMALS)
+        ethers.utils.parseUnits(amount, DECIMALS)
       );
     } catch (e: any) {
       // this.callbackFn(false);
@@ -3075,15 +3074,15 @@ export class ForceDeltaClient {
     chipIndexes: BigNumber[],
     totalExtendAmount: BigNumber
   ): Promise<any> {
-    // const { quantumWave } = await this.getContracts();
+    const { quantumWave } = await this.getContracts();
     let tx: ContractTransaction;
     try {
-      // tx = await quantumWave.extendChipBatch(
-      //   waveId,
-      //   machineIds,
-      //   chipIndexes,
-      //   totalExtendAmount
-      // );
+      tx = await quantumWave.extendChipBatch(
+        waveId,
+        machineIds,
+        chipIndexes,
+        totalExtendAmount
+      );
     } catch (e: any) {
       console.log("Can't extend chips: ", e);
       throw e.reason ?? e.message ?? e;
@@ -3098,15 +3097,15 @@ export class ForceDeltaClient {
     chipIndexes: BigNumber[],
     totalExtendAmount: BigNumber
   ): Promise<any> {
-    // const { quantumWave } = await this.getContracts();
+    const { quantumWave } = await this.getContracts();
     let tx: ContractTransaction;
     try {
-      // tx = await quantumWave.fillWave(
-      //   waveId,
-      //   machineIds,
-      //   chipIndexes,
-      //   totalExtendAmount
-      // );
+      tx = await quantumWave.fillWave(
+        waveId,
+        machineIds,
+        chipIndexes,
+        totalExtendAmount
+      );
     } catch (e: any) {
       console.log("Can't fill chips: ", e);
       throw e.reason ?? e.message ?? e;
@@ -3120,16 +3119,16 @@ export class ForceDeltaClient {
     machineIds: BigNumber[],
     chipIndexes: BigNumber[]
   ): Promise<any> {
-    // const { quantumWave } = await this.getContracts();
+    const { quantumWave } = await this.getContracts();
     const userId = await this.getUserID();
 
-    // const { rewardOre } = await quantumWave.getUserRewardOre(
-    //   userId,
-    //   waveId,
-    //   machineIds,
-    //   chipIndexes
-    // );
-    // return ethers.utils.formatUnits(rewardOre, DECIMALS);
+    const { rewardOre } = await quantumWave.getUserRewardOre(
+      userId,
+      waveId,
+      machineIds,
+      chipIndexes
+    );
+    return ethers.utils.formatUnits(rewardOre, DECIMALS);
   }
 
   public async createCalculateProfitForFillRequest(
@@ -3139,15 +3138,15 @@ export class ForceDeltaClient {
     fillAmount: BigNumber
   ): Promise<any> {
     const userId = await this.getUserID();
-    // const { quantumWave } = await this.getContracts();
-    // const rewardOre = await quantumWave.calculateProfitForFill(
-    //   userId,
-    //   waveId,
-    //   machineIds,
-    //   chipIndexes,
-    //   fillAmount
-    // );
-    // return ethers.utils.formatUnits(rewardOre, DECIMALS);
+    const { quantumWave } = await this.getContracts();
+    const rewardOre = await quantumWave.calculateProfitForFill(
+      userId,
+      waveId,
+      machineIds,
+      chipIndexes,
+      fillAmount
+    );
+    return ethers.utils.formatUnits(rewardOre, DECIMALS);
   }
 
   public async createClaimRewardOreRequest(
@@ -3155,16 +3154,16 @@ export class ForceDeltaClient {
     machineIds: BigNumber[],
     chipIndexes: BigNumber[]
   ): Promise<any> {
-    // const { quantumWave } = await this.getContracts();
+    const { quantumWave } = await this.getContracts();
     const userId = await this.getUserID();
     let tx: ContractTransaction;
     try {
-      // tx = await quantumWave.claimRewardOre(
-      //   userId,
-      //   waveId,
-      //   machineIds,
-      //   chipIndexes
-      // );
+      tx = await quantumWave.claimRewardOre(
+        userId,
+        waveId,
+        machineIds,
+        chipIndexes
+      );
     } catch (e: any) {
       console.log("Can't claim reward ore: ", e);
       throw e.reason ?? e.message ?? e;
@@ -3261,7 +3260,7 @@ export class ForceDeltaClient {
   public async createGameAvailableRewardRequest(): Promise<any> {
     const LS_NAME = 'claimInProgressTXWithTTL';
     const userId = await this.getUserID();
-    // const { buttonApp } = await this.getContracts();
+    const { buttonApp } = await this.getContracts();
 
     let tx: ContractTransaction;
     let hash: string;
@@ -3270,7 +3269,7 @@ export class ForceDeltaClient {
     try {
       resp = await this.getJSONFromNftGraphql(this.createGameAvailableRewardRequestMutation(userId.toString()));
       const { amount, signature, userNonce, blockLimit } = resp?.data?.buttonGameRequestAvailableReward?.buttonGameRewardRequestDto;
-      // tx = await buttonApp.claimReward(userNonce, amount, blockLimit, signature);
+      tx = await buttonApp.claimReward(userNonce, amount, blockLimit, signature);
 
       hash = tx.hash;
       const savedTx = localStorage.getItem('claimInProgressTX');

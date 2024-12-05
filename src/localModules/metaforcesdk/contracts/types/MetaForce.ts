@@ -33,11 +33,14 @@ export interface MetaForceInterface extends utils.Interface {
     "activationPack(uint256,uint256,bool)": FunctionFragment;
     "amountChipEnergyForLevel(uint256)": FunctionFragment;
     "amountForSwapSFCR(uint256)": FunctionFragment;
+    "calcNeedDAIForRenew(uint256,uint256,uint256)": FunctionFragment;
     "calcNeedMFSForRenew(uint256,uint256,uint256)": FunctionFragment;
+    "checkStatusRenewedPackForVestingMFS(uint256,uint256)": FunctionFragment;
     "countRenewal(uint256,uint256)": FunctionFragment;
     "datesForBuying(uint256,uint256)": FunctionFragment;
     "firstActivationPack(uint256,uint256,bool)": FunctionFragment;
     "firstActivationPackWithReplace(uint256,uint256,bool)": FunctionFragment;
+    "giftPack(uint256,uint256,bool)": FunctionFragment;
     "governor()": FunctionFragment;
     "initialize(address)": FunctionFragment;
     "lastIndexBuying(uint256)": FunctionFragment;
@@ -46,6 +49,8 @@ export interface MetaForceInterface extends utils.Interface {
     "permissionSubsequentPurchase()": FunctionFragment;
     "renewalPack(uint256,uint256,uint256[])": FunctionFragment;
     "renewalPackForMFS(uint256,uint256,bool)": FunctionFragment;
+    "renewalPackForVestingMFS(uint256)": FunctionFragment;
+    "renewedPackForVestingMFS(uint256,uint256)": FunctionFragment;
     "rewardsChipEnergyForMarketing(uint256)": FunctionFragment;
     "setAmountChipEnergyForLevel(uint256[])": FunctionFragment;
     "setPenaltyForRenewal(uint256)": FunctionFragment;
@@ -59,11 +64,14 @@ export interface MetaForceInterface extends utils.Interface {
       | "activationPack"
       | "amountChipEnergyForLevel"
       | "amountForSwapSFCR"
+      | "calcNeedDAIForRenew"
       | "calcNeedMFSForRenew"
+      | "checkStatusRenewedPackForVestingMFS"
       | "countRenewal"
       | "datesForBuying"
       | "firstActivationPack"
       | "firstActivationPackWithReplace"
+      | "giftPack"
       | "governor"
       | "initialize"
       | "lastIndexBuying"
@@ -72,6 +80,8 @@ export interface MetaForceInterface extends utils.Interface {
       | "permissionSubsequentPurchase"
       | "renewalPack"
       | "renewalPackForMFS"
+      | "renewalPackForVestingMFS"
+      | "renewedPackForVestingMFS"
       | "rewardsChipEnergyForMarketing"
       | "setAmountChipEnergyForLevel"
       | "setPenaltyForRenewal"
@@ -100,12 +110,24 @@ export interface MetaForceInterface extends utils.Interface {
     values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
+    functionFragment: "calcNeedDAIForRenew",
+    values: [
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>
+    ]
+  ): string;
+  encodeFunctionData(
     functionFragment: "calcNeedMFSForRenew",
     values: [
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<BigNumberish>
     ]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "checkStatusRenewedPackForVestingMFS",
+    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "countRenewal",
@@ -125,6 +147,14 @@ export interface MetaForceInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "firstActivationPackWithReplace",
+    values: [
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<boolean>
+    ]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "giftPack",
     values: [
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<BigNumberish>,
@@ -169,6 +199,14 @@ export interface MetaForceInterface extends utils.Interface {
     ]
   ): string;
   encodeFunctionData(
+    functionFragment: "renewalPackForVestingMFS",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "renewedPackForVestingMFS",
+    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
     functionFragment: "rewardsChipEnergyForMarketing",
     values: [PromiseOrValue<BigNumberish>]
   ): string;
@@ -206,7 +244,15 @@ export interface MetaForceInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
+    functionFragment: "calcNeedDAIForRenew",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "calcNeedMFSForRenew",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "checkStatusRenewedPackForVestingMFS",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -225,6 +271,7 @@ export interface MetaForceInterface extends utils.Interface {
     functionFragment: "firstActivationPackWithReplace",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "giftPack", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "governor", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "initialize", data: BytesLike): Result;
   decodeFunctionResult(
@@ -249,6 +296,14 @@ export interface MetaForceInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "renewalPackForMFS",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "renewalPackForVestingMFS",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "renewedPackForVestingMFS",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -536,12 +591,25 @@ export interface MetaForce extends BaseContract {
       }
     >;
 
+    calcNeedDAIForRenew(
+      senderId: PromiseOrValue<BigNumberish>,
+      level: PromiseOrValue<BigNumberish>,
+      amount: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[[BigNumber, BigNumber]] & { prices: [BigNumber, BigNumber] }>;
+
     calcNeedMFSForRenew(
       senderId: PromiseOrValue<BigNumberish>,
       level: PromiseOrValue<BigNumberish>,
       amount: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<[[BigNumber, BigNumber]] & { prices: [BigNumber, BigNumber] }>;
+
+    checkStatusRenewedPackForVestingMFS(
+      userId: PromiseOrValue<BigNumberish>,
+      level: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
 
     countRenewal(
       arg0: PromiseOrValue<BigNumberish>,
@@ -565,6 +633,13 @@ export interface MetaForce extends BaseContract {
     firstActivationPackWithReplace(
       replaceId: PromiseOrValue<BigNumberish>,
       amount: PromiseOrValue<BigNumberish>,
+      forMFS: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    giftPack(
+      userId: PromiseOrValue<BigNumberish>,
+      level: PromiseOrValue<BigNumberish>,
       forMFS: PromiseOrValue<boolean>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
@@ -600,6 +675,17 @@ export interface MetaForce extends BaseContract {
       withoutConversionStable: PromiseOrValue<boolean>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
+
+    renewalPackForVestingMFS(
+      level: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    renewedPackForVestingMFS(
+      arg0: PromiseOrValue<BigNumberish>,
+      arg1: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
 
     rewardsChipEnergyForMarketing(
       arg0: PromiseOrValue<BigNumberish>,
@@ -655,12 +741,25 @@ export interface MetaForce extends BaseContract {
     }
   >;
 
+  calcNeedDAIForRenew(
+    senderId: PromiseOrValue<BigNumberish>,
+    level: PromiseOrValue<BigNumberish>,
+    amount: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<[BigNumber, BigNumber]>;
+
   calcNeedMFSForRenew(
     senderId: PromiseOrValue<BigNumberish>,
     level: PromiseOrValue<BigNumberish>,
     amount: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<[BigNumber, BigNumber]>;
+
+  checkStatusRenewedPackForVestingMFS(
+    userId: PromiseOrValue<BigNumberish>,
+    level: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
 
   countRenewal(
     arg0: PromiseOrValue<BigNumberish>,
@@ -684,6 +783,13 @@ export interface MetaForce extends BaseContract {
   firstActivationPackWithReplace(
     replaceId: PromiseOrValue<BigNumberish>,
     amount: PromiseOrValue<BigNumberish>,
+    forMFS: PromiseOrValue<boolean>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  giftPack(
+    userId: PromiseOrValue<BigNumberish>,
+    level: PromiseOrValue<BigNumberish>,
     forMFS: PromiseOrValue<boolean>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
@@ -719,6 +825,17 @@ export interface MetaForce extends BaseContract {
     withoutConversionStable: PromiseOrValue<boolean>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
+
+  renewalPackForVestingMFS(
+    level: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  renewedPackForVestingMFS(
+    arg0: PromiseOrValue<BigNumberish>,
+    arg1: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
 
   rewardsChipEnergyForMarketing(
     arg0: PromiseOrValue<BigNumberish>,
@@ -772,12 +889,25 @@ export interface MetaForce extends BaseContract {
       }
     >;
 
+    calcNeedDAIForRenew(
+      senderId: PromiseOrValue<BigNumberish>,
+      level: PromiseOrValue<BigNumberish>,
+      amount: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber, BigNumber]>;
+
     calcNeedMFSForRenew(
       senderId: PromiseOrValue<BigNumberish>,
       level: PromiseOrValue<BigNumberish>,
       amount: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<[BigNumber, BigNumber]>;
+
+    checkStatusRenewedPackForVestingMFS(
+      userId: PromiseOrValue<BigNumberish>,
+      level: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
 
     countRenewal(
       arg0: PromiseOrValue<BigNumberish>,
@@ -801,6 +931,13 @@ export interface MetaForce extends BaseContract {
     firstActivationPackWithReplace(
       replaceId: PromiseOrValue<BigNumberish>,
       amount: PromiseOrValue<BigNumberish>,
+      forMFS: PromiseOrValue<boolean>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    giftPack(
+      userId: PromiseOrValue<BigNumberish>,
+      level: PromiseOrValue<BigNumberish>,
       forMFS: PromiseOrValue<boolean>,
       overrides?: CallOverrides
     ): Promise<void>;
@@ -836,6 +973,17 @@ export interface MetaForce extends BaseContract {
       withoutConversionStable: PromiseOrValue<boolean>,
       overrides?: CallOverrides
     ): Promise<void>;
+
+    renewalPackForVestingMFS(
+      level: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    renewedPackForVestingMFS(
+      arg0: PromiseOrValue<BigNumberish>,
+      arg1: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
 
     rewardsChipEnergyForMarketing(
       arg0: PromiseOrValue<BigNumberish>,
@@ -1018,10 +1166,23 @@ export interface MetaForce extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    calcNeedDAIForRenew(
+      senderId: PromiseOrValue<BigNumberish>,
+      level: PromiseOrValue<BigNumberish>,
+      amount: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     calcNeedMFSForRenew(
       senderId: PromiseOrValue<BigNumberish>,
       level: PromiseOrValue<BigNumberish>,
       amount: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    checkStatusRenewedPackForVestingMFS(
+      userId: PromiseOrValue<BigNumberish>,
+      level: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -1047,6 +1208,13 @@ export interface MetaForce extends BaseContract {
     firstActivationPackWithReplace(
       replaceId: PromiseOrValue<BigNumberish>,
       amount: PromiseOrValue<BigNumberish>,
+      forMFS: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    giftPack(
+      userId: PromiseOrValue<BigNumberish>,
+      level: PromiseOrValue<BigNumberish>,
       forMFS: PromiseOrValue<boolean>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
@@ -1081,6 +1249,17 @@ export interface MetaForce extends BaseContract {
       amount: PromiseOrValue<BigNumberish>,
       withoutConversionStable: PromiseOrValue<boolean>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    renewalPackForVestingMFS(
+      level: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    renewedPackForVestingMFS(
+      arg0: PromiseOrValue<BigNumberish>,
+      arg1: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     rewardsChipEnergyForMarketing(
@@ -1132,10 +1311,23 @@ export interface MetaForce extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    calcNeedDAIForRenew(
+      senderId: PromiseOrValue<BigNumberish>,
+      level: PromiseOrValue<BigNumberish>,
+      amount: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     calcNeedMFSForRenew(
       senderId: PromiseOrValue<BigNumberish>,
       level: PromiseOrValue<BigNumberish>,
       amount: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    checkStatusRenewedPackForVestingMFS(
+      userId: PromiseOrValue<BigNumberish>,
+      level: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -1161,6 +1353,13 @@ export interface MetaForce extends BaseContract {
     firstActivationPackWithReplace(
       replaceId: PromiseOrValue<BigNumberish>,
       amount: PromiseOrValue<BigNumberish>,
+      forMFS: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    giftPack(
+      userId: PromiseOrValue<BigNumberish>,
+      level: PromiseOrValue<BigNumberish>,
       forMFS: PromiseOrValue<boolean>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
@@ -1199,6 +1398,17 @@ export interface MetaForce extends BaseContract {
       amount: PromiseOrValue<BigNumberish>,
       withoutConversionStable: PromiseOrValue<boolean>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    renewalPackForVestingMFS(
+      level: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    renewedPackForVestingMFS(
+      arg0: PromiseOrValue<BigNumberish>,
+      arg1: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     rewardsChipEnergyForMarketing(

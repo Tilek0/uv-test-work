@@ -41,10 +41,13 @@ export interface MetaPaymentInterface extends utils.Interface {
     "decreaseBalance(address,uint256,uint256)": FunctionFragment;
     "decreaseBalance(address,uint256,address,uint256)": FunctionFragment;
     "decreaseContractBalance(address,address,uint256)": FunctionFragment;
+    "decreaseContractBalance(address,address,address,uint256)": FunctionFragment;
     "deleteReservedAddress(uint256)": FunctionFragment;
     "disableDirectDecrease(uint256)": FunctionFragment;
+    "extraordinaryVestingUnlock(address,uint256,uint256)": FunctionFragment;
     "firstMonthPeriods(address,uint256)": FunctionFragment;
     "getAvailableVestingAmount(address,uint256)": FunctionFragment;
+    "getAvailableVestingAmountWithDividends(address,uint256)": FunctionFragment;
     "getAvalaibleVestingAmountWithoutClaims(address,uint256)": FunctionFragment;
     "getBalance(address,uint256)": FunctionFragment;
     "getBlockedAccount(uint256)": FunctionFragment;
@@ -58,6 +61,8 @@ export interface MetaPaymentInterface extends utils.Interface {
     "getReservedId(address)": FunctionFragment;
     "getRoleAdmin(bytes32)": FunctionFragment;
     "getTariffAmount(address,uint8)": FunctionFragment;
+    "getTariffDividendsPerToken(address,uint8)": FunctionFragment;
+    "getTariffDuration(address,uint8)": FunctionFragment;
     "getUserTariff(address,uint256)": FunctionFragment;
     "getUserVestingAmountWithoutFirstMonth(address,uint256)": FunctionFragment;
     "getUserVestingLastUpdate(address,uint256)": FunctionFragment;
@@ -72,9 +77,8 @@ export interface MetaPaymentInterface extends utils.Interface {
     "initialize(address)": FunctionFragment;
     "isTariffAvailable(address,uint8)": FunctionFragment;
     "metaCore()": FunctionFragment;
-    "migrateMfsBalanceData(uint256)": FunctionFragment;
-    "overrideFirstMonthVesting(uint256[],uint256[])": FunctionFragment;
     "renounceRole(bytes32,address)": FunctionFragment;
+    "resetVesting()": FunctionFragment;
     "revokeRole(bytes32,address)": FunctionFragment;
     "safeDecreaseBalance(address,uint256,address,uint256)": FunctionFragment;
     "safeTransferFrom(address,uint256,uint256,uint256)": FunctionFragment;
@@ -86,15 +90,17 @@ export interface MetaPaymentInterface extends utils.Interface {
     "setNontransferableStatus(address,bool)": FunctionFragment;
     "setReservedAddress(uint256,address)": FunctionFragment;
     "setReservedAddresses(address[],address[])": FunctionFragment;
+    "setVestingBalance(address,uint256,uint256)": FunctionFragment;
     "setVestingFund(address)": FunctionFragment;
-    "startVesting()": FunctionFragment;
     "supportsInterface(bytes4)": FunctionFragment;
     "transfer(address,uint256,uint256)": FunctionFragment;
     "transferFrom(address,uint256,uint256,uint256)": FunctionFragment;
     "transferFromContract(address,uint256,address,uint256)": FunctionFragment;
+    "transferFromContractBatch(address,uint256[],address,uint256[])": FunctionFragment;
+    "transferToContract(address,uint256,address,uint256)": FunctionFragment;
     "unblockAccount(uint256)": FunctionFragment;
     "vestingFund()": FunctionFragment;
-    "vestingUnlock(address,uint256[],uint256[])": FunctionFragment;
+    "vestingTariffStartDate()": FunctionFragment;
   };
 
   getFunction(
@@ -110,11 +116,14 @@ export interface MetaPaymentInterface extends utils.Interface {
       | "contractBalances"
       | "decreaseBalance(address,uint256,uint256)"
       | "decreaseBalance(address,uint256,address,uint256)"
-      | "decreaseContractBalance"
+      | "decreaseContractBalance(address,address,uint256)"
+      | "decreaseContractBalance(address,address,address,uint256)"
       | "deleteReservedAddress"
       | "disableDirectDecrease"
+      | "extraordinaryVestingUnlock"
       | "firstMonthPeriods"
       | "getAvailableVestingAmount"
+      | "getAvailableVestingAmountWithDividends"
       | "getAvalaibleVestingAmountWithoutClaims"
       | "getBalance"
       | "getBlockedAccount"
@@ -128,6 +137,8 @@ export interface MetaPaymentInterface extends utils.Interface {
       | "getReservedId"
       | "getRoleAdmin"
       | "getTariffAmount"
+      | "getTariffDividendsPerToken"
+      | "getTariffDuration"
       | "getUserTariff"
       | "getUserVestingAmountWithoutFirstMonth"
       | "getUserVestingLastUpdate"
@@ -142,9 +153,8 @@ export interface MetaPaymentInterface extends utils.Interface {
       | "initialize"
       | "isTariffAvailable"
       | "metaCore"
-      | "migrateMfsBalanceData"
-      | "overrideFirstMonthVesting"
       | "renounceRole"
+      | "resetVesting"
       | "revokeRole"
       | "safeDecreaseBalance"
       | "safeTransferFrom"
@@ -156,15 +166,17 @@ export interface MetaPaymentInterface extends utils.Interface {
       | "setNontransferableStatus"
       | "setReservedAddress"
       | "setReservedAddresses"
+      | "setVestingBalance"
       | "setVestingFund"
-      | "startVesting"
       | "supportsInterface"
       | "transfer"
       | "transferFrom"
       | "transferFromContract"
+      | "transferFromContractBatch"
+      | "transferToContract"
       | "unblockAccount"
       | "vestingFund"
-      | "vestingUnlock"
+      | "vestingTariffStartDate"
   ): FunctionFragment;
 
   encodeFunctionData(
@@ -225,8 +237,17 @@ export interface MetaPaymentInterface extends utils.Interface {
     ]
   ): string;
   encodeFunctionData(
-    functionFragment: "decreaseContractBalance",
+    functionFragment: "decreaseContractBalance(address,address,uint256)",
     values: [
+      PromiseOrValue<string>,
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>
+    ]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "decreaseContractBalance(address,address,address,uint256)",
+    values: [
+      PromiseOrValue<string>,
       PromiseOrValue<string>,
       PromiseOrValue<string>,
       PromiseOrValue<BigNumberish>
@@ -241,11 +262,23 @@ export interface MetaPaymentInterface extends utils.Interface {
     values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
+    functionFragment: "extraordinaryVestingUnlock",
+    values: [
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>
+    ]
+  ): string;
+  encodeFunctionData(
     functionFragment: "firstMonthPeriods",
     values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "getAvailableVestingAmount",
+    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getAvailableVestingAmountWithDividends",
     values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
@@ -298,6 +331,14 @@ export interface MetaPaymentInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "getTariffAmount",
+    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getTariffDividendsPerToken",
+    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getTariffDuration",
     values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
@@ -366,16 +407,12 @@ export interface MetaPaymentInterface extends utils.Interface {
   ): string;
   encodeFunctionData(functionFragment: "metaCore", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "migrateMfsBalanceData",
-    values: [PromiseOrValue<BigNumberish>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "overrideFirstMonthVesting",
-    values: [PromiseOrValue<BigNumberish>[], PromiseOrValue<BigNumberish>[]]
-  ): string;
-  encodeFunctionData(
     functionFragment: "renounceRole",
     values: [PromiseOrValue<BytesLike>, PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "resetVesting",
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "revokeRole",
@@ -441,12 +478,16 @@ export interface MetaPaymentInterface extends utils.Interface {
     values: [PromiseOrValue<string>[], PromiseOrValue<string>[]]
   ): string;
   encodeFunctionData(
-    functionFragment: "setVestingFund",
-    values: [PromiseOrValue<string>]
+    functionFragment: "setVestingBalance",
+    values: [
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>
+    ]
   ): string;
   encodeFunctionData(
-    functionFragment: "startVesting",
-    values?: undefined
+    functionFragment: "setVestingFund",
+    values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "supportsInterface",
@@ -479,6 +520,24 @@ export interface MetaPaymentInterface extends utils.Interface {
     ]
   ): string;
   encodeFunctionData(
+    functionFragment: "transferFromContractBatch",
+    values: [
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>[],
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>[]
+    ]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "transferToContract",
+    values: [
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>
+    ]
+  ): string;
+  encodeFunctionData(
     functionFragment: "unblockAccount",
     values: [PromiseOrValue<BigNumberish>]
   ): string;
@@ -487,12 +546,8 @@ export interface MetaPaymentInterface extends utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "vestingUnlock",
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>[],
-      PromiseOrValue<BigNumberish>[]
-    ]
+    functionFragment: "vestingTariffStartDate",
+    values?: undefined
   ): string;
 
   decodeFunctionResult(
@@ -537,7 +592,11 @@ export interface MetaPaymentInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "decreaseContractBalance",
+    functionFragment: "decreaseContractBalance(address,address,uint256)",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "decreaseContractBalance(address,address,address,uint256)",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -549,11 +608,19 @@ export interface MetaPaymentInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
+    functionFragment: "extraordinaryVestingUnlock",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "firstMonthPeriods",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "getAvailableVestingAmount",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getAvailableVestingAmountWithDividends",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -606,6 +673,14 @@ export interface MetaPaymentInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
+    functionFragment: "getTariffDividendsPerToken",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getTariffDuration",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "getUserTariff",
     data: BytesLike
   ): Result;
@@ -650,15 +725,11 @@ export interface MetaPaymentInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "metaCore", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "migrateMfsBalanceData",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "overrideFirstMonthVesting",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
     functionFragment: "renounceRole",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "resetVesting",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "revokeRole", data: BytesLike): Result;
@@ -700,11 +771,11 @@ export interface MetaPaymentInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "setVestingFund",
+    functionFragment: "setVestingBalance",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "startVesting",
+    functionFragment: "setVestingFund",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -721,6 +792,14 @@ export interface MetaPaymentInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
+    functionFragment: "transferFromContractBatch",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "transferToContract",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "unblockAccount",
     data: BytesLike
   ): Result;
@@ -729,7 +808,7 @@ export interface MetaPaymentInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "vestingUnlock",
+    functionFragment: "vestingTariffStartDate",
     data: BytesLike
   ): Result;
 
@@ -741,6 +820,7 @@ export interface MetaPaymentInterface extends utils.Interface {
     "DirectIncrease(address,address,uint256)": EventFragment;
     "DirectPayment(uint256,bool)": EventFragment;
     "DisableDirectDecreaseSet(uint256,bool)": EventFragment;
+    "ExtraordinaryVestingUnlock(address,uint256,uint256)": EventFragment;
     "FreezeStatusSet(address,bool)": EventFragment;
     "Initialized(uint8)": EventFragment;
     "InternalContractDecrease(address,address,uint256)": EventFragment;
@@ -768,6 +848,7 @@ export interface MetaPaymentInterface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: "DirectIncrease"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "DirectPayment"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "DisableDirectDecreaseSet"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "ExtraordinaryVestingUnlock"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "FreezeStatusSet"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Initialized"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "InternalContractDecrease"): EventFragment;
@@ -869,6 +950,19 @@ export type DisableDirectDecreaseSetEvent = TypedEvent<
 
 export type DisableDirectDecreaseSetEventFilter =
   TypedEventFilter<DisableDirectDecreaseSetEvent>;
+
+export interface ExtraordinaryVestingUnlockEventObject {
+  token: string;
+  userId: BigNumber;
+  amount: BigNumber;
+}
+export type ExtraordinaryVestingUnlockEvent = TypedEvent<
+  [string, BigNumber, BigNumber],
+  ExtraordinaryVestingUnlockEventObject
+>;
+
+export type ExtraordinaryVestingUnlockEventFilter =
+  TypedEventFilter<ExtraordinaryVestingUnlockEvent>;
 
 export interface FreezeStatusSetEventObject {
   erc20: string;
@@ -1120,7 +1214,12 @@ export interface MetaPayment extends BaseContract {
       userId: PromiseOrValue<BigNumberish>,
       lastUpdate: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<[BigNumber] & { availableVestingAmount: BigNumber }>;
+    ): Promise<
+      [BigNumber, BigNumber] & {
+        availableVestingAmount: BigNumber;
+        dividendAmount: BigNumber;
+      }
+    >;
 
     add(
       erc20: PromiseOrValue<string>,
@@ -1176,9 +1275,17 @@ export interface MetaPayment extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    decreaseContractBalance(
+    "decreaseContractBalance(address,address,uint256)"(
       erc20: PromiseOrValue<string>,
       contractAddress: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    "decreaseContractBalance(address,address,address,uint256)"(
+      erc20: PromiseOrValue<string>,
+      contractAddress: PromiseOrValue<string>,
+      principal: PromiseOrValue<string>,
       amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
@@ -1193,6 +1300,13 @@ export interface MetaPayment extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[boolean]>;
 
+    extraordinaryVestingUnlock(
+      token: PromiseOrValue<string>,
+      userId: PromiseOrValue<BigNumberish>,
+      needAmount: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
     firstMonthPeriods(
       arg0: PromiseOrValue<string>,
       arg1: PromiseOrValue<BigNumberish>,
@@ -1204,6 +1318,17 @@ export interface MetaPayment extends BaseContract {
       userId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { availableVestingAmount: BigNumber }>;
+
+    getAvailableVestingAmountWithDividends(
+      erc20: PromiseOrValue<string>,
+      userId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber] & {
+        availableVestingAmount: BigNumber;
+        dividendAmount: BigNumber;
+      }
+    >;
 
     getAvalaibleVestingAmountWithoutClaims(
       erc20: PromiseOrValue<string>,
@@ -1269,6 +1394,18 @@ export interface MetaPayment extends BaseContract {
     ): Promise<[string]>;
 
     getTariffAmount(
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
+    getTariffDividendsPerToken(
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
+    getTariffDuration(
       arg0: PromiseOrValue<string>,
       arg1: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
@@ -1355,20 +1492,13 @@ export interface MetaPayment extends BaseContract {
 
     metaCore(overrides?: CallOverrides): Promise<[string]>;
 
-    migrateMfsBalanceData(
-      fromId: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
-    overrideFirstMonthVesting(
-      userIds: PromiseOrValue<BigNumberish>[],
-      amounts: PromiseOrValue<BigNumberish>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
     renounceRole(
       role: PromiseOrValue<BytesLike>,
       account: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    resetVesting(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -1443,12 +1573,15 @@ export interface MetaPayment extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    setVestingFund(
-      newFund: PromiseOrValue<string>,
+    setVestingBalance(
+      token: PromiseOrValue<string>,
+      userId: PromiseOrValue<BigNumberish>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    startVesting(
+    setVestingFund(
+      newFund: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -1480,6 +1613,22 @@ export interface MetaPayment extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
+    transferFromContractBatch(
+      erc20: PromiseOrValue<string>,
+      toIds: PromiseOrValue<BigNumberish>[],
+      contractAddress: PromiseOrValue<string>,
+      amounts: PromiseOrValue<BigNumberish>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    transferToContract(
+      erc20: PromiseOrValue<string>,
+      fromId: PromiseOrValue<BigNumberish>,
+      contractAddress: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
     unblockAccount(
       userId: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -1487,12 +1636,7 @@ export interface MetaPayment extends BaseContract {
 
     vestingFund(overrides?: CallOverrides): Promise<[string]>;
 
-    vestingUnlock(
-      erc20: PromiseOrValue<string>,
-      userIds: PromiseOrValue<BigNumberish>[],
-      amounts: PromiseOrValue<BigNumberish>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
+    vestingTariffStartDate(overrides?: CallOverrides): Promise<[BigNumber]>;
   };
 
   DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>;
@@ -1502,7 +1646,12 @@ export interface MetaPayment extends BaseContract {
     userId: PromiseOrValue<BigNumberish>,
     lastUpdate: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
-  ): Promise<BigNumber>;
+  ): Promise<
+    [BigNumber, BigNumber] & {
+      availableVestingAmount: BigNumber;
+      dividendAmount: BigNumber;
+    }
+  >;
 
   add(
     erc20: PromiseOrValue<string>,
@@ -1558,9 +1707,17 @@ export interface MetaPayment extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  decreaseContractBalance(
+  "decreaseContractBalance(address,address,uint256)"(
     erc20: PromiseOrValue<string>,
     contractAddress: PromiseOrValue<string>,
+    amount: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  "decreaseContractBalance(address,address,address,uint256)"(
+    erc20: PromiseOrValue<string>,
+    contractAddress: PromiseOrValue<string>,
+    principal: PromiseOrValue<string>,
     amount: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
@@ -1575,6 +1732,13 @@ export interface MetaPayment extends BaseContract {
     overrides?: CallOverrides
   ): Promise<boolean>;
 
+  extraordinaryVestingUnlock(
+    token: PromiseOrValue<string>,
+    userId: PromiseOrValue<BigNumberish>,
+    needAmount: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
   firstMonthPeriods(
     arg0: PromiseOrValue<string>,
     arg1: PromiseOrValue<BigNumberish>,
@@ -1586,6 +1750,17 @@ export interface MetaPayment extends BaseContract {
     userId: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
+
+  getAvailableVestingAmountWithDividends(
+    erc20: PromiseOrValue<string>,
+    userId: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<
+    [BigNumber, BigNumber] & {
+      availableVestingAmount: BigNumber;
+      dividendAmount: BigNumber;
+    }
+  >;
 
   getAvalaibleVestingAmountWithoutClaims(
     erc20: PromiseOrValue<string>,
@@ -1651,6 +1826,18 @@ export interface MetaPayment extends BaseContract {
   ): Promise<string>;
 
   getTariffAmount(
+    arg0: PromiseOrValue<string>,
+    arg1: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
+  getTariffDividendsPerToken(
+    arg0: PromiseOrValue<string>,
+    arg1: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
+  getTariffDuration(
     arg0: PromiseOrValue<string>,
     arg1: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
@@ -1737,20 +1924,13 @@ export interface MetaPayment extends BaseContract {
 
   metaCore(overrides?: CallOverrides): Promise<string>;
 
-  migrateMfsBalanceData(
-    fromId: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
-  overrideFirstMonthVesting(
-    userIds: PromiseOrValue<BigNumberish>[],
-    amounts: PromiseOrValue<BigNumberish>[],
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
   renounceRole(
     role: PromiseOrValue<BytesLike>,
     account: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  resetVesting(
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -1825,12 +2005,15 @@ export interface MetaPayment extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  setVestingFund(
-    newFund: PromiseOrValue<string>,
+  setVestingBalance(
+    token: PromiseOrValue<string>,
+    userId: PromiseOrValue<BigNumberish>,
+    amount: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  startVesting(
+  setVestingFund(
+    newFund: PromiseOrValue<string>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -1862,6 +2045,22 @@ export interface MetaPayment extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
+  transferFromContractBatch(
+    erc20: PromiseOrValue<string>,
+    toIds: PromiseOrValue<BigNumberish>[],
+    contractAddress: PromiseOrValue<string>,
+    amounts: PromiseOrValue<BigNumberish>[],
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  transferToContract(
+    erc20: PromiseOrValue<string>,
+    fromId: PromiseOrValue<BigNumberish>,
+    contractAddress: PromiseOrValue<string>,
+    amount: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
   unblockAccount(
     userId: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -1869,12 +2068,7 @@ export interface MetaPayment extends BaseContract {
 
   vestingFund(overrides?: CallOverrides): Promise<string>;
 
-  vestingUnlock(
-    erc20: PromiseOrValue<string>,
-    userIds: PromiseOrValue<BigNumberish>[],
-    amounts: PromiseOrValue<BigNumberish>[],
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
+  vestingTariffStartDate(overrides?: CallOverrides): Promise<BigNumber>;
 
   callStatic: {
     DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>;
@@ -1884,7 +2078,12 @@ export interface MetaPayment extends BaseContract {
       userId: PromiseOrValue<BigNumberish>,
       lastUpdate: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    ): Promise<
+      [BigNumber, BigNumber] & {
+        availableVestingAmount: BigNumber;
+        dividendAmount: BigNumber;
+      }
+    >;
 
     add(
       erc20: PromiseOrValue<string>,
@@ -1938,12 +2137,20 @@ export interface MetaPayment extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    decreaseContractBalance(
+    "decreaseContractBalance(address,address,uint256)"(
       erc20: PromiseOrValue<string>,
       contractAddress: PromiseOrValue<string>,
       amount: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    ): Promise<void>;
+
+    "decreaseContractBalance(address,address,address,uint256)"(
+      erc20: PromiseOrValue<string>,
+      contractAddress: PromiseOrValue<string>,
+      principal: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     deleteReservedAddress(
       userId: PromiseOrValue<BigNumberish>,
@@ -1954,6 +2161,13 @@ export interface MetaPayment extends BaseContract {
       arg0: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<boolean>;
+
+    extraordinaryVestingUnlock(
+      token: PromiseOrValue<string>,
+      userId: PromiseOrValue<BigNumberish>,
+      needAmount: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     firstMonthPeriods(
       arg0: PromiseOrValue<string>,
@@ -1966,6 +2180,17 @@ export interface MetaPayment extends BaseContract {
       userId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
+
+    getAvailableVestingAmountWithDividends(
+      erc20: PromiseOrValue<string>,
+      userId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber] & {
+        availableVestingAmount: BigNumber;
+        dividendAmount: BigNumber;
+      }
+    >;
 
     getAvalaibleVestingAmountWithoutClaims(
       erc20: PromiseOrValue<string>,
@@ -2031,6 +2256,18 @@ export interface MetaPayment extends BaseContract {
     ): Promise<string>;
 
     getTariffAmount(
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    getTariffDividendsPerToken(
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    getTariffDuration(
       arg0: PromiseOrValue<string>,
       arg1: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
@@ -2117,22 +2354,13 @@ export interface MetaPayment extends BaseContract {
 
     metaCore(overrides?: CallOverrides): Promise<string>;
 
-    migrateMfsBalanceData(
-      fromId: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    overrideFirstMonthVesting(
-      userIds: PromiseOrValue<BigNumberish>[],
-      amounts: PromiseOrValue<BigNumberish>[],
-      overrides?: CallOverrides
-    ): Promise<void>;
-
     renounceRole(
       role: PromiseOrValue<BytesLike>,
       account: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>;
+
+    resetVesting(overrides?: CallOverrides): Promise<void>;
 
     revokeRole(
       role: PromiseOrValue<BytesLike>,
@@ -2205,12 +2433,17 @@ export interface MetaPayment extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    setVestingBalance(
+      token: PromiseOrValue<string>,
+      userId: PromiseOrValue<BigNumberish>,
+      amount: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
     setVestingFund(
       newFund: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>;
-
-    startVesting(overrides?: CallOverrides): Promise<void>;
 
     supportsInterface(
       interfaceId: PromiseOrValue<BytesLike>,
@@ -2240,6 +2473,22 @@ export interface MetaPayment extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    transferFromContractBatch(
+      erc20: PromiseOrValue<string>,
+      toIds: PromiseOrValue<BigNumberish>[],
+      contractAddress: PromiseOrValue<string>,
+      amounts: PromiseOrValue<BigNumberish>[],
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    transferToContract(
+      erc20: PromiseOrValue<string>,
+      fromId: PromiseOrValue<BigNumberish>,
+      contractAddress: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
     unblockAccount(
       userId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
@@ -2247,12 +2496,7 @@ export interface MetaPayment extends BaseContract {
 
     vestingFund(overrides?: CallOverrides): Promise<string>;
 
-    vestingUnlock(
-      erc20: PromiseOrValue<string>,
-      userIds: PromiseOrValue<BigNumberish>[],
-      amounts: PromiseOrValue<BigNumberish>[],
-      overrides?: CallOverrides
-    ): Promise<void>;
+    vestingTariffStartDate(overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   filters: {
@@ -2326,6 +2570,17 @@ export interface MetaPayment extends BaseContract {
       userId?: PromiseOrValue<BigNumberish> | null,
       isDisable?: null
     ): DisableDirectDecreaseSetEventFilter;
+
+    "ExtraordinaryVestingUnlock(address,uint256,uint256)"(
+      token?: PromiseOrValue<string> | null,
+      userId?: PromiseOrValue<BigNumberish> | null,
+      amount?: null
+    ): ExtraordinaryVestingUnlockEventFilter;
+    ExtraordinaryVestingUnlock(
+      token?: PromiseOrValue<string> | null,
+      userId?: PromiseOrValue<BigNumberish> | null,
+      amount?: null
+    ): ExtraordinaryVestingUnlockEventFilter;
 
     "FreezeStatusSet(address,bool)"(
       erc20?: PromiseOrValue<string> | null,
@@ -2570,9 +2825,17 @@ export interface MetaPayment extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    decreaseContractBalance(
+    "decreaseContractBalance(address,address,uint256)"(
       erc20: PromiseOrValue<string>,
       contractAddress: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    "decreaseContractBalance(address,address,address,uint256)"(
+      erc20: PromiseOrValue<string>,
+      contractAddress: PromiseOrValue<string>,
+      principal: PromiseOrValue<string>,
       amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
@@ -2587,6 +2850,13 @@ export interface MetaPayment extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    extraordinaryVestingUnlock(
+      token: PromiseOrValue<string>,
+      userId: PromiseOrValue<BigNumberish>,
+      needAmount: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
     firstMonthPeriods(
       arg0: PromiseOrValue<string>,
       arg1: PromiseOrValue<BigNumberish>,
@@ -2594,6 +2864,12 @@ export interface MetaPayment extends BaseContract {
     ): Promise<BigNumber>;
 
     getAvailableVestingAmount(
+      erc20: PromiseOrValue<string>,
+      userId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    getAvailableVestingAmountWithDividends(
       erc20: PromiseOrValue<string>,
       userId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
@@ -2663,6 +2939,18 @@ export interface MetaPayment extends BaseContract {
     ): Promise<BigNumber>;
 
     getTariffAmount(
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    getTariffDividendsPerToken(
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    getTariffDuration(
       arg0: PromiseOrValue<string>,
       arg1: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
@@ -2749,20 +3037,13 @@ export interface MetaPayment extends BaseContract {
 
     metaCore(overrides?: CallOverrides): Promise<BigNumber>;
 
-    migrateMfsBalanceData(
-      fromId: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
-    overrideFirstMonthVesting(
-      userIds: PromiseOrValue<BigNumberish>[],
-      amounts: PromiseOrValue<BigNumberish>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
     renounceRole(
       role: PromiseOrValue<BytesLike>,
       account: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    resetVesting(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -2837,12 +3118,15 @@ export interface MetaPayment extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    setVestingFund(
-      newFund: PromiseOrValue<string>,
+    setVestingBalance(
+      token: PromiseOrValue<string>,
+      userId: PromiseOrValue<BigNumberish>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    startVesting(
+    setVestingFund(
+      newFund: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -2874,6 +3158,22 @@ export interface MetaPayment extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
+    transferFromContractBatch(
+      erc20: PromiseOrValue<string>,
+      toIds: PromiseOrValue<BigNumberish>[],
+      contractAddress: PromiseOrValue<string>,
+      amounts: PromiseOrValue<BigNumberish>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    transferToContract(
+      erc20: PromiseOrValue<string>,
+      fromId: PromiseOrValue<BigNumberish>,
+      contractAddress: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
     unblockAccount(
       userId: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -2881,12 +3181,7 @@ export interface MetaPayment extends BaseContract {
 
     vestingFund(overrides?: CallOverrides): Promise<BigNumber>;
 
-    vestingUnlock(
-      erc20: PromiseOrValue<string>,
-      userIds: PromiseOrValue<BigNumberish>[],
-      amounts: PromiseOrValue<BigNumberish>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
+    vestingTariffStartDate(overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
@@ -2955,9 +3250,17 @@ export interface MetaPayment extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    decreaseContractBalance(
+    "decreaseContractBalance(address,address,uint256)"(
       erc20: PromiseOrValue<string>,
       contractAddress: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    "decreaseContractBalance(address,address,address,uint256)"(
+      erc20: PromiseOrValue<string>,
+      contractAddress: PromiseOrValue<string>,
+      principal: PromiseOrValue<string>,
       amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
@@ -2972,6 +3275,13 @@ export interface MetaPayment extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    extraordinaryVestingUnlock(
+      token: PromiseOrValue<string>,
+      userId: PromiseOrValue<BigNumberish>,
+      needAmount: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
     firstMonthPeriods(
       arg0: PromiseOrValue<string>,
       arg1: PromiseOrValue<BigNumberish>,
@@ -2979,6 +3289,12 @@ export interface MetaPayment extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     getAvailableVestingAmount(
+      erc20: PromiseOrValue<string>,
+      userId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    getAvailableVestingAmountWithDividends(
       erc20: PromiseOrValue<string>,
       userId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
@@ -3048,6 +3364,18 @@ export interface MetaPayment extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     getTariffAmount(
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    getTariffDividendsPerToken(
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    getTariffDuration(
       arg0: PromiseOrValue<string>,
       arg1: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
@@ -3134,20 +3462,13 @@ export interface MetaPayment extends BaseContract {
 
     metaCore(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    migrateMfsBalanceData(
-      fromId: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
-    overrideFirstMonthVesting(
-      userIds: PromiseOrValue<BigNumberish>[],
-      amounts: PromiseOrValue<BigNumberish>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
     renounceRole(
       role: PromiseOrValue<BytesLike>,
       account: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    resetVesting(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -3222,12 +3543,15 @@ export interface MetaPayment extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    setVestingFund(
-      newFund: PromiseOrValue<string>,
+    setVestingBalance(
+      token: PromiseOrValue<string>,
+      userId: PromiseOrValue<BigNumberish>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    startVesting(
+    setVestingFund(
+      newFund: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -3259,6 +3583,22 @@ export interface MetaPayment extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
+    transferFromContractBatch(
+      erc20: PromiseOrValue<string>,
+      toIds: PromiseOrValue<BigNumberish>[],
+      contractAddress: PromiseOrValue<string>,
+      amounts: PromiseOrValue<BigNumberish>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    transferToContract(
+      erc20: PromiseOrValue<string>,
+      fromId: PromiseOrValue<BigNumberish>,
+      contractAddress: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
     unblockAccount(
       userId: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -3266,11 +3606,8 @@ export interface MetaPayment extends BaseContract {
 
     vestingFund(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    vestingUnlock(
-      erc20: PromiseOrValue<string>,
-      userIds: PromiseOrValue<BigNumberish>[],
-      amounts: PromiseOrValue<BigNumberish>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    vestingTariffStartDate(
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
   };
 }

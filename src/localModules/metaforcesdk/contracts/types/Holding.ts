@@ -67,8 +67,7 @@ export interface HoldingInterface extends utils.Interface {
     "setHoldingOpened(bool)": FunctionFragment;
     "setLockupPeriod(uint256,uint256)": FunctionFragment;
     "transitGovernance(address,bool)": FunctionFragment;
-    "unhold(uint256,uint256)": FunctionFragment;
-    "withdraw(uint256)": FunctionFragment;
+    "withdraw(uint256,uint256)": FunctionFragment;
   };
 
   getFunction(
@@ -89,7 +88,6 @@ export interface HoldingInterface extends utils.Interface {
       | "setHoldingOpened"
       | "setLockupPeriod"
       | "transitGovernance"
-      | "unhold"
       | "withdraw"
   ): FunctionFragment;
 
@@ -156,12 +154,8 @@ export interface HoldingInterface extends utils.Interface {
     values: [PromiseOrValue<string>, PromiseOrValue<boolean>]
   ): string;
   encodeFunctionData(
-    functionFragment: "unhold",
-    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>]
-  ): string;
-  encodeFunctionData(
     functionFragment: "withdraw",
-    values: [PromiseOrValue<BigNumberish>]
+    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>]
   ): string;
 
   decodeFunctionResult(
@@ -210,7 +204,6 @@ export interface HoldingInterface extends utils.Interface {
     functionFragment: "transitGovernance",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "unhold", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "withdraw", data: BytesLike): Result;
 
   events: {
@@ -409,14 +402,9 @@ export interface Holding extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    unhold(
-      depositId: PromiseOrValue<BigNumberish>,
-      amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
     withdraw(
-      depositId: PromiseOrValue<BigNumberish>,
+      _depositId: PromiseOrValue<BigNumberish>,
+      _amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
   };
@@ -495,14 +483,9 @@ export interface Holding extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  unhold(
-    depositId: PromiseOrValue<BigNumberish>,
-    amount: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
   withdraw(
-    depositId: PromiseOrValue<BigNumberish>,
+    _depositId: PromiseOrValue<BigNumberish>,
+    _amount: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -579,14 +562,9 @@ export interface Holding extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    unhold(
-      depositId: PromiseOrValue<BigNumberish>,
-      amount: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
     withdraw(
-      depositId: PromiseOrValue<BigNumberish>,
+      _depositId: PromiseOrValue<BigNumberish>,
+      _amount: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
   };
@@ -723,14 +701,9 @@ export interface Holding extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    unhold(
-      depositId: PromiseOrValue<BigNumberish>,
-      amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
     withdraw(
-      depositId: PromiseOrValue<BigNumberish>,
+      _depositId: PromiseOrValue<BigNumberish>,
+      _amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
   };
@@ -810,14 +783,9 @@ export interface Holding extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    unhold(
-      depositId: PromiseOrValue<BigNumberish>,
-      amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
     withdraw(
-      depositId: PromiseOrValue<BigNumberish>,
+      _depositId: PromiseOrValue<BigNumberish>,
+      _amount: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
   };

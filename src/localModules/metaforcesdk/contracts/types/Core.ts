@@ -47,6 +47,7 @@ export interface CoreInterface extends utils.Interface {
     "getMarketingReferrals(uint256)": FunctionFragment;
     "getMarketingReferrer(uint256)": FunctionFragment;
     "getNowPriceFirstPackInMFS()": FunctionFragment;
+    "getNowPriceFirstPackInUSD()": FunctionFragment;
     "getPriceMFSInUSD()": FunctionFragment;
     "getReferrer(uint256)": FunctionFragment;
     "getRegistrationDate(uint256)": FunctionFragment;
@@ -112,6 +113,7 @@ export interface CoreInterface extends utils.Interface {
       | "getMarketingReferrals"
       | "getMarketingReferrer"
       | "getNowPriceFirstPackInMFS"
+      | "getNowPriceFirstPackInUSD"
       | "getPriceMFSInUSD"
       | "getReferrer"
       | "getRegistrationDate"
@@ -227,6 +229,10 @@ export interface CoreInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "getNowPriceFirstPackInMFS",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getNowPriceFirstPackInUSD",
     values?: undefined
   ): string;
   encodeFunctionData(
@@ -474,6 +480,10 @@ export interface CoreInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "getNowPriceFirstPackInMFS",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getNowPriceFirstPackInUSD",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -900,6 +910,8 @@ export interface Core extends BaseContract {
 
     getNowPriceFirstPackInMFS(overrides?: CallOverrides): Promise<[BigNumber]>;
 
+    getNowPriceFirstPackInUSD(overrides?: CallOverrides): Promise<[BigNumber]>;
+
     getPriceMFSInUSD(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     getReferrer(
@@ -1160,6 +1172,8 @@ export interface Core extends BaseContract {
 
   getNowPriceFirstPackInMFS(overrides?: CallOverrides): Promise<BigNumber>;
 
+  getNowPriceFirstPackInUSD(overrides?: CallOverrides): Promise<BigNumber>;
+
   getPriceMFSInUSD(overrides?: CallOverrides): Promise<BigNumber>;
 
   getReferrer(
@@ -1411,6 +1425,8 @@ export interface Core extends BaseContract {
     ): Promise<BigNumber>;
 
     getNowPriceFirstPackInMFS(overrides?: CallOverrides): Promise<BigNumber>;
+
+    getNowPriceFirstPackInUSD(overrides?: CallOverrides): Promise<BigNumber>;
 
     getPriceMFSInUSD(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1762,6 +1778,8 @@ export interface Core extends BaseContract {
 
     getNowPriceFirstPackInMFS(overrides?: CallOverrides): Promise<BigNumber>;
 
+    getNowPriceFirstPackInUSD(overrides?: CallOverrides): Promise<BigNumber>;
+
     getPriceMFSInUSD(overrides?: CallOverrides): Promise<BigNumber>;
 
     getReferrer(
@@ -2024,6 +2042,10 @@ export interface Core extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     getNowPriceFirstPackInMFS(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    getNowPriceFirstPackInUSD(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 

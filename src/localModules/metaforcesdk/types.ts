@@ -1,6 +1,6 @@
 import { BigNumber } from 'ethers';
 import { ExchangeController } from './contracts/types';
-// import { ButtonApp } from "./contracts/types/ButtonApp";
+import { ButtonApp } from "./contracts/types/ButtonApp";
 import { Core } from "./contracts/types/Core";
 import { Energy } from "./contracts/types/Energy";
 import { Erc20 } from "./contracts/types/Erc20";
@@ -10,7 +10,7 @@ import { MetaCore } from "./contracts/types/MetaCore";
 import { MetaForce } from "./contracts/types/MetaForce";
 import { MetaPayment } from "./contracts/types/MetaPayment";
 import { Mfs } from "./contracts/types/Mfs";
-// import { QuantumWave } from "./contracts/types/QuantumWave";
+import { QuantumWave } from "./contracts/types/QuantumWave";
 import { Registry } from "./contracts/types/Registry";
 import { Request } from "./contracts/types/Request";
 export enum RewardType {
@@ -93,7 +93,7 @@ export type Contracts = {
   metaForce: MetaForce;
   request: Request;
   mfs: Mfs;
-  // quantumWave: QuantumWave;
+  quantumWave: QuantumWave;
   eqn: Erc20;
   qen: Erc20;
   qre: Erc20;
@@ -102,7 +102,7 @@ export type Contracts = {
   hMfs: Erc20[];
   forceswap: Forceswap;
   exchangeController: ExchangeController;
-  // buttonApp: ButtonApp;
+  buttonApp: ButtonApp;
 };
 
 export type Tokens = {
